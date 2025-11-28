@@ -1,5 +1,5 @@
-import requests, sys
-from bs4 import BeautifulSoup
+import requests, sys # type: ignore
+from bs4 import BeautifulSoup # type: ignore
 from collections import defaultdict
 from pprint import pprint
 
