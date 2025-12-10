@@ -1,6 +1,5 @@
-# wine_grapes
-Useful ampelographic info about native wine grapes in different European Countries
-All data has been scraped from https://www.vivc.de with `BeautifulSoup` library in Python.
+# Native Wine Grapes
+Useful ampelographic info about native wine grapes in different European Countries. All data has been scraped from https://www.vivc.de with `BeautifulSoup` library in Python.
 
 ## Usage
 
