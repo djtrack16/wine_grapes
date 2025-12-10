@@ -47,7 +47,7 @@ python native_grapes.py show_children <put_grape_name_here>
 Example
 
 ```
-python native_grapes.py show_ancestry chardonnay
+python native_grapes.py show_children chardonnay
 ```
 
 Note: If grape name is more than one word, use `+` to join them. For example, `Pinot+Noir`
