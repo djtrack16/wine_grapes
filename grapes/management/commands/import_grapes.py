@@ -1,7 +1,9 @@
 import sys
 import os
+import time
 from pathlib import Path
 from django.core.management.base import BaseCommand
+from django.db import transaction, connection
 from grapes.models import Grape, Country
 from grapes.utils import normalize_color, normalize_name
 import requests
@@ -23,6 +25,11 @@ class Command(BaseCommand):
       '--country',
       type=str,
       help='Import grapes for a specific country only',
+    )
+    parser.add_argument(
+      '--start-from',
+      type=str,
+      help='Start processing from a specific country (by name) and continue alphabetically through remaining countries',
     )
     parser.add_argument(
       '--skip-relationships',
@@ -54,6 +61,7 @@ class Command(BaseCommand):
       self.stdout.write(self.style.SUCCESS('Starting full grape import (all fields)...'))
     
     country_filter = options.get('country')
+    start_from = options.get('start_from')
     skip_relationships = options.get('skip_relationships', False) or bool(fields_to_import)  # Skip relationships when doing partial field updates
     
     # Fields that come from listing page (can be scraped efficiently)
@@ -65,13 +73,48 @@ class Command(BaseCommand):
     needs_detail_pages = bool(fields_to_import & detail_page_fields) or (not fields_to_import)
     
     # Get countries to process
+    if country_filter and start_from:
+      self.stdout.write(self.style.ERROR('Cannot use both --country and --start-from. Use one or the other.'))
+      return
+    
     if country_filter:
       if country_filter.lower() not in COUNTRIES_NAME_TO_ISO_CODE:
         self.stdout.write(self.style.ERROR(f'Country "{country_filter}" not found'))
         return
       countries_to_process = [(country_filter.lower(), COUNTRIES_NAME_TO_ISO_CODE[country_filter.lower()])]
+    elif start_from:
+      # Find the starting country and process from there onwards
+      start_country_lower = start_from.lower()
+      
+      if start_country_lower not in COUNTRIES_NAME_TO_ISO_CODE:
+        self.stdout.write(self.style.ERROR(f'Country "{start_from}" not found'))
+        self.stdout.write('Available countries:')
+        for country_name in sorted(COUNTRIES_NAME_TO_ISO_CODE.keys())[:20]:
+          self.stdout.write(f'  - {country_name}')
+        return
+      
+      # Get all countries sorted alphabetically by name
+      all_countries = sorted(COUNTRIES_NAME_TO_ISO_CODE.items(), key=lambda x: x[0])
+      
+      # Find the starting index
+      start_index = None
+      for idx, (country_name, iso_code) in enumerate(all_countries):
+        if country_name == start_country_lower:
+          start_index = idx
+          break
+      
+      if start_index is None:
+        self.stdout.write(self.style.ERROR(f'Could not find starting country "{start_from}"'))
+        return
+      
+      # Get countries from start index onwards
+      countries_to_process = all_countries[start_index:]
+      self.stdout.write(self.style.SUCCESS(f'Starting from "{start_from}" (will process {len(countries_to_process)} countries):'))
+      for i, (name, code) in enumerate(countries_to_process, 1):
+        self.stdout.write(f'  {i}. {name.capitalize()} ({code})')
     else:
-      countries_to_process = list(COUNTRIES_NAME_TO_ISO_CODE.items())
+      # Process all countries, sorted alphabetically
+      countries_to_process = sorted(COUNTRIES_NAME_TO_ISO_CODE.items(), key=lambda x: x[0])
     
     total_countries = len(countries_to_process)
     
@@ -180,8 +223,23 @@ class Command(BaseCommand):
             grape.country_of_origin = country
           
           # Extract fields from individual grape detail pages if needed
+          year_of_crossing = None
+          breeder = None
           if needs_detail_pages:
+            # Close database connection before making HTTP request to prevent stale locks
+            connection.close()
+            
+            # Fetch detail page (this can take time)
             detail_fields = self._extract_detail_page_fields(vivc_id)
+            
+            # Re-fetch grape from database after HTTP request to get fresh connection
+            if not created:
+              try:
+                grape = Grape.objects.get(vivc_id=vivc_id)
+              except Grape.DoesNotExist:  # type: ignore
+                error_count += 1
+                self.stdout.write(self.style.ERROR(f'    ✗ Grape {grape_name} (VIVC ID: {vivc_id}) not found after detail fetch'))
+                continue
             
             if not fields_to_import or 'year_of_crossing' in fields_to_import:
               year_of_crossing = normalize_name(detail_fields.get('year_of_crossing', ''))
@@ -199,16 +257,91 @@ class Command(BaseCommand):
           
           # Save if there were any changes or if it's a new grape
           if created or fields_updated:
-            grape.save()
-            if created:
-              imported_count += 1
-              if len(grape_list) < 1000 or imported_count % 10 == 0 or imported_count == 1:
-                self.stdout.write(f'      ✓ Imported: {grape.name} (VIVC ID: {vivc_id})')
-            else:
-              updated_count += 1
-              if grape_idx % progress_interval == 0 or grape_idx == 1:
-                updated_fields_str = ', '.join(fields_updated)
-                self.stdout.write(f'      ↻ Updated {updated_fields_str} for: {grape.name} (VIVC ID: {vivc_id})')
+            saved_successfully = False
+            max_retries = 3
+            
+            for retry_attempt in range(max_retries):
+              try:
+                # Close any stale database connections before saving on retry
+                if retry_attempt > 0:
+                  connection.close()
+                  time.sleep((retry_attempt) * 0.5)  # Exponential backoff: 0.5s, 1s, 1.5s
+                  # Re-fetch grape from database to get fresh connection
+                  if not created:
+                    grape = Grape.objects.get(vivc_id=vivc_id)
+                    # Re-apply the field updates
+                    if 'name' in fields_updated:
+                      grape.name = normalize_name(grape_name)
+                    if 'berry_color' in fields_updated:
+                      grape.berry_color = normalize_color(berry_color)
+                    if 'species' in fields_updated:
+                      grape.species = normalize_name(species) if species else ''
+                    if 'year_of_crossing' in fields_updated and year_of_crossing is not None:
+                      grape.year_of_crossing = year_of_crossing
+                    if 'breeder' in fields_updated and breeder is not None:
+                      grape.breeder = breeder
+                
+                # Use update_fields to only update changed fields (more efficient and reduces lock time)
+                update_fields = None
+                if created:
+                  update_fields = None  # Update all fields for new records
+                else:
+                  update_fields = fields_updated
+                  if grape.vivc_url != (grape_url if grape_url.startswith('http') else f"{VIVC_BASE_URL}/{grape_url}"):
+                    update_fields.append('vivc_url')
+                    grape.vivc_url = grape_url if grape_url.startswith('http') else f"{VIVC_BASE_URL}/{grape_url}"
+                  if grape.country_of_origin != country:
+                    update_fields.append('country_of_origin')
+                    grape.country_of_origin = country
+                
+                with transaction.atomic():
+                  grape.save(update_fields=update_fields)
+                
+                saved_successfully = True
+                if created:
+                  imported_count += 1
+                  if len(grape_list) < 1000 or imported_count % 10 == 0 or imported_count == 1:
+                    self.stdout.write(f'      ✓ Imported: {grape.name} (VIVC ID: {vivc_id})')
+                else:
+                  updated_count += 1
+                  if grape_idx % progress_interval == 0 or grape_idx == 1:
+                    updated_fields_str = ', '.join(fields_updated)
+                    self.stdout.write(f'      ↻ Updated {updated_fields_str} for: {grape.name} (VIVC ID: {vivc_id})')
+                
+                # Close connection periodically to prevent stale locks (every 50 grapes)
+                if grape_idx % 50 == 0:
+                  connection.close()
+                  time.sleep(0.1)
+                
+                break  # Success, exit retry loop
+                
+              except Exception as save_error:
+                error_msg = str(save_error)
+                
+                # Check if it's a readonly database error
+                if 'readonly' in error_msg.lower() or 'database is locked' in error_msg.lower() or 'locked' in error_msg.lower():
+                  if retry_attempt < max_retries - 1:
+                    # Will retry on next iteration
+                    if retry_attempt == 0:  # Only log once
+                      self.stdout.write(self.style.WARNING(f'    ⚠ Database lock/readonly error for {grape_name} (VIVC ID: {vivc_id}), retrying...'))
+                  else:
+                    # Last retry attempt failed
+                    error_count += 1
+                    self.stdout.write(self.style.ERROR(f'    ✗ Error saving {grape_name} (VIVC ID: {vivc_id}): {error_msg}'))
+                    # Try to close connection and continue
+                    try:
+                      connection.close()
+                    except:
+                      pass
+                else:
+                  # Other errors - don't retry
+                  error_count += 1
+                  self.stdout.write(self.style.ERROR(f'    ✗ Error saving {grape_name} (VIVC ID: {vivc_id}): {error_msg}'))
+                  break
+            
+            if not saved_successfully:
+              # Final attempt failed, skip this grape
+              continue
           else:
             skipped_count += 1
           
@@ -217,8 +350,18 @@ class Command(BaseCommand):
             self._import_grape_relationships(grape)
             
         except Exception as e:
+          error_msg = str(e)
           error_count += 1
-          self.stdout.write(self.style.ERROR(f'    ✗ Error processing {grape_name}: {str(e)}'))
+          
+          # Don't double-count errors that were already handled in the save retry loop
+          if 'readonly' not in error_msg.lower() and 'database is locked' not in error_msg.lower():
+            self.stdout.write(self.style.ERROR(f'    ✗ Error processing {grape_name}: {error_msg}'))
+          
+          # Close connection and continue
+          try:
+            connection.close()
+          except:
+            pass
           continue
       
       # Summary
