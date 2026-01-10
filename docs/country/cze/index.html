@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Czechia - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<h1>Czechia</h1>
+
+<div class="country-info">
+    <div class="info-row">
+        <span class="info-label">Total Native Grapes:</span>
+        <span>85</span>
+    </div>
+    
+    
+    <div class="info-row color-row">
+        <span class="info-label">Grapes by Color:</span>
+        <table class="color-table">
+            <thead>
+                <tr>
+                    <th>Berry Color</th>
+                    <th>Total Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>Black</td>
+                    <td>24</td>
+                </tr>
+                
+                <tr>
+                    <td>Unknown</td>
+                    <td>7</td>
+                </tr>
+                
+                <tr>
+                    <td>White</td>
+                    <td>44</td>
+                </tr>
+                
+                <tr>
+                    <td>Pink</td>
+                    <td>4</td>
+                </tr>
+                
+                <tr>
+                    <td>Red</td>
+                    <td>6</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="info-row">
+        <span class="info-label">VIVC Search:</span>
+        <a href="https://www.vivc.de/index.php?r=species%2Fcountry&amp;SpeciesSearch[landescode22]=CZE" target="_blank">View on VIVC</a>
+    </div>
+</div>
+
+<h2>Native Grapes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Grape Name</th>
+            <th>Berry Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><a href="../../grape/22766/index.html">Agni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16154/index.html">Amos</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/456/index.html">Andre</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22767/index.html">Ariana</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22354/index.html">Arolanka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/781/index.html">Aurelius</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17382/index.html">Bonpari</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1793/index.html">Budinka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25338/index.html">Bv  7- 6- 2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16631/index.html">Bv 19-132</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26813/index.html">Bv 29- 19-01</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26812/index.html">Bv 35- 10-10</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17104/index.html">Cabernet Moravia</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22821/index.html">Cerason</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17529/index.html">Ch/Ne/Io 38/57</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17528/index.html">Chb/Ne/Io 38/28</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13979/index.html">Elvin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17509/index.html">Erilon</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17522/index.html">Florianka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17527/index.html">Frankovka/Cabernet Franc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/40806/index.html">Frastak</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22807/index.html">Fratava</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27234/index.html">Hedvabne Zelene</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17512/index.html">Jolanka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17526/index.html">K1/Riparia Cinerea</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17530/index.html">Kk/Pe 15/42</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17535/index.html">Kofranka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6496/index.html">Kraus 1</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17536/index.html">Laurot</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27072/index.html">Le K 1</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6789/index.html">Lednice B 76</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14644/index.html">Lednice C 62</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6790/index.html">Lednice D 73</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14643/index.html">Lednice E  3</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22770/index.html">Lena</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16841/index.html">Longold</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17523/index.html">Malverina</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25336/index.html">Markus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17534/index.html">Marlen</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24692/index.html">Medea</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25319/index.html">Mery</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17533/index.html">Mi 4- 120</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25515/index.html">Mi 5-  50</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25516/index.html">Mi 5-  55</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25514/index.html">Mi 5-  70</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25517/index.html">Mi 5-  86</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17537/index.html">Mi 5- 114</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25518/index.html">Mi 5- 122</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25513/index.html">Mi 8-  22</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17538/index.html">Mj/Ko 21/8</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17539/index.html">Mj/Ko 36/16</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17540/index.html">Mj/Ko 44/ 2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17541/index.html">Mj/Ko 44/29</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13641/index.html">Mopr</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22822/index.html">Nativa</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13980/index.html">Neronet</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15718/index.html">Olsava</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8875/index.html">Palava</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25554/index.html">Poeloeske Muskotaly X Diamant</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22768/index.html">Pola</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13983/index.html">Revolta</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23932/index.html">Rinot</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20000/index.html">Rubinet</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17550/index.html">Rv/Tc 5/09</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22463/index.html">Sauvignon Super</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22823/index.html">Savilon</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10836/index.html">Schwarzmann</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23952/index.html">Sevar</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15145/index.html">Sinkavake Zlute</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13981/index.html">Svojsen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13982/index.html">Tarant</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17549/index.html">Tc/Mt 0103</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17545/index.html">Tc/Vcb  7/6</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17375/index.html">Tc/Vcb 13/15</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17376/index.html">Tc/Vcb/C</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24695/index.html">Tristar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16611/index.html">V 46-40</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12985/index.html">Veritas</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24696/index.html">Vesna</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22769/index.html">Vitra</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17515/index.html">Vrboska</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17542/index.html">Vz/Bh Iii 3/8</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16640/index.html">Xi 36-78</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16644/index.html">Xiv 22-88</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16641/index.html">Xv 2-13</a></td>
+            <td>Red</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<h1>Countries with Native Wine Grapes</h1>
+
+<p>Browse native wine grapes by country of origin. Data sourced from <a href="https://www.vivc.de" target="_blank">VIVC</a>.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Native Grape Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><a href="country/fra/index.html">France</a></td>
+            <td>5592</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/usa/index.html">United States of America</a></td>
+            <td>2703</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/ita/index.html">Italy</a></td>
+            <td>2619</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/deu/index.html">Germany</a></td>
+            <td>1173</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/tur/index.html">Turkey</a></td>
+            <td>1081</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/esp/index.html">Spain</a></td>
+            <td>794</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/hun/index.html">Hungary</a></td>
+            <td>687</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/geo/index.html">Georgia</a></td>
+            <td>677</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/grc/index.html">Greece</a></td>
+            <td>641</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/prt/index.html">Portugal</a></td>
+            <td>617</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/chn/index.html">China</a></td>
+            <td>608</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/aze/index.html">Azerbaijan</a></td>
+            <td>490</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/rus/index.html">Russia</a></td>
+            <td>462</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/sun/index.html">Ussr</a></td>
+            <td>418</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/arm/index.html">Armenia</a></td>
+            <td>400</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/irn/index.html">Iran</a></td>
+            <td>323</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/ukr/index.html">Ukraine</a></td>
+            <td>305</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/rom/index.html">Romania</a></td>
+            <td>253</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/bgr/index.html">Bulgaria</a></td>
+            <td>247</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/jpn/index.html">Japan</a></td>
+            <td>222</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/mda/index.html">Moldova</a></td>
+            <td>190</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/uzb/index.html">Uzbekistan</a></td>
+            <td>181</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/can/index.html">Canada</a></td>
+            <td>151</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/arg/index.html">Argentina</a></td>
+            <td>150</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/hrv/index.html">Croatia</a></td>
+            <td>147</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/afg/index.html">Afghanistan</a></td>
+            <td>132</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/aut/index.html">Austria</a></td>
+            <td>123</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/srb/index.html">Serbia</a></td>
+            <td>118</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/che/index.html">Switzerland</a></td>
+            <td>107</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/dag/index.html">Daghestan</a></td>
+            <td>105</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/mar/index.html">Morocco</a></td>
+            <td>98</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/svk/index.html">Slovakia</a></td>
+            <td>89</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/svn/index.html">Slovenia</a></td>
+            <td>89</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/isr/index.html">Israel</a></td>
+            <td>88</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/dza/index.html">Algeria</a></td>
+            <td>85</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/cze/index.html">Czechia</a></td>
+            <td>85</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/tjk/index.html">Tajikistan</a></td>
+            <td>76</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/yug/index.html">Yugoslavia</a></td>
+            <td>68</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/mne/index.html">Montenegro</a></td>
+            <td>67</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/alb/index.html">Albania</a></td>
+            <td>63</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/ind/index.html">India</a></td>
+            <td>54</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/tkm/index.html">Turkmenistan</a></td>
+            <td>46</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/gbr/index.html">United Kingdom</a></td>
+            <td>36</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/cyp/index.html">Cyprus</a></td>
+            <td>31</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/irq/index.html">Iraq</a></td>
+            <td>21</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/bel/index.html">Belgium</a></td>
+            <td>18</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/lva/index.html">Latvia</a></td>
+            <td>18</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/kaz/index.html">Kazakhstan</a></td>
+            <td>11</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/mlt/index.html">Malta</a></td>
+            <td>10</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/mex/index.html">Mexico</a></td>
+            <td>9</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/bih/index.html">Bosnia and Herzegovina</a></td>
+            <td>8</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/mkd/index.html">North Macedonia</a></td>
+            <td>8</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/rou/index.html">Romania</a></td>
+            <td>8</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/nld/index.html">Netherlands</a></td>
+            <td>5</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/ltu/index.html">Lithuania</a></td>
+            <td>2</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/pol/index.html">Poland</a></td>
+            <td>2</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/dnk/index.html">Denmark</a></td>
+            <td>1</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/est/index.html">Estonia</a></td>
+            <td>1</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/nor/index.html">Norway</a></td>
+            <td>1</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/and/index.html">Andorra</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/blr/index.html">Belarus</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/fin/index.html">Finland</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/isl/index.html">Iceland</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/irl/index.html">Ireland</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/xkx/index.html">Kosovo</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/lie/index.html">Liechtenstein</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/lux/index.html">Luxembourg</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/mco/index.html">Monaco</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/smr/index.html">San Marino</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/swe/index.html">Sweden</a></td>
+            <td>0</td>
+        </tr>
+        
+        <tr>
+            <td><a href="country/vat/index.html">Vatican City</a></td>
+            <td>0</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+        </div>
+    </div>
+</body>
+</html>
+

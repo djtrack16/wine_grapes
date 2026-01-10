@@ -7,8 +7,11 @@ ARMENIAN_GRAPE_BASE_URL = 'http://www.vitis.am'
 VIVC_BASE_URL = 'https://www.vivc.de'
 
 COUNTRIES_NAME_TO_ISO_CODE = {
+  'afghanistan': 'AFG',
   'albania': 'ALB',
+  'algeria': 'DZA',
   'andorra': 'AND',
+  'argentina': 'ARG',
   'armenia': 'ARM',
   'austria': 'AUT',
   'azerbaijan': 'AZE',
@@ -16,9 +19,12 @@ COUNTRIES_NAME_TO_ISO_CODE = {
   'belgium': 'BEL',
   'bosnia and herzegovina': 'BIH',
   'bulgaria': 'BGR',
+  'canada': 'CAN',
+  'china': 'CHN',
   'croatia': 'HRV',
   'cyprus': 'CYP',
   'czechia': 'CZE',
+  'daghestan': 'DAG',
   'denmark': 'DNK',
   'estonia': 'EST',
   'finland': 'FIN',
@@ -28,6 +34,11 @@ COUNTRIES_NAME_TO_ISO_CODE = {
   'greece': 'GRC',
   'hungary': 'HUN',
   'iceland': 'ISL',
+  'india': 'IND',
+  'iraq': 'IRQ',
+  'iran': 'IRN',
+  'israel': 'ISR',
+  'japan': 'JPN',
   'ireland': 'IRL',
   'italy': 'ITA',
   'kazakhstan': 'KAZ',
@@ -40,24 +51,32 @@ COUNTRIES_NAME_TO_ISO_CODE = {
   'moldova': 'MDA',
   'monaco': 'MCO',
   'montenegro': 'MNE',
+  'mexico': 'MEX',
+  'morocco': 'MAR',
   'netherlands': 'NLD',
   'north macedonia': 'MKD',
   'norway': 'NOR',
   'poland': 'POL',
   'portugal': 'PRT',
-  'romania': 'ROU',
+  'romania': 'ROM',
   'russia': 'RUS',
   'san marino': 'SMR',
   'serbia': 'SRB',
   'slovakia': 'SVK',
   'slovenia': 'SVN',
   'spain': 'ESP',
+  'ussr': 'SUN',
   'sweden': 'SWE',
   'switzerland': 'CHE',
+  'tajikistan': 'TJK',
   'turkey': 'TUR',
+  'turkmenistan': 'TKM',
   'ukraine': 'UKR',
   'united kingdom': 'GBR',
-  'vatican city': 'VAT'
+  'united states of america': 'USA',
+  'uzbekistan': 'UZB',
+  'vatican city': 'VAT',
+  'yugoslavia': 'YUG'
 }
 
 class NativeGrapes:
@@ -68,8 +87,7 @@ class NativeGrapes:
       print("Country not found. Sorry. Please make sure spelling is exact")
       return
     
-    list, grape_color_count, non_vinifera_crossings = NativeGrapes.grape_data_by_country_iso_code(COUNTRIES_NAME_TO_ISO_CODE[country_name])
-    return list, grape_color_count, non_vinifera_crossings
+    return NativeGrapes.grape_data_by_country_iso_code(COUNTRIES_NAME_TO_ISO_CODE[country_name])
   
   @staticmethod
   def grape_info_for_all_countries():
@@ -77,9 +95,9 @@ class NativeGrapes:
     print("Grape Data per European Country (per https://www.vivc.de)")
     print("COUNTRY NAME, LIKELY NATIVE GRAPE COUNT, Non-vinifera crossings")
     for country_name, iso_code in COUNTRIES_NAME_TO_ISO_CODE.items():
-      _, grape_color_count, non_vinifera_crossings = NativeGrapes.grape_data_by_country_iso_code(iso_code)
-      total_count = sum(grape_color_count.values())
-      hybrid_count = sum(non_vinifera_crossings.values())
+      result = NativeGrapes.grape_data_by_country_iso_code(iso_code)
+      total_count = result['total_count']
+      hybrid_count = sum(result['non-vinifera crossings'].values())
       estimated_native_grape_count = total_count - hybrid_count
       grape_counts.append([
         country_name.capitalize(),
@@ -135,7 +153,12 @@ class NativeGrapes:
       
       page_num += 1
     
-    return all_grapes, grape_color_count, non_vinifera_crossings
+    #return all_grapes, grape_color_count, non_vinifera_crossings
+    return {
+      'total_count': len(all_grapes),
+      'color_breakdown': dict(grape_color_count),
+      'non-vinifera crossings': dict(non_vinifera_crossings)
+    }
   
   @staticmethod
   def vitis_am_crawl():
@@ -204,7 +227,6 @@ class NativeGrapes:
       if len(cells) >= 2:
         key = cells[0].get_text().strip()
 
-        #print(key)
         value_cell = cells[1]
         if 'prime name' in key.lower() and 'parent' not in key.lower():
           grape_info['name'] = value_cell.get_text().strip()
@@ -220,7 +242,7 @@ class NativeGrapes:
             if 'id=' in parent_href:
               parent_id = parent_href.split('id=')[-1]
               parent_name = parent_link.get_text().strip()
-              #print(parent_name)
+
               print(f" Found parent 1 of {grape_info['name']}: {parent_name} (ID: {parent_id})")
               parent_data = NativeGrapes.get_grape_ancestry(parent_id, visited)
               if parent_data:
@@ -349,7 +371,6 @@ class NativeGrapes:
       if len(cells) >= 3:
         # First cell: child name
         child_link = cells[0].find('a')
-        #print(child_link)
         if not child_link:
           continue
         
@@ -359,12 +380,11 @@ class NativeGrapes:
         
         # Second cell: parent 1
         parent1_link = cells[2].find('a')
-        parent1_name = parent1_link.get_text().strip() if parent1_link else cells[2].get_text().strip()
-        #print("name", parent1_name)
+        parent1_name = (parent1_link if parent1_link else cells[2]).get_text().strip()
         
         # Third cell: parent 2
         parent2_link = cells[3].find('a')
-        parent2_name = parent2_link.get_text().strip() if parent2_link else cells[3].get_text().strip()
+        parent2_name = (parent2_link if parent2_link else cells[3]).get_text().strip()
         
         # Filter: only include if grape_name matches parent1 or parent2 exactly
         # (case-insensitive comparison to handle variations)
@@ -396,35 +416,41 @@ class NativeGrapes:
     for child in children:
       print(f"{child['name']:<40} {child['parent1']:<30} {child['parent2']:<30}")
 
+  @staticmethod
+  def show_ancestry(grape_name):
+    vivc_id = NativeGrapes.find_grape_id_by_name(grape_name)
+    if vivc_id:
+      ancestry = NativeGrapes.get_grape_ancestry(vivc_id)
+      if ancestry and ancestry['parents']:
+        # Print the tree
+        print("\nAncestry Tree:")
+        print("=" * 75)
+        NativeGrapes.print_ancestry_tree(ancestry)
+        print("=" * 75)
+        print("To find the official VIVC page for a given grape, copy-paste this url in the browser with the grape ID")
+        print("For example, if the ID is 4419: https://www.vivc.de/index.php?r=passport%2Fview&id=4419")
+      else:
+        print("No ancestry was found for this grape. Please try another grape!")
+    else:
+      print("This grape variety name was not matched to a valid ID in the VIVC database. Please try again")
+
+
 if __name__ == '__main__':
 
   method = sys.argv[1]
-  arg = sys.argv[2].lower()
+  if len(sys.argv) > 1:
+   arg = sys.argv[2]
+   param = " ".join(arg.split('+')).lower()
   match method:
     case 'show_count_for_country':
-      if arg in COUNTRIES_NAME_TO_ISO_CODE:
-        pprint(NativeGrapes.grape_list_by_country(arg))
-    case 'show_ancestry':
-      grape_name = " ".join(arg.split('+'))
-      vivc_id = NativeGrapes.find_grape_id_by_name(grape_name)
-      if vivc_id:
-        ancestry = NativeGrapes.get_grape_ancestry(vivc_id)
-        if ancestry and ancestry['parents']:
-          # Print the tree
-          print("\nAncestry Tree:")
-          print("=" * 75)
-          NativeGrapes.print_ancestry_tree(ancestry)
-          print("=" * 75)
-          print("To find the official VIVC page for a given grape, copy-paste this url in the browser with the grape ID")
-          print("For example, if the ID is 4419: https://www.vivc.de/index.php?r=passport%2Fview&id=4419")
-        else:
-          print("No ancestry was found for this grape. Please try another grape!")
+      if param in COUNTRIES_NAME_TO_ISO_CODE:
+        pprint(NativeGrapes.grape_list_by_country(param))
       else:
-        print("This grape variety name was not matched to a valid ID in the VIVC database. Please try again")
-
+        print("Country not found. Please make sure spelling is correct.")
+    case 'show_ancestry':
+      NativeGrapes.show_ancestry(param)
     case 'show_countries_grape_count':
       pprint(NativeGrapes.grape_info_for_all_countries())
     case "show_children":
-      grape_name = " ".join(arg.split('+'))
-      children = NativeGrapes.find_grape_children(grape_name)
+      children = NativeGrapes.find_grape_children(param)
       NativeGrapes.print_children(children)

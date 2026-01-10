@@ -1,0 +1,2761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azerbaijan - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<h1>Azerbaijan</h1>
+
+<div class="country-info">
+    <div class="info-row">
+        <span class="info-label">Total Native Grapes:</span>
+        <span>490</span>
+    </div>
+    
+    
+    <div class="info-row color-row">
+        <span class="info-label">Grapes by Color:</span>
+        <table class="color-table">
+            <thead>
+                <tr>
+                    <th>Berry Color</th>
+                    <th>Total Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>White</td>
+                    <td>232</td>
+                </tr>
+                
+                <tr>
+                    <td>Black</td>
+                    <td>141</td>
+                </tr>
+                
+                <tr>
+                    <td>Pink</td>
+                    <td>45</td>
+                </tr>
+                
+                <tr>
+                    <td>Unknown</td>
+                    <td>8</td>
+                </tr>
+                
+                <tr>
+                    <td>Red</td>
+                    <td>56</td>
+                </tr>
+                
+                <tr>
+                    <td>Gris</td>
+                    <td>8</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="info-row">
+        <span class="info-label">VIVC Search:</span>
+        <a href="https://www.vivc.de/index.php?r=species%2Fcountry&amp;SpeciesSearch[landescode22]=AZE" target="_blank">View on VIVC</a>
+    </div>
+</div>
+
+<h2>Native Grapes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Grape Name</th>
+            <th>Berry Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><a href="../../grape/24641/index.html">Abbasy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21841/index.html">Absheron Gara Uzumu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21843/index.html">Absheron Gyzyl Uzumu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21844/index.html">Absheron Kechiemjeisi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24642/index.html">Absheron Khatunisy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41728/index.html">Absheron Kishmishi (Kor Kishmish)</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21845/index.html">Absheron Merendisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20600/index.html">Affandt Josium</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24643/index.html">Ag Almardan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21855/index.html">Ag Angur</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23430/index.html">Ag Beilagani</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21854/index.html">Ag Derbendi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/84/index.html">Ag Gei Bandam</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23064/index.html">Ag Gyavra</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21856/index.html">Ag Gyilabi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21857/index.html">Ag Hyuseini</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/86/index.html">Ag Kalambir</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21858/index.html">Ag Kelenpyur</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42176/index.html">Ag Khelili</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21859/index.html">Ag Kherji</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/87/index.html">Ag Kyurdash</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21861/index.html">Ag Melei</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21862/index.html">Ag Merendi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/88/index.html">Ag Mevdzhi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21863/index.html">Ag Nabitnoi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20617/index.html">Ag Ousum Siazansky</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21864/index.html">Ag Seebi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23447/index.html">Ag Shirai</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11750/index.html">Ag Shirei</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23448/index.html">Ag Tezjetishan Izyum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23494/index.html">Ag Yay Izyum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21866/index.html">Agasalkhym</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21867/index.html">Agdam Guilabisi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21868/index.html">Agdam Gyzyl Uzumu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21869/index.html">Agdam Kechiemjeisi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21870/index.html">Agdam Khazarisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20608/index.html">Agdja Kara</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20610/index.html">Agg Gueloumi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41861/index.html">Agh Shany Iki Cinsiyyetly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23432/index.html">Agri</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41727/index.html">Ahmedbeyli Qizil Uzumu</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23452/index.html">Ainuri</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23289/index.html">Akhmadbeily Ag Shireisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24644/index.html">Akhmadbeily Gyzyl Uzumu</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/200/index.html">Al Angur</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21872/index.html">Ala Boga</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21873/index.html">Ala Bula Gara Shany</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23449/index.html">Ala Gez</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/203/index.html">Ala Shaani</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42415/index.html">Ala Shaani (Non Identified)</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21874/index.html">Alcha Uzum</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/258/index.html">Aldara Kara</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21881/index.html">Alikhanli Kechimemesi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22209/index.html">Alikhanly Garagyozu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20745/index.html">Alimamede</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41729/index.html">Alinje</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20749/index.html">Alla Akssouf</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21880/index.html">Alykhanly Bei Uzumu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23450/index.html">Alykhanly Kara Izyum</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20765/index.html">Amiri</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20775/index.html">Anberi</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16475/index.html">Apsheronskii Gara Sirkai</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14776/index.html">Ara Hirna</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21889/index.html">Arazbari</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/665/index.html">Ary Marandy</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23451/index.html">At Izyum</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/733/index.html">At Khardzhi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24645/index.html">At Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24646/index.html">At Uzum Chehrayi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41396/index.html">Att Isioum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24647/index.html">Aybogan</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41730/index.html">Azerbaijan Kyok Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21899/index.html">Azeri</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23497/index.html">Aziz</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5705/index.html">Azizi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24649/index.html">Azmahsuldar</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41731/index.html">Azu-61/23</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41732/index.html">Badamli</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24687/index.html">Baladi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24650/index.html">Bananiyar</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41734/index.html">Banovsheyi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24651/index.html">Batykh</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1049/index.html">Bayan Shirei</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41735/index.html">Bayanshira (Az Nokxudlanan)</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21902/index.html">Behreli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21903/index.html">Beilegani</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1130/index.html">Bendi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41737/index.html">Benovsheyi Muskat</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21905/index.html">Berji</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41738/index.html">Beylik</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21915/index.html">Bibirkebi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41739/index.html">Bidani Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1365/index.html">Bilagany</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6937/index.html">Bogatyr</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20977/index.html">Boury Astrakhan Bazarsky</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1634/index.html">Boyakhani</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1635/index.html">Boz Marandy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21004/index.html">Catven</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41741/index.html">Cavahiri</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21012/index.html">Chakari</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21014/index.html">Chakayari</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23455/index.html">Chakkal Bogan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21925/index.html">Cherez</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21928/index.html">Chik Chika</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23457/index.html">Chil Izyum</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2561/index.html">Chilyaki Belyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21929/index.html">Chiragi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21930/index.html">Chiragi Disi Jinsli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21931/index.html">Chiragi Ikijinsli</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2623/index.html">Chragi Zhenskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41742/index.html">Dag Uzumu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3414/index.html">Dana Burnu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23458/index.html">Dana Gezi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3422/index.html">Dangur</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23459/index.html">Dash Gararty</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3432/index.html">Dash Marandi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21934/index.html">Dash Uzum</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21935/index.html">Debe Gyilabi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3523/index.html">Derbendi Kara</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23460/index.html">Deve Gezi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16855/index.html">Deve Goezue</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24653/index.html">Devechi Ag Chileiyisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21939/index.html">Devechi Gara Uzumu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21940/index.html">Devechi Gyzyl Uzumu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21941/index.html">Devechi Helmeisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24654/index.html">Dick Kharji</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21055/index.html">Dikar</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21059/index.html">Dismari Rouge</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3669/index.html">Dostlug</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21068/index.html">Duda</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21947/index.html">Dukhshai</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3747/index.html">Durzal</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23287/index.html">Duzaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23453/index.html">Dzhalal Izyum</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23454/index.html">Dzhalali</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21956/index.html">Eli Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21957/index.html">Eli Memmed</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27593/index.html">Elince</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24655/index.html">Elinja Uzumu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27602/index.html">Elmin</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24656/index.html">Elvan Uzum</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3901/index.html">Emiri</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3958/index.html">Esheni</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21958/index.html">Et Kherji</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3985/index.html">Et Marandi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23290/index.html">Etirli</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22278/index.html">Farashi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16541/index.html">Farashi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41743/index.html">Farashy</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21973/index.html">Fatmai</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23291/index.html">Fikreti</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22211/index.html">Fizuly Kechimemesy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16474/index.html">Gadzhiabbas</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21975/index.html">Gala Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24657/index.html">Galami</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4360/index.html">Gamashara</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21976/index.html">Gamashara Belaya</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24658/index.html">Gara Alakhura</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21977/index.html">Gara Arna Grna</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21978/index.html">Gara Direnek</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23464/index.html">Gara Garagat</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23299/index.html">Gara Gend Izyum</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23467/index.html">Gara Gush Ureki</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21979/index.html">Gara Gyoibendam</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22213/index.html">Gara Gyoz</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21980/index.html">Gara Hachabash</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24659/index.html">Gara Huseiny</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21981/index.html">Gara Khatuni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21982/index.html">Gara Khezani</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21983/index.html">Gara Krchovi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24660/index.html">Gara Lkeni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7363/index.html">Gara Marandy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21986/index.html">Gara Myovjyu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21987/index.html">Gara Myovyuz</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23300/index.html">Gara Okyuz Gezu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10441/index.html">Gara Sabza</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21989/index.html">Gara Serme</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21990/index.html">Gara Shany</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27597/index.html">Gara Shany (Pirshaga)</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27600/index.html">Gara Shira</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23301/index.html">Gara Shireli Izyum</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21992/index.html">Gara Shirin</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23463/index.html">Gara Sirkeii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21993/index.html">Gara Urza</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21994/index.html">Gara Varteni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21995/index.html">Gara Yarpag</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21996/index.html">Garabag Gyrmyzy Uzumu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21997/index.html">Garabag Karmrenisi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21999/index.html">Garachy</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22001/index.html">Gastap</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4487/index.html">Gazkhani</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27595/index.html">Gejdeyen Ag Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22003/index.html">Gel Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22004/index.html">Gelen Barmag Hyuseneini</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4748/index.html">Gelyami</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22215/index.html">Genje</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22216/index.html">Genje Esgerisi</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22217/index.html">Genje Gyulabisi</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22218/index.html">Genje Gyzyl Uzumu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22219/index.html">Genje Kani Aljanisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22220/index.html">Genje Kechimemesi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22221/index.html">Genje Sufre Uzumi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22222/index.html">Genjevi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4778/index.html">Gev Angur</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23293/index.html">Gezal Kara</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23294/index.html">Gezel Izyum</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23292/index.html">Gilami</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16498/index.html">Gilan Uzyum</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22006/index.html">Gile Tyoken</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25077/index.html">Girda Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23466/index.html">Glbalai</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22007/index.html">Gochbash Taify</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22009/index.html">Gonur Astrakhanbazar Uzumu</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41745/index.html">Goy Aldere</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22010/index.html">Goyun Gezi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24407/index.html">Goyun Gyozu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21732/index.html">Grgri</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5158/index.html">Gulu Marandi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23462/index.html">Gunei</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5141/index.html">Gush Uragi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5154/index.html">Gyalshan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23498/index.html">Gyandzha Kechimemesi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5155/index.html">Gyandzhevi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23461/index.html">Gyavangir</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24664/index.html">Gyoy Gyol</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22013/index.html">Gyrmyzy Darin</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24665/index.html">Gyrmyzy Huseiny</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23465/index.html">Gyrmyzy Izyum</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23303/index.html">Gyrmyzy Khardzhi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22014/index.html">Gyrmyzy Merendi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24666/index.html">Gyrmyzy Sabza</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24667/index.html">Gyrmyzy Shafeyi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24668/index.html">Gyrmyzy Taify</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27591/index.html">Gyrmyzy Uzum (Novkhany)</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22016/index.html">Gyuneyi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27601/index.html">Gyzyl Uzuzm (Var 3)</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24669/index.html">Gyzyly Gejyetishan</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24670/index.html">Hachabash</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41863/index.html">Hafizeli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22018/index.html">Hajy Abbas</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24688/index.html">Hakhi Bagy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41748/index.html">Hasanli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22020/index.html">Hekhhi Bagy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22022/index.html">Heydar Aliev</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22023/index.html">Hezikhsan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22025/index.html">Hyuseini</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22026/index.html">Ikijinsli Ag Shani</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24671/index.html">Ilhamy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5528/index.html">Ineg Amdzhegi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22027/index.html">Iri Gileli Misgali</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22028/index.html">Iri Hekhi-Bagy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5553/index.html">Iri Salkhum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41749/index.html">Irigilali Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41750/index.html">Iyul Uzumu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22029/index.html">Jan Uzum</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22032/index.html">Jelali</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22034/index.html">Jereli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22035/index.html">Jure Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22037/index.html">Kageni</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22038/index.html">Kakveni</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24689/index.html">Kakveny</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5953/index.html">Kanacheni</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22039/index.html">Kananchkeni Krchovi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22044/index.html">Kandidat-1</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22045/index.html">Kanicheli</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22049/index.html">Kapaz</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22041/index.html">Kar Dash</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21167/index.html">Kara Chaany Nakhitchevansky</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21190/index.html">Karabakh Karmreni</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5978/index.html">Karagez</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21186/index.html">Karatchi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5988/index.html">Karchevani</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5993/index.html">Karga Dili</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22047/index.html">Karz Myovjyu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6061/index.html">Kechamdzhagi Agdamskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41751/index.html">Kechi Emdjeyee</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21207/index.html">Khagoouny</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22053/index.html">Khalaj</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6148/index.html">Khamri</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21218/index.html">Khan Uzum</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22054/index.html">Khanym Gyobeyi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22055/index.html">Khanymy</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6161/index.html">Khart Khart</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42418/index.html">Khart Khart (Non Identified)</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6163/index.html">Khasany</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6167/index.html">Khatmi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6169/index.html">Khatuny</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6171/index.html">Khatuny Nakhichevanskii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6172/index.html">Khazari</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23295/index.html">Khazri</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21228/index.html">Khezeni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42417/index.html">Khindogny (Non Identified)</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6184/index.html">Khnushinak</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23296/index.html">Khorkhoru</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21248/index.html">Khoungui</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22058/index.html">Khungeny</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6197/index.html">Khungi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6200/index.html">Khurdash</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6216/index.html">Khymbi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23061/index.html">Khyrcha Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21256/index.html">Kial Isum</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21257/index.html">Kiapase</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6256/index.html">Kishmish Chernyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6270/index.html">Kishmish Rozovyi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23304/index.html">Koch Izyum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21888/index.html">Koghbi Sev</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21264/index.html">Koliasta</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6390/index.html">Kolyaska</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24417/index.html">Kouch Jiouraguy</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21298/index.html">Kourroupy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21304/index.html">Kreck</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21305/index.html">Krmyrkeni Iergar Guileni</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6593/index.html">Kyal Izyum</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22068/index.html">Kyok Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23302/index.html">Kyrmyzy Burun</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22069/index.html">Kyurd Uzumu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6601/index.html">Kyurdash Kara</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24673/index.html">Kyurdashi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22070/index.html">Kyurdekhany Gara Shanysy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6602/index.html">Kyurt Kyurt</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6794/index.html">Leili</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6879/index.html">Lkeny Chernyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21336/index.html">Machtagui Khafounissi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21390/index.html">Madyr Kouli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21343/index.html">Makamko</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23306/index.html">Makhmuddavi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23305/index.html">Makhmudu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7250/index.html">Maloplodnyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24674/index.html">Mamarzi Khan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21349/index.html">Mamedova</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7364/index.html">Marandi Shemakhinskii</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7366/index.html">Marandil</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7393/index.html">Margarita</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7469/index.html">Mashadi Ali</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7514/index.html">Matrassa</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24693/index.html">Mehri Tezyetishan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41758/index.html">Melahety</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24675/index.html">Meleyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22081/index.html">Memmedova</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7636/index.html">Merandi Belyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22082/index.html">Merendi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22085/index.html">Meshedi Eli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22086/index.html">Meshtagy Khatunisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22089/index.html">Mingechevir</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21365/index.html">Minguetchaour</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22091/index.html">Molla Ehmedi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16516/index.html">Mukhtari</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22105/index.html">Myovlyu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22106/index.html">Nadirgulu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8329/index.html">Nagshabi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22109/index.html">Nakhchyvan Chehrayi Kishmishi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22110/index.html">Nakhchyvan Gara Shanysy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22111/index.html">Nakhchyvan Gara Uzumu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24676/index.html">Nakhchyvan Gyrmyzy Shanysy</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22112/index.html">Nakhchyvan Gyulabisi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6606/index.html">Nakhchyvan Gyzyl Uzumu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22108/index.html">Nakhchyvan Inekemjeyisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22113/index.html">Nakhchyvan Khatunisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24677/index.html">Nakhchyvan Muskaty</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22107/index.html">Nakhchyvan Seebisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23307/index.html">Nar Kelu Izyum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23468/index.html">Nardarans Derbendi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41760/index.html">Navati</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41761/index.html">Naxcivan Ag Tayfisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41762/index.html">Naxcivan Huseynisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41763/index.html">Naxcivan Qirmizi Kismishi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41764/index.html">Naxcivan Sari Kishmishi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22116/index.html">Naz Nazy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22117/index.html">Nebi Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23308/index.html">Nenem Izyum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23469/index.html">Novrast</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41765/index.html">Nubari</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23309/index.html">Nubarlyg Izyum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27528/index.html">Oguz</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23470/index.html">Orudzh Baba</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8823/index.html">Oshakani</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23471/index.html">Pishik Gezi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41767/index.html">Pishik Uzumu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21468/index.html">Pndeni</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21489/index.html">Prodaulgeauvaty</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22260/index.html">Prodolgovaty</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9802/index.html">Pshraz Kara</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41769/index.html">Qahveyi Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41770/index.html">Qara Inekemceyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41771/index.html">Qara Nakhchivan Khatuny</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9952/index.html">Razbrod</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21502/index.html">Rezaki</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22125/index.html">Rish Baba Rozovyi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10435/index.html">Sabir</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22145/index.html">Sabza</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23472/index.html">Sagi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21536/index.html">Sakhibi Salliansky</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22136/index.html">Salyan Sahibisi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10521/index.html">Salyanskii Chernyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24690/index.html">Sapda Durmas</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22134/index.html">Sapda Durmaz</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21735/index.html">Sara</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41772/index.html">Sari Shafeyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21551/index.html">Sarmai</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10765/index.html">Sarna Shakar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23312/index.html">Sary Aldara</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10773/index.html">Sary Gilya</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10775/index.html">Sary Kirak</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22142/index.html">Sarygile Gej Yetishen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22143/index.html">Sarygile Orta Yetishen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22144/index.html">Sarygile Tez Yetishen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22147/index.html">Sekine Khanym</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22148/index.html">Serche Urei</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23313/index.html">Sev Vartkeny</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22146/index.html">Seyid Amiri</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14285/index.html">Shaani Akdzhakskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11681/index.html">Shaani Belyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22151/index.html">Shaani Chernyi Krupnyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22153/index.html">Shafei Chernyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17274/index.html">Shafei Rozovyi</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22154/index.html">Shah Angari</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22155/index.html">Shahangyul</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11695/index.html">Shakarbura</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11696/index.html">Shakareni</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23315/index.html">Shakh Shakhi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23473/index.html">Shakhani</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16542/index.html">Shakhtakhty</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41774/index.html">Shaliq</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24678/index.html">Shamakhy Hadiyesi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15651/index.html">Sharabi (4N)</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22158/index.html">Shekerbary</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23316/index.html">Shekh Aldere</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22159/index.html">Shemakhi Merendisi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22160/index.html">Sherabi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22161/index.html">Sherbrani</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22163/index.html">Shiradzuli Fioletovyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23476/index.html">Shirai</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11751/index.html">Shirei Chernyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23318/index.html">Shireii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22164/index.html">Shirekeni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22165/index.html">Shireli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22166/index.html">Shireskebi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11759/index.html">Shirvan Shakhi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27599/index.html">Shirvanshahy</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22167/index.html">Shivanizor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23317/index.html">Shykhverdi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22168/index.html">Sibi Abbas</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21565/index.html">Sifty Dourmaz</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21568/index.html">Siptkeny</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22170/index.html">Siyezen Ag Uzumu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22171/index.html">Siyezen Shireisi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11871/index.html">Slava Michurinu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11979/index.html">Spitakeni</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12029/index.html">Su Uzumu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27530/index.html">Sulatani Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41777/index.html">Sulduzlu</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41778/index.html">Suleymani</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24680/index.html">Sultanshira</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22182/index.html">Sultanshira</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27594/index.html">Sultany Kishmishi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23314/index.html">Sykh</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22183/index.html">Sykh Salkhym</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12129/index.html">Sysak</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16139/index.html">Taify</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22228/index.html">Talibi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12252/index.html">Tanbei</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12273/index.html">Tatly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6249/index.html">Tebrizi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42416/index.html">Tebrizi (Non Identified)</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22189/index.html">Tembei Shirei</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22191/index.html">Tez Yetishen Gara Uzum</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41781/index.html">Tozlayicy</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22195/index.html">Tsitsinatela</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12723/index.html">Tula Gezi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22229/index.html">Turabi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24681/index.html">Uzunsalkhym</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12894/index.html">Varandeni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24682/index.html">Vazna</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41782/index.html">Vishnoviy</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22313/index.html">Vogeltrauben</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41783/index.html">Yabani Uzum</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13285/index.html">Yabi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13291/index.html">Yagubi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24691/index.html">Yalanchy Shany</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22204/index.html">Yarytokhumsuz Kishmish</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24683/index.html">Yay Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41784/index.html">Yerli Cehrayi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27596/index.html">Zagatala Ag Uzum</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22206/index.html">Zalkha</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24684/index.html">Zarani Gorasy</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22207/index.html">Zarbat Uzumu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13402/index.html">Zeinabi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24408/index.html">Zeynebi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22291/index.html">Zolotistii Pozdnii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23499/index.html">Zolotistyi Pozdnespelyi</a></td>
+            <td>White</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

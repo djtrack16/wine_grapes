@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slovenia - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<h1>Slovenia</h1>
+
+<div class="country-info">
+    <div class="info-row">
+        <span class="info-label">Total Native Grapes:</span>
+        <span>89</span>
+    </div>
+    
+    
+    <div class="info-row color-row">
+        <span class="info-label">Grapes by Color:</span>
+        <table class="color-table">
+            <thead>
+                <tr>
+                    <th>Berry Color</th>
+                    <th>Total Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>Black</td>
+                    <td>13</td>
+                </tr>
+                
+                <tr>
+                    <td>Unknown</td>
+                    <td>36</td>
+                </tr>
+                
+                <tr>
+                    <td>White</td>
+                    <td>37</td>
+                </tr>
+                
+                <tr>
+                    <td>Red</td>
+                    <td>1</td>
+                </tr>
+                
+                <tr>
+                    <td>Pink</td>
+                    <td>1</td>
+                </tr>
+                
+                <tr>
+                    <td>Gris</td>
+                    <td>1</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="info-row">
+        <span class="info-label">VIVC Search:</span>
+        <a href="https://www.vivc.de/index.php?r=species%2Fcountry&amp;SpeciesSearch[landescode22]=SVN" target="_blank">View on VIVC</a>
+    </div>
+</div>
+
+<h2>Native Grapes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Grape Name</th>
+            <th>Berry Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><a href="../../grape/27875/index.html">Antonija</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27785/index.html">Banovina</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27889/index.html">Belejeva</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27879/index.html">Belina Pregara</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1296/index.html">Bettlertraube</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26738/index.html">Biancghera</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27885/index.html">Bine</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27774/index.html">Birna</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27793/index.html">Blanca</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1459/index.html">Blaufraenkisch</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1625/index.html">Bouvier</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27771/index.html">Bucanka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27109/index.html">Cencukna</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27797/index.html">Cirjan</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27876/index.html">Cretnik</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42122/index.html">Disecka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25008/index.html">Dolga Pentlja</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17675/index.html">Dolga Petla</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27792/index.html">Dolka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27881/index.html">Ferjanscevka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27788/index.html">Furman</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27783/index.html">Gajka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24599/index.html">Gnet Kras</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27778/index.html">Gruska</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27787/index.html">Gruskovec</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27780/index.html">Habjana</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27767/index.html">Halozanka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27884/index.html">Hanna</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27779/index.html">Ivek</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5679/index.html">Javorovite</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27768/index.html">Jelovec</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27777/index.html">Jurjevina</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27878/index.html">Kal</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6047/index.html">Kavcina Crna</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6305/index.html">Klarnica</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24904/index.html">Kraljevina</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27784/index.html">Ledina</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27886/index.html">Maj</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27796/index.html">Martinka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27127/index.html">Matekovic 14/2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27122/index.html">Matekovic V</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27121/index.html">Matekovic Vi</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27773/index.html">Okic</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17705/index.html">Osipka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27888/index.html">Otavnik</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27786/index.html">Paradiz</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27770/index.html">Pecica</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27883/index.html">Pecovka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17707/index.html">Pergolin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27795/index.html">Pikica</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9402/index.html">Pinjela</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27239/index.html">Pinore</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27789/index.html">Planina</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17711/index.html">Planinka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27782/index.html">Podboc</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27776/index.html">Pohorka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27128/index.html">Pokalica</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27790/index.html">Poklek</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17712/index.html">Poljsakica</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27877/index.html">Pomurka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9620/index.html">Portugieser Blau</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27882/index.html">Racuk</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9908/index.html">Ranfol Beli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17714/index.html">Recigla</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27874/index.html">Rohlin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27880/index.html">Senozet</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27110/index.html">Sevka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27794/index.html">Skok</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17721/index.html">Sladkocica</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27775/index.html">Sojek</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27873/index.html">Strmec</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23368/index.html">Tantovina Eichenblaettrige</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27781/index.html">Ticna</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27791/index.html">Topolka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27769/index.html">Varnica</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17735/index.html">Verbena</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27772/index.html">Viderman</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16017/index.html">Vitouska Garganija</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24412/index.html">Vitovska</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17737/index.html">Vrtovka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27766/index.html">Zabukovka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13412/index.html">Zelen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27887/index.html">Zelena</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26014/index.html">Zelenec</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27108/index.html">Zelenika</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24493/index.html">Zimmettraube Blau</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17807/index.html">Zimmettraube Blauschwarz</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13449/index.html">Zimmettraube Grau Rauchfarbig</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17739/index.html">Zunek</a></td>
+            <td>White</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

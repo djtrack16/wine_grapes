@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moldova - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<h1>Moldova</h1>
+
+<div class="country-info">
+    <div class="info-row">
+        <span class="info-label">Total Native Grapes:</span>
+        <span>190</span>
+    </div>
+    
+    
+    <div class="info-row color-row">
+        <span class="info-label">Grapes by Color:</span>
+        <table class="color-table">
+            <thead>
+                <tr>
+                    <th>Berry Color</th>
+                    <th>Total Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>White</td>
+                    <td>87</td>
+                </tr>
+                
+                <tr>
+                    <td>Pink</td>
+                    <td>21</td>
+                </tr>
+                
+                <tr>
+                    <td>Black</td>
+                    <td>59</td>
+                </tr>
+                
+                <tr>
+                    <td>Red</td>
+                    <td>17</td>
+                </tr>
+                
+                <tr>
+                    <td>Unknown</td>
+                    <td>6</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="info-row">
+        <span class="info-label">VIVC Search:</span>
+        <a href="https://www.vivc.de/index.php?r=species%2Fcountry&amp;SpeciesSearch[landescode22]=MDA" target="_blank">View on VIVC</a>
+    </div>
+</div>
+
+<h2>Native Grapes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Grape Name</th>
+            <th>Berry Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><a href="../../grape/74/index.html">Adzi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20631/index.html">Airaboulo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24935/index.html">Alb De Suruceni</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13987/index.html">Alb De Yaloven</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20723/index.html">Alba Moustose</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/375/index.html">Alvarna</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20764/index.html">Aminn Chakh</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5748/index.html">Amur</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23099/index.html">Apiren Alb</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24934/index.html">Apiren Basarabean</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23105/index.html">Apiren Negru De Grozesti</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23106/index.html">Apiren Roz</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24933/index.html">Apiren Roz Timpuriu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26969/index.html">Apiren Roz Variant 2</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13998/index.html">Augustovskij</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21918/index.html">Balaior Blanc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/965/index.html">Barami</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26534/index.html">Basarabia</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5761/index.html">Bashkanskii Krasnyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1042/index.html">Batuta Neagra</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14025/index.html">Bessarabskij Muskatnyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21916/index.html">Bican Svobodnogo Opilenia</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6934/index.html">Biruintsa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20962/index.html">Bochkanatt</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25557/index.html">Boskanskij Krasnyi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20978/index.html">Boussouick</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20979/index.html">Boussouioake De Bokhotine</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14208/index.html">Bratsk</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20988/index.html">Briasy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23509/index.html">Brumeriu Nou</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1773/index.html">Bryazy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1922/index.html">Cabasma Alba</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2616/index.html">Chorkutsa Nyagra</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25334/index.html">Cica Ustojtschivaya</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2724/index.html">Coarna Alba</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2726/index.html">Coarna Neagra</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2728/index.html">Coarna Rosie</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16145/index.html">Coda Grossa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15521/index.html">Dachnyi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22239/index.html">Damasin Galben</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21937/index.html">Dekabr Uzumu</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3489/index.html">Dekabrskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14464/index.html">Demerdjissiackh</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3515/index.html">Demerdzhiya</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14463/index.html">Demetra</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3621/index.html">Doina</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23407/index.html">Drx- M4- 502</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23408/index.html">Drx- M4- 510</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23409/index.html">Drx- M4- 515</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23410/index.html">Drx- M4- 520</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23411/index.html">Drx- M4- 537</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23412/index.html">Drx- M4- 541</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23413/index.html">Drx- M4- 542</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23414/index.html">Drx- M4- 545</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23415/index.html">Drx- M4- 660</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23416/index.html">Drx- M4- 678</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25558/index.html">Dubosarskii</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17772/index.html">Ezandarue Csornuej</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14016/index.html">Festivalnyj Ustoichivyi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14027/index.html">Flakera</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25340/index.html">Flamingo</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15522/index.html">Floricica</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4272/index.html">Frumoasa Albe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26536/index.html">Gen Piticul</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4901/index.html">Gordin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4903/index.html">Gordin Verde</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21093/index.html">Gordine</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23787/index.html">Grassiya</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23008/index.html">Guzun</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21131/index.html">Iiaidjy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21134/index.html">Iiokwarna</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25560/index.html">Impuls</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25561/index.html">Ionel</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14002/index.html">Kantemirovskij</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24217/index.html">Kaouchansky</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21188/index.html">Kara Vyltchevka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25343/index.html">King Rubi Ustoitschiwy</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6253/index.html">Kishinevskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14010/index.html">Kishinevskije Zory</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15517/index.html">Kishmish Luchistyi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14053/index.html">Kishmish Moldavskii</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6278/index.html">Kishmish Vir</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22063/index.html">Koda Grossa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6335/index.html">Kodrinskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14054/index.html">Kodru</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7569/index.html">Kodryanka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6397/index.html">Kopchak</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21297/index.html">Kourrouklak</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7571/index.html">Kriulyanskii</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6585/index.html">Kutuzovskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23157/index.html">Legenda</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7575/index.html">Luminitsa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14057/index.html">Lyana</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23375/index.html">Maiga</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7138/index.html">Maiskii Chernyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7436/index.html">Marshalskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25014/index.html">Marta</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22675/index.html">Merlan</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7664/index.html">Mertsishor</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16717/index.html">Moldavskii Kolorit</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7896/index.html">Moldova</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15040/index.html">Moldovanka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17521/index.html">Morela</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15474/index.html">Mugurel</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23009/index.html">Muscat De Bugeac</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14028/index.html">Muskat De Yaloven</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15939/index.html">Muskat Dnjestrovski</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25562/index.html">Muskat Kishinevskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25015/index.html">Muskat Letnij</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14062/index.html">Muskat Onitskanskii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8299/index.html">Muskat Yantarnyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8302/index.html">Muskat Yuzhnodagestanskii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8461/index.html">Negru De Causani</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8462/index.html">Negru De Yaloven</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8464/index.html">Negru Moale</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8570/index.html">Nistru</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8593/index.html">Norok</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23542/index.html">Novoselovskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14020/index.html">Onitskanskii Belyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25344/index.html">Orchidea</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25365/index.html">Original Tscherny</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26169/index.html">Osennii Ciornai</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14066/index.html">Osennii Rozovyi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25563/index.html">Pamyati Kotovskogo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8905/index.html">Pamyati Negrulya</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8906/index.html">Pamyati Verderevskogo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22259/index.html">Pasareasca</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14019/index.html">Pifos</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14030/index.html">Plai</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9527/index.html">Plamennyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17519/index.html">Pridorozhnyi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23500/index.html">Rannespelyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13992/index.html">Riton</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17517/index.html">Rosinka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42367/index.html">Roz Moldovenesc</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25564/index.html">Rumana</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26537/index.html">Savin  I- 2-24</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26535/index.html">Savin  I- 5-58</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26504/index.html">Savin  I- 5-68</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26503/index.html">Savin  I-15-15</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26532/index.html">Savin Ii2- 1-97</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26917/index.html">Savin Ii2-11-19</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26533/index.html">Savin Ii2-13-66</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25358/index.html">Schachtjor</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25565/index.html">Schinoasa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27231/index.html">Seina</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23546/index.html">Skorenskij Krasnyj</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25368/index.html">Slava Moldawii</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11885/index.html">Smuglyanka Moldavskaya</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11907/index.html">Solnechnyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14286/index.html">Sovetskii Stolovyi</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11964/index.html">Sovietskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11999/index.html">Startovyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15631/index.html">Strashenskii</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12022/index.html">Strugurash</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12025/index.html">Strugure Calugaresc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16555/index.html">Sultanija</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16356/index.html">Suruchenskii Belyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12251/index.html">Tanais 1</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25500/index.html">Tigin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17114/index.html">Tigvoasa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17103/index.html">Tomajskij</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16449/index.html">Tsitsa Kaprei</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12728/index.html">Turba Rykhlaya</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12790/index.html">Urozhainyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16471/index.html">Vierul  2</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13069/index.html">Vierul  3</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21717/index.html">Vierul 50</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13070/index.html">Vierul 59</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/42048/index.html">Vigne Sauvage Faux</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13108/index.html">Viorika</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16557/index.html">Vojtovic Ii 65-89</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25559/index.html">Yalovenskii Rannii</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15656/index.html">Yalovenskii Stolovyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13299/index.html">Yalovenskii Ustoichivyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14003/index.html">Yubilei 70</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13342/index.html">Yubilei Moldavii</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14008/index.html">Yubilei Zhuravlya</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23524/index.html">Yurin</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21699/index.html">Zelenian Bely</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23234/index.html">Zhuravel Iv- 1- 45</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26564/index.html">Zhuravel Iv-20-17</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25542/index.html">Zhuravel V- 51-56</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23236/index.html">Zhuravel V- 60- 2</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26968/index.html">Zhuravel Vi- 4- 9</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26966/index.html">Zhuravel Vii-11-30</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23235/index.html">Zhuravel Vii-25- 3</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26967/index.html">Zhuravel Vii-25-17</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25556/index.html">Zvezdnyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14009/index.html">Zvezdnyi Ustoichivyi</a></td>
+            <td>White</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

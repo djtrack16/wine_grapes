@@ -1,0 +1,3746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hungary - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<h1>Hungary</h1>
+
+<div class="country-info">
+    <div class="info-row">
+        <span class="info-label">Total Native Grapes:</span>
+        <span>687</span>
+    </div>
+    
+    
+    <div class="info-row color-row">
+        <span class="info-label">Grapes by Color:</span>
+        <table class="color-table">
+            <thead>
+                <tr>
+                    <th>Berry Color</th>
+                    <th>Total Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>White</td>
+                    <td>418</td>
+                </tr>
+                
+                <tr>
+                    <td>Black</td>
+                    <td>108</td>
+                </tr>
+                
+                <tr>
+                    <td>Pink</td>
+                    <td>45</td>
+                </tr>
+                
+                <tr>
+                    <td>Unknown</td>
+                    <td>74</td>
+                </tr>
+                
+                <tr>
+                    <td>Red</td>
+                    <td>38</td>
+                </tr>
+                
+                <tr>
+                    <td>Gris</td>
+                    <td>4</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="info-row">
+        <span class="info-label">VIVC Search:</span>
+        <a href="https://www.vivc.de/index.php?r=species%2Fcountry&amp;SpeciesSearch[landescode22]=HUN" target="_blank">View on VIVC</a>
+    </div>
+</div>
+
+<h2>Native Grapes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Grape Name</th>
+            <th>Berry Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><a href="../../grape/41131/index.html">3138</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41130/index.html">65-151-  5</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41129/index.html">65-153-18</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41128/index.html">69-  2-  4</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/52/index.html">Acsai</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/55/index.html">Adago</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/210/index.html">Aladar Kedvence</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5189/index.html">Alanttermoe Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23102/index.html">Aletta</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16182/index.html">Alfoeld 100</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20737/index.html">Alfoeldi Boetermoe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20738/index.html">Alfoeldi Nemes</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23598/index.html">Alharos</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17639/index.html">Amadeus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23658/index.html">Ambrosia</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27112/index.html">Amica</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26258/index.html">Andor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20776/index.html">Andrassy Denes</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/454/index.html">Andrassy Franciska</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20777/index.html">Andrassy Gyula</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/455/index.html">Andrassy Gyula</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20342/index.html">Angela</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20835/index.html">Angyal Dezsoe</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/483/index.html">Angyal Dezsoe</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16288/index.html">Anita</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23104/index.html">Anna</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/516/index.html">Apponyi Albert</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/550/index.html">Aranka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/551/index.html">Arany Janos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/552/index.html">Aranyat Er</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41647/index.html">Armos</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14014/index.html">Aron</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/638/index.html">Arpad</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/662/index.html">Arvalany</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/756/index.html">Attila</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/767/index.html">Augster Weiss</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21288/index.html">Augusta</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16203/index.html">Badacsony   1</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16290/index.html">Badacsony 15</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/877/index.html">Badacsony 22</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16174/index.html">Badacsony 36</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/878/index.html">Badacsony 43</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/879/index.html">Badacsony 46</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5195/index.html">Badacsonyi Somszoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14783/index.html">Bajor Szuerke</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/903/index.html">Bakarka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25053/index.html">Bakator Kek</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/905/index.html">Bakator Roz</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/906/index.html">Bakator Tuedoeszinue</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/915/index.html">Bakszem</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22932/index.html">Balafant</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/925/index.html">Balaton Gyoengye</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14784/index.html">Balaton Kincse</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17764/index.html">Balaton Szepe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/926/index.html">Balaton Viraga</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10539/index.html">Balatoni</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/935/index.html">Balint Weiss</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/942/index.html">Balsare Blanc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16198/index.html">Baracsi Rubint</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17431/index.html">Baratcsuha Szuerke</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/966/index.html">Baratsag</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1007/index.html">Barra Bora</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1008/index.html">Barra Kata</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16289/index.html">Bathori Istvan Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1040/index.html">Battyhany Lajos</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1060/index.html">Beatrix</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1063/index.html">Beaute De Cegled</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23684/index.html">Bellona</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1116/index.html">Beloglazka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1124/index.html">Bem Tabornok</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1140/index.html">Benkoe Julianna</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1154/index.html">Bercsenyi Miklos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1157/index.html">Beregi Rozsa</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1164/index.html">Berki 1</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1165/index.html">Berki 2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1166/index.html">Berki 3</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1167/index.html">Berki 4</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15942/index.html">Berki 5</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1168/index.html">Berki Jozsef</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1173/index.html">Berlandieri Ungarn</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1187/index.html">Bernath Janos</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1293/index.html">Bethlen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1297/index.html">Betyarszoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1321/index.html">Bianca</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23114/index.html">Biborfrankos</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1339/index.html">Biborkadarka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1342/index.html">Biczo Balint Emleke</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1343/index.html">Biczo Egon</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1355/index.html">Bihari Fekete</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23699/index.html">Bikaver 8</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17381/index.html">Biro Kekje</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1495/index.html">Bocskay Fejedelem</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17765/index.html">Bocskay Fejedelem Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20963/index.html">Bodo Baratom</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1503/index.html">Bogarka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5203/index.html">Bogdanska Dinka</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1510/index.html">Boglarka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10544/index.html">Borfestoe</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17373/index.html">Boris</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1561/index.html">Boriska</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16391/index.html">Bornemissza  8</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10546/index.html">Boros Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23121/index.html">Borostyan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26259/index.html">Borsmenta</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1570/index.html">Bortermeloek Kincse</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1787/index.html">Budai Ropogos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/881/index.html">Budai Zoeld</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/1901/index.html">Burgrave De Hongrie</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2366/index.html">Cegled Szepe</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23659/index.html">Ceres</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17383/index.html">Cesava</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24191/index.html">Chasselas Queen Victoria</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/2500/index.html">Chasselas Tokay Angevine</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24946/index.html">Ciganyszoeloe</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27637/index.html">Corvinus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3244/index.html">Cristal</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9166/index.html">Csaba Gyoengye</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9167/index.html">Csaba Gyoengye Piros</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17059/index.html">Csaloka</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26257/index.html">Csanad</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23132/index.html">Csepi Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17766/index.html">Cserszegi Barat</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17767/index.html">Cserszegi Ezerjo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17768/index.html">Cserszegi Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3277/index.html">Cserszegi Fueszeres</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16295/index.html">Cserszegi Rizling</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17769/index.html">Cserszegi Tramini</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16294/index.html">Cserszegi Zamatos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23133/index.html">Csilla</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14317/index.html">Csillam</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3279/index.html">Csoka Szoeloe</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3281/index.html">Csomorika</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10574/index.html">Czollner Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3409/index.html">Damjanich</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3410/index.html">Damjanich Tabornok</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3429/index.html">Daranyi Ignac Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23660/index.html">Darius</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3478/index.html">Deak Ferenc</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24620/index.html">Demjen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3532/index.html">Detki</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23661/index.html">Dicenty Dezsoe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3582/index.html">Dinka Alba</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13462/index.html">Dinka Zoeld</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3605/index.html">Dobokay</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23599/index.html">Dorgo</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23662/index.html">Doris</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26241/index.html">Ducatus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23137/index.html">Duna Gyoengye</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15938/index.html">Eger   1</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16131/index.html">Eger   7</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16196/index.html">Egri Csillagok  3</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16635/index.html">Egri Csillagok 20</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16130/index.html">Egri Csillagok 26</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3845/index.html">Egri Kek</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3846/index.html">Egri Noek Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3875/index.html">Elizabeth Krasnay</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23138/index.html">Emoeke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3913/index.html">Engedelem</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3915/index.html">Enkoevidinkam</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3916/index.html">Eoetvoes Jozsef</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3945/index.html">Eroesinu</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16390/index.html">Ervin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3950/index.html">Erzsebet Kiralyne Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20341/index.html">Esther</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/3989/index.html">Etelka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16187/index.html">Eva</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17757/index.html">Eva</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4023/index.html">Ez Is Jo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4025/index.html">Ezereves Magyarorszag Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4026/index.html">Ezerfuertue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4027/index.html">Ezerjo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17364/index.html">Ezmt/A</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16194/index.html">F 24/1</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25521/index.html">Fabius</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4032/index.html">Faddy Zsiga Dinka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20346/index.html">Fanny</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4062/index.html">Favorit</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4066/index.html">Fay Istvan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4080/index.html">Fekete Szem</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4089/index.html">Ferenc Jozsef</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/40753/index.html">Fodroslevelue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16299/index.html">Fortuna</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4229/index.html">Frater Lorand</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4292/index.html">Furmint</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17047/index.html">Furmint Piros</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17471/index.html">Furmint Valtoezoe</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23669/index.html">Future</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4417/index.html">Gardonyi Geza</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4476/index.html">Garzo Sandor</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23776/index.html">Generosa</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4768/index.html">Genuai Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24043/index.html">Georgikon 10</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16529/index.html">Georgikon 28</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24044/index.html">Georgikon 29</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24045/index.html">Georgikon 46</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24046/index.html">Georgikon 52</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4774/index.html">Gergely</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23145/index.html">Gesztus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4817/index.html">Gizella Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4830/index.html">Gloria Hungariae</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4827/index.html">Gloria Ii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4828/index.html">Gloria Iii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21090/index.html">Gloria Testvere</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4843/index.html">Goecseji Zamatos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4861/index.html">Goher Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14912/index.html">Goher Valtozo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4907/index.html">Gorombaszoeloe</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/4942/index.html">Granat Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17507/index.html">Grimaud 5 Bb Faux</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17775/index.html">Gubanyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5098/index.html">Gubanyi 2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5099/index.html">Gubanyi 3</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5100/index.html">Gubanyi 5</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5101/index.html">Gubanyi 6</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5119/index.html">Guillani Imre</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5156/index.html">Gyemantok Fekete</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24210/index.html">Gyoengy Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24211/index.html">Gyoengy Szoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5157/index.html">Gyoengyoesi Piros</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5909/index.html">Gyoengyrizling</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17776/index.html">Gyueszue Szoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16302/index.html">Hajnalka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5283/index.html">Hamvas</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23670/index.html">Hanna</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5313/index.html">Hars Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5314/index.html">Harslevelue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5338/index.html">Hegedues Sandor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27119/index.html">Helikon Szepe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5361/index.html">Herczeg Ferenc</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17777/index.html">Hetszoeloei</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21718/index.html">Hibrid 3082- 1- 43</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5397/index.html">Hindenburg</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5401/index.html">Hiroes Het Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5409/index.html">Hock Janos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16303/index.html">Hollandia Josaga</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16304/index.html">Homok Gyoengye</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21118/index.html">Homok Szepe</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21114/index.html">Homoki Boetermoe</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21115/index.html">Homoki Hasznos</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21116/index.html">Homoki Kueloenlegesseg</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21117/index.html">Homoki Tartos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5417/index.html">Honigler</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5430/index.html">Horthy</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5431/index.html">Horthy Miklos</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21119/index.html">Horvath Antal</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17062/index.html">Hosszunyelue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5457/index.html">Hunyadi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5458/index.html">Hunyadi Janos</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5481/index.html">Ida</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17779/index.html">Intezeti 3</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17780/index.html">Intezeti 4</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16200/index.html">Intezeti 5</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16202/index.html">Intezeti 6</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5557/index.html">Irsai Oliver</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16305/index.html">Isaura</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/40352/index.html">Iunior</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5590/index.html">Ivan</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23682/index.html">Iwan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17781/index.html">Izbegi Katinka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5594/index.html">Izbegi Muskotaly 1</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5595/index.html">Izbegi Muskotaly 2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5596/index.html">Izbegi Piroska</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5601/index.html">Izsaki Piros</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5600/index.html">Izsaki Sarfeher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21153/index.html">Jank Szoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10595/index.html">Jardovany Fekete</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21154/index.html">Jardovany Havasi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5677/index.html">Javor Gross Weiss</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5678/index.html">Javor Mehlweiss</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26255/index.html">Jazmin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5764/index.html">Jo Rizling</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5828/index.html">Jobb Sincs</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5829/index.html">Jokai Mor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5834/index.html">Josefin Pecsi Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5839/index.html">Jozsef Nador</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5847/index.html">Jubileum 75</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5848/index.html">Jubileum Szilvani</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16193/index.html">Judit</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5852/index.html">Juhfark</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5853/index.html">Julius Caesar</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5885/index.html">Kabala</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23149/index.html">Kabar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5897/index.html">Kada Elek</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5899/index.html">Kadarka Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5898/index.html">Kadarka Kek</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24908/index.html">Kadarka Oreg</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17348/index.html">Kadarka Szuerke</a></td>
+            <td>Gris</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17349/index.html">Kadarka Toeroek</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5986/index.html">Karat</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/5999/index.html">Karmin</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21197/index.html">Katona Jozsef</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21198/index.html">Katonatelep Szepe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21290/index.html">Katta Kurgan X Hibrid Besemeni</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21719/index.html">Ke 1/11</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16176/index.html">Kecskemet  3</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16177/index.html">Kecskemet  7</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16178/index.html">Kecskemet 13</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6086/index.html">Kecskemet Kincse</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6087/index.html">Kecskemet Szepe</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6088/index.html">Kecskemet Viraga</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6089/index.html">Kecskemeti Izes</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6090/index.html">Kecskemeti Leanyka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6091/index.html">Kecskemeti Rizling</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16421/index.html">Keknyelue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6101/index.html">Kemeny Szoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6125/index.html">Kertek Szepe</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6230/index.html">Kincsem</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10602/index.html">Kiraly Szoeloe Fekete</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6303/index.html">Klapka Tabornok</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6324/index.html">Kocsis Borcsa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6325/index.html">Kocsis Irma</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6326/index.html">Kocsis Istvan Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16199/index.html">Kocsis Pal Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6327/index.html">Kocsis Pal Szilvanija</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6328/index.html">Kocsis Palne</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6329/index.html">Kocsis Palne Mazsolaja</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6330/index.html">Kocsis Sandor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6331/index.html">Kocsis Zsuzsa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6333/index.html">Kodaly Zoltan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6340/index.html">Koehegyi Gyoengy</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6341/index.html">Koehegyi Hars</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6342/index.html">Koehegyi Jo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16190/index.html">Koehegyi Lang</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16189/index.html">Koehegyi Zamatos</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6350/index.html">Koenigin Der Weingaerten</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6351/index.html">Koeporos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41945/index.html">Koever Szoeloe Faux</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13727/index.html">Koevidinka</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26547/index.html">Koleda  4/15</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26542/index.html">Koleda 28/19</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26541/index.html">Koleda A 4/13</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6387/index.html">Kolontar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21266/index.html">Kondor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17643/index.html">Korai Bibor</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21268/index.html">Korai Diente</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6398/index.html">Korai Gyoengy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6399/index.html">Korai Italia</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6401/index.html">Korai Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6402/index.html">Korai Ropogos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17784/index.html">Korona</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23153/index.html">Kosa</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6437/index.html">Kossuth Ferenc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6438/index.html">Kossuth Lajos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22356/index.html">Kossuth Lajos Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6458/index.html">Kovacs Kreger</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6459/index.html">Kovacsi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21299/index.html">Kover Szoeloe</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6471/index.html">Kozma</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26263/index.html">Kozma  1- 1-840</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26268/index.html">Kozma  4- 2- 29/ 5</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26264/index.html">Kozma  8- 3/ 6</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26265/index.html">Kozma  8- 3/ 9</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26266/index.html">Kozma  8- 3/15</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24902/index.html">Kozma 20- 3</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26267/index.html">Kozma 21- 5-  4/ 3</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25954/index.html">Kozma 99- 1- 48</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16183/index.html">Kozma Cs.   2</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16563/index.html">Kozma Cs.  55-34</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16195/index.html">Kozma Cs.E.  87</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16184/index.html">Kozma Cs.V. 420</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16185/index.html">Kozma Cs.V. 525</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16561/index.html">Kozma Cs.Vi-9</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16565/index.html">Kozma Csf Ii 1204</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14316/index.html">Kozma Csft   61</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14311/index.html">Kozma Csft   92</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14313/index.html">Kozma Csft  175</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14314/index.html">Kozma Csft 2423</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15732/index.html">Kozma Palne Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6491/index.html">Krasznay Erzsebet</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17786/index.html">Krasznay Miklos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6528/index.html">Krisztaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6538/index.html">Kuebeli</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6557/index.html">Kunbarat</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6560/index.html">Kunleany</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6569/index.html">Kuriozum</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6573/index.html">Kurucver</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6574/index.html">Kurucz 13</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6615/index.html">Laci</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6668/index.html">Lagylevelue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6676/index.html">Lakhegyi Mezes</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14978/index.html">Lampor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24619/index.html">Lanyszoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6780/index.html">Lavotta Janos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21322/index.html">Leningen Tabornok</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/6816/index.html">Lesz Meg Hazam</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22350/index.html">Lidi</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20343/index.html">Lilla</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17061/index.html">Lisztes Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/40765/index.html">Lisztes Feketefaju</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14999/index.html">Lisztes Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21327/index.html">Lonyai Ferenc</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23160/index.html">Lubik Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17369/index.html">M 2</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17370/index.html">M 4</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7025/index.html">Mackenssen</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7073/index.html">Mademoiselle Mathiasz</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16186/index.html">Magnelkueli Nagybogyoju</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7103/index.html">Magyar Az En Szueloefoeldem</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27640/index.html">Magyar Rizling</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7104/index.html">Magyarfrankos</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7143/index.html">Majlath Gusztav</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21344/index.html">Malaga Balog Pal</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7421/index.html">Marosi Maria</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7494/index.html">Mathiasz 135</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7493/index.html">Mathiasz 179</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41951/index.html">Mathiasz 215 Faux</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7495/index.html">Mathiasz 219</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7496/index.html">Mathiasz 224</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7497/index.html">Mathiasz Ernoene</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7498/index.html">Mathiasz Festoeje  I.</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7499/index.html">Mathiasz Festoeje Ii.</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7500/index.html">Mathiasz Janos Diadala</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7501/index.html">Mathiasz Janos Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7502/index.html">Mathiasz Janos Izletese</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/22357/index.html">Mathiasz Janos Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7503/index.html">Mathiasz Janosne</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21355/index.html">Mathiasz Jozsef</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7504/index.html">Mathiasz Jozsef Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7505/index.html">Mathiasz Kiraly</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7506/index.html">Mathiasz Mariska</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7507/index.html">Mathiasz Pipiske</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21356/index.html">Mathiasz Pista</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7508/index.html">Mathiasz Rozsi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7509/index.html">Mathiasz Tivadar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15928/index.html">Matrai Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7583/index.html">Medina</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17316/index.html">Medoc Noir</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23169/index.html">Melinda</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23683/index.html">Melissa</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23685/index.html">Melitta</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16201/index.html">Merengoe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26261/index.html">Merlin</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26669/index.html">Messias</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15032/index.html">Mezes Fekete</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7701/index.html">Mezoessy Bela</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16197/index.html">Miklostelepi 26</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7714/index.html">Mikszath Kalman</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7872/index.html">Missio</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7883/index.html">Mocsai Mariska</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21368/index.html">Molnar Istvan</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/7911/index.html">Mon Ami</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23686/index.html">Mosertraube</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8166/index.html">Munkacsy Mihaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8165/index.html">Munkatsy Jozsef</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8167/index.html">Munkerdem</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8200/index.html">Muscat D&#x27;Hiver</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/40697/index.html">Muscat De Hongrie</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8225/index.html">Muscat Halaper</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27638/index.html">Muscat Of Cserszeg</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23322/index.html">N 128</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23323/index.html">N 200</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8326/index.html">Nador</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8330/index.html">Nagy Irma</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8331/index.html">Nagyfueger</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8346/index.html">Napkelet</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8350/index.html">Narancsizue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16179/index.html">Nektar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16312/index.html">Nekuenk Is Jo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8471/index.html">Nemes Szoeloe</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14013/index.html">Nero</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23179/index.html">Nora</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16180/index.html">Nosztori Rizling</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17372/index.html">Novo Eger 2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17640/index.html">Odysseus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8710/index.html">Oereg Sarfeher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8711/index.html">Oeroekke Piros</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8712/index.html">Oetfuertue</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8738/index.html">Olasz Kadarka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8739/index.html">Olasz Korai</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8751/index.html">Olimpia</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8759/index.html">Olivette Noire</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20512/index.html">Opus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8799/index.html">Org Tokos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17641/index.html">Orpheus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8836/index.html">Otfuertue</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14012/index.html">Palatina</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26269/index.html">Palma</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26262/index.html">Pamerzs</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17644/index.html">Pannon Frankos</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8914/index.html">Pannonia</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8915/index.html">Pannonia Kincse</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9392/index.html">Papa Szoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8928/index.html">Papsapka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23185/index.html">Patria</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9073/index.html">Pecs</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16835/index.html">Pecs 24</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9074/index.html">Pecsi Aldas</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15076/index.html">Pecsi Dinka</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9075/index.html">Pecsi Szagos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23186/index.html">Pegazus</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9094/index.html">Pekar Gyula</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17788/index.html">Pekarka</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23187/index.html">Pelso</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21439/index.html">Perle Noire</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9201/index.html">Petoefi Sandor</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9209/index.html">Pettes Szoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26260/index.html">Pinot Regina</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17520/index.html">Piroska</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/8207/index.html">Poeloeske Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9589/index.html">Polyhos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9653/index.html">Pozsonyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16333/index.html">Pslanka</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9822/index.html">Purcsin</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9823/index.html">Puritan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9830/index.html">Putzscheere</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21770/index.html">R 49</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21720/index.html">R- 70</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21721/index.html">R- 71</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21722/index.html">R- 78</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17004/index.html">R- 79</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17003/index.html">R- 81</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17747/index.html">R- 82</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21723/index.html">R- 90</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21496/index.html">Radai Gedeon</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21499/index.html">Rakoczi Ferenc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25545/index.html">Rakszoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9984/index.html">Reflex</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9985/index.html">Reform</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9991/index.html">Refren</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/9995/index.html">Regenerator</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10007/index.html">Rekord</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10037/index.html">Rethy Laci Bacsi Emleke</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10041/index.html">Revai Tibor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23687/index.html">Rita</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17790/index.html">Rohado</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10167/index.html">Rokafarku</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15136/index.html">Ropogos Sarga</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17285/index.html">Rosina 1</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17286/index.html">Rosina 2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17287/index.html">Rosina 3</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17288/index.html">Rosina 4</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17289/index.html">Rosina 5</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17290/index.html">Rosina 6</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/25520/index.html">Rosina 7</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23930/index.html">Rozalia</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23200/index.html">Rozsakoe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10307/index.html">Rubintos</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10328/index.html">Rudolf Tronoeroekoes Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10388/index.html">Rupestris De Bergis</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21533/index.html">Sagochbainar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21545/index.html">Sandor Istvan</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24611/index.html">Sarfeher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10743/index.html">Sarfekete</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14322/index.html">Sarolta</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10766/index.html">Sarpiros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/10807/index.html">Scaliger</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17756/index.html">Semendia</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13995/index.html">Senior</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11503/index.html">Serenyi Bela</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11799/index.html">Silla Bej</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17063/index.html">Simaszoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11917/index.html">Somszoeloe Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/11916/index.html">Somszoeloe Kek</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14011/index.html">Suzi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/26256/index.html">Sylver</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12133/index.html">Szagos Bajnar</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12135/index.html">Szauter Gusztav</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12136/index.html">Szauter Gusztavne</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12137/index.html">Szechenyi Istvan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12139/index.html">Szegedi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12140/index.html">Szegedi Gyoergy</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12141/index.html">Szegedi Zoeld</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12142/index.html">Szegeny Ember Szoeloeje</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12143/index.html">Szegerdske Cervene</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12145/index.html">Szeles Jozsef</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21585/index.html">Szell Kalman</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12147/index.html">Szent Istvan</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12148/index.html">Szent Istvan Kiraly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21586/index.html">Szent Laszlo</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12149/index.html">Szentendre Szepe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12150/index.html">Szep Piros</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15152/index.html">Szeredi</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16315/index.html">Szeszi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12152/index.html">Szilagyi 157</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23209/index.html">Sziren</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12153/index.html">Szoekeszoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12154/index.html">Szoeloeskertek Gyoengye</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12155/index.html">Szoeloeskertek Kiralya</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12157/index.html">Szoeloeskertek Piros</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12158/index.html">Szuecs  2</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12159/index.html">Szuecs  4</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12160/index.html">Szuecs  6</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12161/index.html">Szuecs  7</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12162/index.html">Szuecs  8</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12163/index.html">Szuecs  9</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12164/index.html">Szuecs Jozsefne</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12165/index.html">Szuereti Kiralynoe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12171/index.html">Tablas</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12224/index.html">Tallian Bela</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15924/index.html">Taltos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17374/index.html">Tamara</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16181/index.html">Tarcal 1</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17642/index.html">Taurus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12321/index.html">Teleki   4 A</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12322/index.html">Teleki   4 B</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12323/index.html">Teleki   5 A</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12324/index.html">Teleki   5 C</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12325/index.html">Teleki   6 A</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12326/index.html">Teleki   8 B</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12329/index.html">Teleki   9 A</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27111/index.html">Teleki   9 B</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12332/index.html">Teleki  10 A</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12334/index.html">Teleki  33 A</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12339/index.html">Teleki  68 B</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15155/index.html">Teleki 105 Dd</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12313/index.html">Teleki A</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12314/index.html">Teleki B</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12315/index.html">Teleki C</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12316/index.html">Teleki D</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12317/index.html">Teleki E</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12318/index.html">Teleki F</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12319/index.html">Teleki G</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12320/index.html">Teleki H</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12345/index.html">Teli Granat</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12346/index.html">Teli Muskotaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14323/index.html">Terez</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12414/index.html">Thalloczy Lajos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21600/index.html">Thoekoely Imre</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12433/index.html">Tiborc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21601/index.html">Tibore</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15157/index.html">Tihanyi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12441/index.html">Tihanyi Kek</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12522/index.html">Tisza</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21608/index.html">Tisza Istvan</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12531/index.html">Titan</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12532/index.html">Tizian</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21611/index.html">Todor Feher</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12547/index.html">Toekoes Piros</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/24947/index.html">Toekszoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12548/index.html">Toeroek Mazsoeloe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12549/index.html">Toeszoem Foe</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12551/index.html">Tokaj Gyoengye</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12552/index.html">Tokajhegyalja Gyoengye</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17577/index.html">Toldi</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12560/index.html">Toldi Miklos</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12564/index.html">Tompa Mihaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12565/index.html">Tompa Mihaly (4N)</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12585/index.html">Toth Bela</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12586/index.html">Totika</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12637/index.html">Tresor De La Pannonie</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23212/index.html">Trilla</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21618/index.html">Triomphe De Pecs</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17064/index.html">Tulipiros</a></td>
+            <td>Pink</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15834/index.html">Turan</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12754/index.html">Uestoekoes</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12765/index.html">Uj Voeroes</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12775/index.html">Ungureasca</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/15170/index.html">Urmi Dinka</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12791/index.html">Urreti</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12808/index.html">Utassy Bela</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12810/index.html">Uttoero</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12854/index.html">Vak Bottyan</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27636/index.html">Valentin</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12927/index.html">Vekonyheju</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/12929/index.html">Veltliner Braunweiss</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13007/index.html">Vertes Csillaga</a></td>
+            <td>Red</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13012/index.html">Vervoeroes</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16351/index.html">Viktor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/14318/index.html">Viktoria Gyoengye</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13084/index.html">Villaskacsu</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13087/index.html">Vilmos Ii</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21671/index.html">Vincellerkepezdei Ropogos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/27639/index.html">Vinitor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21673/index.html">Vladar Emil</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13150/index.html">Voeroes Vallas Kek</a></td>
+            <td>Black</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13149/index.html">Voeroesmarty Mihaly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13164/index.html">Voromarthy</a></td>
+            <td>Unknown</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16175/index.html">Vulcanus</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23688/index.html">Weber Ede</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21683/index.html">Wekerle Sandor</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21687/index.html">Wlassics Gyula</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13260/index.html">Wolff Karoly</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13374/index.html">Zala Gyoengye</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/17514/index.html">Zalan</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13401/index.html">Zefir</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21700/index.html">Zelensky Robert</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13423/index.html">Zengoe</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13424/index.html">Zenit</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/23225/index.html">Zeta</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/16038/index.html">Zeusz</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/20376/index.html">Zierfandler Weiss</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13463/index.html">Zoeldfuertue</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13474/index.html">Zrinyi Ilona</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/41996/index.html">Zrinyi Ilona Faux</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/21712/index.html">Zrinyi Miklos</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13475/index.html">Zsigmond Ferenc</a></td>
+            <td>White</td>
+        </tr>
+        
+        <tr>
+            <td><a href="../../grape/13476/index.html">Zsitvai Dinka</a></td>
+            <td>Pink</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

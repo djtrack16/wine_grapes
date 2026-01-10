@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noah - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<div class="grape-page-wrapper">
+    <div class="grape-content-section">
+        <h1>Noah</h1>
+
+        <div class="grape-info">
+            <div class="info-row">
+                <span class="info-label">Berry Color:</span>
+                <span>White</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Country of Origin:</span>
+                
+                    <a href="../../country/usa/index.html">United States of America</a>
+                
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Species:</span>
+                
+                    <span>Vitis Interspecific Crossing</span>
+                
+            </div>
+            
+            
+            
+            
+            
+            <div class="info-row">
+                <span class="info-label">VIVC Page:</span>
+                <a href="https://www.vivc.de/index.php?r=passport%2Fview&amp;id=8573" target="_blank">Click here</a>
+            </div>
+            
+            
+            <div class="info-row">
+                <span class="info-label">Photo credit:</span>
+                <span style="font-size: 0.9em; color: #666;">VIVC</span>
+            </div>
+            
+        </div>
+
+        
+<h2>Parents</h2>
+<ul>
+    
+    <li>
+        <a href="../../grape/12289/index.html">Taylor</a>
+        
+            
+        
+    </li>
+    
+</ul>
+
+    </div>
+
+    <div class="grape-photo-section">
+        <div class="grape-photo-container">
+            
+                <img src="http://www.vivc.de/gbvp/13926k.jpg" alt="Photo of Noah" class="grape-photo">
+            
+        </div>
+    </div>
+</div>
+
+
+<h2>Children</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Child</th>
+            <th>Other Parent</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td>
+                <a href="../../grape/93/index.html">Agathe</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/863/index.html">Baco 10-A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19536/index.html">Baco 10-B</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19530/index.html">Baco 15-A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4183/index.html">Folle Blanche</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19537/index.html">Baco 16-B</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19538/index.html">Baco 18-B</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19531/index.html">Baco 20-A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4183/index.html">Folle Blanche</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19532/index.html">Baco 23-A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4183/index.html">Folle Blanche</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19533/index.html">Baco 35-A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11480/index.html">Semillon</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19534/index.html">Baco 44-A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/1005/index.html">Baroque</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19535/index.html">Baco 45-A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/1005/index.html">Baroque</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/868/index.html">Baco Blanc</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4183/index.html">Folle Blanche</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/869/index.html">Baco Chasselas</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19742/index.html">Bertille Seyve   129</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1199/index.html">Bertille Seyve   133</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19743/index.html">Bertille Seyve   135</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19744/index.html">Bertille Seyve   138</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19745/index.html">Bertille Seyve   236</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19731/index.html">Bertille Seyve   239</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1211/index.html">Bertille Seyve   277</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19736/index.html">Bertille Seyve   279</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19737/index.html">Bertille Seyve   280</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1212/index.html">Bertille Seyve   284</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19738/index.html">Bertille Seyve   296</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19739/index.html">Bertille Seyve   304</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19740/index.html">Bertille Seyve   306</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19741/index.html">Bertille Seyve   310</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18979/index.html">Bertille Seyve   312</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8612/index.html">Nouveau Bayard</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18976/index.html">Bertille Seyve   316</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8612/index.html">Nouveau Bayard</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1213/index.html">Bertille Seyve   318</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8612/index.html">Nouveau Bayard</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1220/index.html">Bertille Seyve   450</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1222/index.html">Bertille Seyve   453</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19750/index.html">Bertille Seyve   459</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1223/index.html">Bertille Seyve   460</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19732/index.html">Bertille Seyve   473</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19864/index.html">Caille 221</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8907/index.html">Panache Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19865/index.html">Caille 224</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8907/index.html">Panache Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19866/index.html">Caille 235</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8907/index.html">Panache Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19867/index.html">Caille 239</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8907/index.html">Panache Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19868/index.html">Caille 244</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8907/index.html">Panache Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19869/index.html">Caille 247</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8907/index.html">Panache Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19959/index.html">Castel   109</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19960/index.html">Castel   113</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19961/index.html">Castel   114</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2160/index.html">Castel   115</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2161/index.html">Castel   121</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19962/index.html">Castel   225</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2177/index.html">Castel   227</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2180/index.html">Castel   229</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5356/index.html">Herbemont</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19963/index.html">Castel   703</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19901/index.html">Castel  1405</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12383/index.html">Terret Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19902/index.html">Castel  1414</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12383/index.html">Terret Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19918/index.html">Castel  1802</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2210/index.html">Castel  3917</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2213/index.html">Castel  4137</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19898/index.html">Castel  4228</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2214/index.html">Castel  4237</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19899/index.html">Castel  4832</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2227/index.html">Castel  6021</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19897/index.html">Castel  6228</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/42205/index.html">Alicante</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2231/index.html">Castel  6518</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12628/index.html">Trebbiano Toscano</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19915/index.html">Castel  6525</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12628/index.html">Trebbiano Toscano</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19900/index.html">Castel 15203</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/27910/index.html">Imperial</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/esp/index.html" style="color: #666;">Spain</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2278/index.html">Castel 15204</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/27910/index.html">Imperial</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/esp/index.html" style="color: #666;">Spain</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19964/index.html">Castel 15345</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5627/index.html">Jacquez</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2362/index.html">Cazalet</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/19541/index.html">Baco 45- 8</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4310/index.html">Gaillard   2</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14949/index.html">Joussely 1</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5466/index.html">Hybride Franc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20051/index.html">Jurie   330 A</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5865/index.html">Jurie   330 B</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5867/index.html">Jurie   340 B</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/16744/index.html">Seibel   645</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17967/index.html">Seibel   653</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17968/index.html">Seibel   654</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17969/index.html">Seibel   656</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/17856/index.html">Seibel   113</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10953/index.html">Seibel   658</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18096/index.html">Seibel   842</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18097/index.html">Seibel   843</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18098/index.html">Seibel   844</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18099/index.html">Seibel   845</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18100/index.html">Seibel   846</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18101/index.html">Seibel   847</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10974/index.html">Seibel   848</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18102/index.html">Seibel   849</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14593/index.html">Seibel   850</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18103/index.html">Seibel   851</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18104/index.html">Seibel   852</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18105/index.html">Seibel   853</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18106/index.html">Seibel   854</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18107/index.html">Seibel   855</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18108/index.html">Seibel   856</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18109/index.html">Seibel   857</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18110/index.html">Seibel   858</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18111/index.html">Seibel   859</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18112/index.html">Seibel   860</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18113/index.html">Seibel   861</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10975/index.html">Seibel   867</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18219/index.html">Seibel  2632</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10859/index.html">Seibel     1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18236/index.html">Seibel  2658</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

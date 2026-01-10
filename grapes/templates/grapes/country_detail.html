@@ -1,0 +1,65 @@
+{% extends 'grapes/base.html' %}
+{% load grapes_filters %}
+
+{% block title %}{{ country.name|title_country }} - Native Wine Grapes{% endblock %}
+
+{% block content %}
+<h1>{{ country.name|title_country }}</h1>
+
+<div class="country-info">
+    <div class="info-row">
+        <span class="info-label">Total Native Grapes:</span>
+        <span>{{ total_grapes }}</span>
+    </div>
+    
+    {% if color_counts %}
+    <div class="info-row color-row">
+        <span class="info-label">Grapes by Color:</span>
+        <table class="color-table">
+            <thead>
+                <tr>
+                    <th>Berry Color</th>
+                    <th>Total Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for color, count in color_counts.items %}
+                <tr>
+                    <td>{{ color }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
+    <div class="info-row">
+        <span class="info-label">VIVC Search:</span>
+        <a href="{{ country.vivc_search_url }}" target="_blank">View on VIVC</a>
+    </div>
+</div>
+
+<h2>Native Grapes</h2>
+{% if grapes %}
+<table>
+    <thead>
+        <tr>
+            <th>Grape Name</th>
+            <th>Berry Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grape in grapes %}
+        <tr>
+            <td><a href="{% if grape.url %}{{ grape.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=grape.vivc_id %}{% endif %}">{{ grape.name }}</a></td>
+            <td>{{ grape.berry_color }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No grapes found for this country.</p>
+{% endif %}
+{% endblock %}
+

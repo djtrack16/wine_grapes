@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riesling Weiss - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<div class="grape-page-wrapper">
+    <div class="grape-content-section">
+        <h1>Riesling Weiss</h1>
+
+        <div class="grape-info">
+            <div class="info-row">
+                <span class="info-label">Berry Color:</span>
+                <span>White</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Country of Origin:</span>
+                
+                    <a href="../../country/deu/index.html">Germany</a>
+                
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Species:</span>
+                
+                    <span>Vitis Vinifera Linné Subsp. Sativa (De Candolle) Hegi</span>
+                
+            </div>
+            
+            
+            
+            
+            
+            <div class="info-row">
+                <span class="info-label">VIVC Page:</span>
+                <a href="https://www.vivc.de/index.php?r=passport%2Fview&amp;id=10077" target="_blank">Click here</a>
+            </div>
+            
+            
+            <div class="info-row">
+                <span class="info-label">Photo credit:</span>
+                <span style="font-size: 0.9em; color: #666;">VIVC</span>
+            </div>
+            
+        </div>
+
+        
+<h2>Parents</h2>
+<p>No parents found.</p>
+
+    </div>
+
+    <div class="grape-photo-section">
+        <div class="grape-photo-container">
+            
+                <img src="http://www.vivc.de/gbvp/4787k.jpg" alt="Photo of Riesling Weiss" class="grape-photo">
+            
+        </div>
+    </div>
+</div>
+
+
+<h2>Children</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Child</th>
+            <th>Other Parent</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td>
+                <a href="../../grape/13987/index.html">Alb De Yaloven</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/mda/index.html" style="color: #666;">Moldova</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/3437/index.html">Dattier De St. Vallier</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22801/index.html">Alzey  2765</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11805/index.html">Silvaner Gruen</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/23092/index.html">Alzey  7672</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7062/index.html">Madeleine Angevine</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22804/index.html">Alzey 10506</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12609/index.html">Gewuerztraminer</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20649/index.html">Alzey 10859</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4378/index.html">Gamay Precoce Noir</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/23939/index.html">Aravelle</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/2359/index.html">Cayuga White</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/605/index.html">Aris</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/778/index.html">Augustriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7249/index.html">Malingre Precoce</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/781/index.html">Aurelius</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/cze/index.html" style="color: #666;">Czechia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8501/index.html">Neuburger</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1609/index.html">Bouquetriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8252/index.html">Muscat St. Laurent</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2065/index.html">Cantaro</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/3317/index.html">Dalkauer</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7062/index.html">Madeleine Angevine</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/3375/index.html">Dalmasso 12- 40</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13217/index.html">Welschriesling</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/3544/index.html">Diamantmuskat</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8252/index.html">Muscat St. Laurent</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/23901/index.html">Donauriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/16545/index.html">Freiburg  589-  54</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/3680/index.html">Dr. Deckerrebe</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4674/index.html">Geisenheim   157</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/3823/index.html">Edelmuskat</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8252/index.html">Muscat St. Laurent</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/12651/index.html">Elbling Blau</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/3867/index.html">Elbriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/3865/index.html">Elbling Weiss</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26823/index.html">Elmer Swenson  23- 33</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26822/index.html">Riparia South Haven</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/21073/index.html">Feinmuskat</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8252/index.html">Muscat St. Laurent</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4134/index.html">Firnriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8252/index.html">Muscat St. Laurent</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15522/index.html">Floricica</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/mda/index.html" style="color: #666;">Moldova</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/3437/index.html">Dattier De St. Vallier</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4198/index.html">Forta</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17365/index.html">Freiburg    3- 29</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12609/index.html">Gewuerztraminer</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/27201/index.html">Freiburg  379- 51</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9275/index.html">Pinot Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22678/index.html">Freiburg  379- 52</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9275/index.html">Pinot Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17366/index.html">Freiburg  391- 52</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9275/index.html">Pinot Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26570/index.html">Freiburg  523-  52</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9275/index.html">Pinot Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4271/index.html">Fruehriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8246/index.html">Muscat Precoce De Saumur</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4513/index.html">Geilweilerhof F.S. 4-208- 13</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4552/index.html">Geilweilerhof Koe- 48- 43</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4608/index.html">Geilweilerhof Vi. 5861</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4554/index.html">Geilweilerhof Koe- 49- 81</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4575/index.html">Geilweilerhof Koe- 68-107</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4536/index.html">Geilweilerhof 31-  9- 17</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4577/index.html">Geilweilerhof Koe- 70-  4</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4578/index.html">Geilweilerhof Koe- 70- 96</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4580/index.html">Geilweilerhof R.S.  83- 13</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4591/index.html">Geilweilerhof R.S. 149-  7</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4593/index.html">Geilweilerhof R.S. 276-  2</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4594/index.html">Geilweilerhof R.S. 285- 31</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20671/index.html">Geilweilerhof Sbl. 2- 19- 43</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/20680/index.html">Geilweilerhof Vi.   331</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20672/index.html">Geilweilerhof Sbl. 2- 20- 66</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/20680/index.html">Geilweilerhof Vi.   331</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4597/index.html">Geilweilerhof V.   348</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9280/index.html">Pinot Precoce Noir</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4672/index.html">Geisenheim   154</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11909/index.html">Solonis</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19381/index.html">Geisenheim   156</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11909/index.html">Solonis</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19271/index.html">Geisenheim   195</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4716/index.html">Geisenheim   643- 10</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/19035/index.html">Freiburg  148- 39</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14306/index.html">Geisenheim   643- 20</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/19035/index.html">Freiburg  148- 39</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14737/index.html">Geisenheim   649</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/3482/index.html">Deckrot</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/25499/index.html">Geisenheim  7743</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26398/index.html">Geisenheim  6495-  1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/25501/index.html">Geisenheim  7743-  5</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26398/index.html">Geisenheim  6495-  1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26397/index.html">Geisenheim  7743- 12</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26398/index.html">Geisenheim  6495-  1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4884/index.html">Goldriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7249/index.html">Malingre Precoce</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5909/index.html">Gyoengyrizling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9166/index.html">Csaba Gyoengye</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5410/index.html">Hoelder</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9275/index.html">Pinot Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17127/index.html">Johanniter</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/16545/index.html">Freiburg  589-  54</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8203/index.html">Kaisermuskat</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8252/index.html">Muscat St. Laurent</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15820/index.html">Kamchia</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7540/index.html">Mavrud Varnenski</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/6123/index.html">Kerner</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/6331/index.html">Kocsis Zsuzsa</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11805/index.html">Silvaner Gruen</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26264/index.html">Kozma  8- 3/ 6</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26263/index.html">Kozma  1- 1-840</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26265/index.html">Kozma  8- 3/ 9</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26263/index.html">Kozma  1- 1-840</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26266/index.html">Kozma  8- 3/15</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26263/index.html">Kozma  1- 1-840</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26267/index.html">Kozma 21- 5-  4/ 3</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/26263/index.html">Kozma  1- 1-840</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/6910/index.html">Louisette</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7249/index.html">Malingre Precoce</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/7360/index.html">Manzoni Bianco</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9272/index.html">Pinot Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/7408/index.html">Marienriesling</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8252/index.html">Muscat St. Laurent</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/4632/index.html">Michelsrebe</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/23777/index.html">Morava</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/22603/index.html">Sremski Karlovci 86  2-293</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8141/index.html">Mueller Thurgau Weiss</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7068/index.html">Madeleine Royale</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8156/index.html">Multaner</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11805/index.html">Silvaner Gruen</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8365/index.html">Naumburg  231- 52</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4852/index.html">Goethe   1</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8388/index.html">Naumburg 5016- 37</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13515/index.html">Vitis Cinerea Engelmann Var. Cinerea</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/6083/index.html">Negritienok</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/rus/index.html" style="color: #666;">Russia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11545/index.html">Severnyi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/rus/index.html" style="color: #666;">Russia</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8575/index.html">Noblessa</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8796/index.html">Oraniensteiner</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11805/index.html">Silvaner Gruen</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8824/index.html">Osiris</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8141/index.html">Mueller Thurgau Weiss</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8831/index.html">Osteiner</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11805/index.html">Silvaner Gruen</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/23765/index.html">Panonia</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/22603/index.html">Sremski Karlovci 86  2-293</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15983/index.html">Quanyu</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/chn/index.html" style="color: #666;">China</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8226/index.html">Muscat Hamburg</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/gbr/index.html" style="color: #666;">United Kingdom</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/24526/index.html">Riesel</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/che/index.html" style="color: #666;">Switzerland</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10073/index.html">Rieslaner</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11805/index.html">Silvaner Gruen</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aut/index.html" style="color: #666;">Austria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14074/index.html">Rieslina</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arg/index.html" style="color: #666;">Argentina</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/19052/index.html">Gargiulo      377</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arg/index.html" style="color: #666;">Argentina</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10075/index.html">Riesling Bulgarski</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5716/index.html">Dimyat</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/16441/index.html">Riesling Magaracha</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10235/index.html">Roucaneuf</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/16978/index.html">Risus</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10235/index.html">Roucaneuf</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10230/index.html">Rotberger</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10381/index.html">Ruling</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9275/index.html">Pinot Gris</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20452/index.html">Sauvignon Cita</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10790/index.html">Sauvignon Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20449/index.html">Sauvignon Gryn</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10790/index.html">Sauvignon Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20445/index.html">Sauvignon Sary</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10790/index.html">Sauvignon Blanc</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10818/index.html">Scheurebe</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/11783/index.html">Siegfriedrebe</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4608/index.html">Geilweilerhof Vi. 5861</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17630/index.html">Sremski Karlovci 90  2-  1</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/25317/index.html">Sremski Karlovci 90  2-145</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22601/index.html">Sremski Karlovci 90  2-207</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/22603/index.html">Sremski Karlovci 86  2-293</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/srb/index.html" style="color: #666;">Serbia</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/25508/index.html">Vineland Dwarf Grapevine 001</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22572/index.html">Vrh    6-  2- 82</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/22565/index.html">Vrh  12-  4- 80</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15485/index.html">Weinsberg S   186</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7249/index.html">Malingre Precoce</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15486/index.html">Weinsberg S   195</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/7249/index.html">Malingre Precoce</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/fra/index.html" style="color: #666;">France</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/20380/index.html">Weinsberg S   503</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15491/index.html">Weinsberg S   509</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15492/index.html">Weinsberg S   516</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15493/index.html">Weinsberg S   523</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15494/index.html">Weinsberg S 2630</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/13258/index.html">Witberger</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10823/index.html">Schiava Grossa</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ita/index.html" style="color: #666;">Italy</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katta Kurgan - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<div class="grape-page-wrapper">
+    <div class="grape-content-section">
+        <h1>Katta Kurgan</h1>
+
+        <div class="grape-info">
+            <div class="info-row">
+                <span class="info-label">Berry Color:</span>
+                <span>White</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Country of Origin:</span>
+                
+                    <a href="../../country/uzb/index.html">Uzbekistan</a>
+                
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Species:</span>
+                
+                    <span>Vitis Vinifera Linné Subsp. Sativa (De Candolle) Hegi</span>
+                
+            </div>
+            
+            
+            
+            
+            
+            <div class="info-row">
+                <span class="info-label">VIVC Page:</span>
+                <a href="https://www.vivc.de/index.php?r=passport%2Fview&amp;id=6040" target="_blank">Click here</a>
+            </div>
+            
+            
+            <div class="info-row">
+                <span class="info-label">Photo credit:</span>
+                <span style="font-size: 0.9em; color: #666;">VIVC</span>
+            </div>
+            
+        </div>
+
+        
+<h2>Parents</h2>
+<p>No parents found.</p>
+
+    </div>
+
+    <div class="grape-photo-section">
+        <div class="grape-photo-container">
+            
+                <img src="http://www.vivc.de/gbvp/11926k.jpg" alt="Photo of Katta Kurgan" class="grape-photo">
+            
+        </div>
+    </div>
+</div>
+
+
+<h2>Children</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Child</th>
+            <th>Other Parent</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5746/index.html">Aigezard</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arm/index.html" style="color: #666;">Armenia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8942/index.html">Parkent</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5747/index.html">Ala Too</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/sun/index.html" style="color: #666;">Ussr</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5755/index.html">Arevshat</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arm/index.html" style="color: #666;">Armenia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8942/index.html">Parkent</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22698/index.html">Atlant</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/22697/index.html">Magarach     3- 68- 48</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/21899/index.html">Azeri</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aze/index.html" style="color: #666;">Azerbaijan</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/6249/index.html">Tebrizi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aze/index.html" style="color: #666;">Azerbaijan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22452/index.html">Chalcedon</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/2565/index.html">Chimgan</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8241/index.html">Muscat Of Alexandria</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/grc/index.html" style="color: #666;">Greece</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22448/index.html">Chryzopras</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/3698/index.html">Druzhba</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/kaz/index.html" style="color: #666;">Kazakhstan</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/3616/index.html">Dodrelyabi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/geo/index.html" style="color: #666;">Georgia</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5150/index.html">Guzal Kara</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/3616/index.html">Dodrelyabi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/geo/index.html" style="color: #666;">Georgia</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15886/index.html">Hakunan</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/jpn/index.html" style="color: #666;">Japan</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/14085/index.html">Kaiji</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/jpn/index.html" style="color: #666;">Japan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22461/index.html">Helios</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9168/index.html">Perlette</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22450/index.html">Heliotrop</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22453/index.html">Jantar</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9168/index.html">Perlette</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/5955/index.html">Kandahari Safid</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/afg/index.html" style="color: #666;">Afghanistan</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22449/index.html">Karneol</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/21290/index.html">Katta Kurgan X Hibrid Besemeni</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/hun/index.html" style="color: #666;">Hungary</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/6279/index.html">Kishmish Zarafshan</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/1080/index.html">Bedona</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17530/index.html">Kk/Pe 15/42</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/cze/index.html" style="color: #666;">Czechia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9168/index.html">Perlette</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17783/index.html">Kobzar</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19826/index.html">Kourgan Rose</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/jpn/index.html" style="color: #666;">Japan</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/15857/index.html">Sekirei 4</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/jpn/index.html" style="color: #666;">Japan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22460/index.html">Luna</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9168/index.html">Perlette</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18985/index.html">Magarach   10- 51-   1</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/6249/index.html">Tebrizi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aze/index.html" style="color: #666;">Azerbaijan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22699/index.html">Magarach   40- 68- 11P</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/11686/index.html">Shabash Krupnoyagodnyi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22459/index.html">Mars</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/7436/index.html">Marshalskii</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/mda/index.html" style="color: #666;">Moldova</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9567/index.html">Pobeda</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/7856/index.html">Mirnyj</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9567/index.html">Pobeda</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15871/index.html">Morgen Schon</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/jpn/index.html" style="color: #666;">Japan</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/14085/index.html">Kaiji</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/jpn/index.html" style="color: #666;">Japan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/8295/index.html">Muskat Usbekistanskii</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8241/index.html">Muscat Of Alexandria</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/grc/index.html" style="color: #666;">Greece</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14068/index.html">Parvana</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arm/index.html" style="color: #666;">Armenia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/6258/index.html">Kishmish Khishrau</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22451/index.html">Pastel</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/16524/index.html">Polivitis Magaracha (3N)</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/ukr/index.html" style="color: #666;">Ukraine</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10114/index.html">Rizamat</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8942/index.html">Parkent</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/11829/index.html">Siranush</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arm/index.html" style="color: #666;">Armenia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/6270/index.html">Kishmish Rozovyi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aze/index.html" style="color: #666;">Azerbaijan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22447/index.html">Smaragd</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/15642/index.html">Tagui</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arm/index.html" style="color: #666;">Armenia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/6270/index.html">Kishmish Rozovyi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aze/index.html" style="color: #666;">Azerbaijan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/27755/index.html">Varde</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/arm/index.html" style="color: #666;">Armenia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/9567/index.html">Pobeda</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/12920/index.html">Vatan</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10432/index.html">Sabalkanskoi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/sun/index.html" style="color: #666;">Ussr</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/22458/index.html">Venusa</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/svk/index.html" style="color: #666;">Slovakia</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/5727/index.html">Nedeltcheff Magvatlana</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/bgr/index.html" style="color: #666;">Bulgaria</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/13154/index.html">Volgo Don</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10432/index.html">Sabalkanskoi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/sun/index.html" style="color: #666;">Ussr</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/26564/index.html">Zhuravel Iv-20-17</a>
+                
+                    
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/mda/index.html" style="color: #666;">Moldova</a>)</span>
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/6270/index.html">Kishmish Rozovyi</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/aze/index.html" style="color: #666;">Azerbaijan</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

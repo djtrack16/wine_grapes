@@ -1,0 +1,32 @@
+{% extends 'grapes/base.html' %}
+{% load grapes_filters %}
+
+{% block title %}Countries - Native Wine Grapes{% endblock %}
+
+{% block content %}
+<h1>Countries with Native Wine Grapes</h1>
+
+<p>Browse native wine grapes by country of origin. Data sourced from <a href="https://www.vivc.de" target="_blank">VIVC</a>.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Native Grape Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for country in countries %}
+        <tr>
+            <td><a href="{% if country.url %}{{ country.url }}{% else %}{% url 'grapes:country_detail' iso_code=country.iso_code %}{% endif %}">{{ country.name|title_country }}</a></td>
+            <td>{% if country.grape_count %}{{ country.grape_count }}{% else %}{% if country.native_grape_count %}{{ country.native_grape_count }}{% else %}0{% endif %}{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No countries found. Run the import command to load data.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

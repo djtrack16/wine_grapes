@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terras 20 - Native Wine Grapes</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .grape-page-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grape-info, .country-info {
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            vertical-align: top;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .info-row.color-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: auto;
+        }
+        .color-table {
+            width: auto;
+            margin: 0;
+            display: inline-block;
+        }
+        .color-table th,
+        .color-table td {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .grape-photo-section {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .grape-photo-container {
+            pointer-events: auto;
+        }
+        .grape-photo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder {
+            width: 400px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            color: #999;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .grape-photo-placeholder span {
+            padding: 20px;
+        }
+        
+        /* Adjust photo size based on available space */
+        @media (min-width: 1200px) {
+            .grape-photo {
+                max-width: 500px;
+                max-height: 70vh;
+            }
+            .grape-photo-placeholder {
+                width: 500px;
+                height: 375px;
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .grape-photo {
+                max-width: 400px;
+                max-height: 60vh;
+            }
+            .grape-photo-placeholder {
+                width: 400px;
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        
+        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Vertical: will be set dynamically via JavaScript */
+        @media (min-width: 768px) {
+            .grape-photo-section {
+                /* Horizontal: start at 150px (berry color), then add half of remaining space */
+                left: calc(150px + (100% - 150px) / 2);
+                /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* For smaller screens, position below content */
+        @media (max-width: 767px) {
+            .grape-photo-section {
+                position: static;
+                margin: 20px auto;
+                text-align: center;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../../index.html">Native Wine Grapes</a></h1>
+        </div>
+        <nav>
+            <div class="container">
+                <a href="../../index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            
+<div class="grape-page-wrapper">
+    <div class="grape-content-section">
+        <h1>Terras 20</h1>
+
+        <div class="grape-info">
+            <div class="info-row">
+                <span class="info-label">Berry Color:</span>
+                <span>Black</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Country of Origin:</span>
+                
+                    <a href="../../country/fra/index.html">France</a>
+                
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Species:</span>
+                
+                    <span>Vitis Interspecific Crossing</span>
+                
+            </div>
+            
+            
+            
+            
+            <div class="info-row">
+                <span class="info-label">Breeder:</span>
+                <span>Private breeder</span>
+            </div>
+            
+            
+            <div class="info-row">
+                <span class="info-label">VIVC Page:</span>
+                <a href="https://www.vivc.de/index.php?r=passport%2Fview&amp;id=12378" target="_blank">Click here</a>
+            </div>
+            
+            
+            <div class="info-row">
+                <span class="info-label">Photo credit:</span>
+                <span style="font-size: 0.9em; color: #666;">VIVC</span>
+            </div>
+            
+        </div>
+
+        
+<h2>Parents</h2>
+<ul>
+    
+    <li>
+        <a href="../../grape/10389/index.html">Rupestris Du Lot</a>
+        
+            
+        
+    </li>
+    
+</ul>
+
+    </div>
+
+    <div class="grape-photo-section">
+        <div class="grape-photo-container">
+            
+                <img src="http://www.vivc.de/gbvp/14165k.jpg" alt="Photo of Terras 20" class="grape-photo">
+            
+        </div>
+    </div>
+</div>
+
+
+<h2>Children</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Child</th>
+            <th>Other Parent</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19552/index.html">Bertille Seyve    79</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/14968/index.html">Lacoste</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19555/index.html">Bertille Seyve   119</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/1347/index.html">Bienvenu</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/19808/index.html">Caille  75</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/9537/index.html">Plant Du Metayer</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/17839/index.html">Seibel    52</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17895/index.html">Seibel   414</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17896/index.html">Seibel   415</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17897/index.html">Seibel   416</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10933/index.html">Seibel   418</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10945/index.html">Seibel   462</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10977/index.html">Seibel  1001</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/16727/index.html">Seibel   672</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17975/index.html">Seibel   673</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17976/index.html">Seibel   674</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17977/index.html">Seibel   675</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17978/index.html">Seibel   676</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17979/index.html">Seibel   677</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17980/index.html">Seibel   678</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17981/index.html">Seibel   679</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17982/index.html">Seibel   680</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17983/index.html">Seibel   681</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/10955/index.html">Seibel   682</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17984/index.html">Seibel   683</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17985/index.html">Seibel   684</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17986/index.html">Seibel   685</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17987/index.html">Seibel   686</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17988/index.html">Seibel   687</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/17989/index.html">Seibel   688</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18043/index.html">Seibel   737</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18045/index.html">Seibel   738</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18048/index.html">Seibel   739</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18065/index.html">Seibel   763</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/1393/index.html">Black Defiance</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18066/index.html">Seibel   766</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18067/index.html">Seibel   767</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18068/index.html">Seibel   768</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18069/index.html">Seibel   769</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18070/index.html">Seibel   770</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18071/index.html">Seibel   771</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18072/index.html">Seibel   772</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18073/index.html">Seibel   773</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18074/index.html">Seibel   774</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18075/index.html">Seibel   775</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18076/index.html">Seibel   776</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18077/index.html">Seibel   777</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18078/index.html">Seibel   778</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18049/index.html">Seibel   836</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18094/index.html">Seibel   839</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18095/index.html">Seibel   840</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18173/index.html">Seibel  2533</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18174/index.html">Seibel  2534</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18175/index.html">Seibel  2536</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18176/index.html">Seibel  2538</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18213/index.html">Seibel  2625</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18218/index.html">Seibel  2631</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18220/index.html">Seibel  2634</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18254/index.html">Seibel  2679</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18259/index.html">Seibel  2688</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18262/index.html">Seibel  2694</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18318/index.html">Seibel  2772</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18319/index.html">Seibel  2773</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/1393/index.html">Black Defiance</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18348/index.html">Seibel  2824</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18349/index.html">Seibel  2825</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18363/index.html">Seibel  2850</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18367/index.html">Seibel  2861</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18368/index.html">Seibel  2862</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18369/index.html">Seibel  2868</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18370/index.html">Seibel  2869</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18371/index.html">Seibel  2870</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/4393/index.html">Ganzin   1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18372/index.html">Seibel  2871</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18373/index.html">Seibel  2872</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18374/index.html">Seibel  2873</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18375/index.html">Seibel  2874</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18376/index.html">Seibel  2875</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18377/index.html">Seibel  2876</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18378/index.html">Seibel  2877</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18379/index.html">Seibel  2878</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/16747/index.html">Seibel  2879</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18405/index.html">Seibel  3018</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18406/index.html">Seibel  3019</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18414/index.html">Seibel  3030</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10859/index.html">Seibel     1</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18430/index.html">Seibel  3060</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/8838/index.html">Othello</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/can/index.html" style="color: #666;">Canada</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18434/index.html">Seibel  3064</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10864/index.html">Seibel    14</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18474/index.html">Seibel  4014</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14516/index.html">Seibel  4015</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18538/index.html">Seibel  4118</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/17839/index.html">Seibel    52</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18539/index.html">Seibel  4119</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/17839/index.html">Seibel    52</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18540/index.html">Seibel  4120</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/17839/index.html">Seibel    52</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18541/index.html">Seibel  4122</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/17839/index.html">Seibel    52</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18561/index.html">Seibel  4145</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18562/index.html">Seibel  4146</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18563/index.html">Seibel  4147</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18564/index.html">Seibel  4148</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18582/index.html">Seibel  4169</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18583/index.html">Seibel  4171</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18608/index.html">Seibel  4225</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18686/index.html">Seibel  4363</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18711/index.html">Seibel  4463</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/11033/index.html">Seibel  4464</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18733/index.html">Seibel  4492</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18734/index.html">Seibel  4493</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18741/index.html">Seibel  4502</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18757/index.html">Seibel  4537</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/10884/index.html">Seibel    82</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18769/index.html">Seibel  4559</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18770/index.html">Seibel  4560</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18771/index.html">Seibel  4561</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18787/index.html">Seibel  4597</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18789/index.html">Seibel  4606</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18790/index.html">Seibel  4607</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18801/index.html">Seibel  4775</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18806/index.html">Seibel  4799</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18811/index.html">Seibel  4829</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/13141/index.html">Vivarais</a>
+                    
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/18837/index.html">Seibel  5046</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <a href="../../grape/12656/index.html">Triumph</a>
+                    
+                        
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="../../country/usa/index.html" style="color: #666;">United States of America</a>)</span>
+                        
+                    
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <a href="../../grape/14619/index.html">Seibel  5901</a>
+                
+                    
+                
+            </td>
+            <td>
+                
+                    <span>Unknown</span>
+                
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

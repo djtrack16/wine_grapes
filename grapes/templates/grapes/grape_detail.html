@@ -1,0 +1,186 @@
+{% extends 'grapes/base.html' %}
+{% load grapes_filters %}
+
+{% block title %}{{ grape.name }} - Native Wine Grapes{% endblock %}
+
+{% block content %}
+<div class="grape-page-wrapper">
+    <div class="grape-content-section">
+        <h1>{{ grape.name }}</h1>
+
+        <div class="grape-info">
+            <div class="info-row">
+                <span class="info-label">Berry Color:</span>
+                <span>{{ grape.berry_color }}</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Country of Origin:</span>
+                {% if grape.country_of_origin %}
+                    <a href="{% if grape.country_of_origin.url %}{{ grape.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=grape.country_of_origin.iso_code %}{% endif %}">{{ grape.country_of_origin.name|title_country }}</a>
+                {% else %}
+                    <span>Not specified</span>
+                {% endif %}
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Species:</span>
+                {% if grape.species %}
+                    <span>{{ grape.species }}</span>
+                {% else %}
+                    <span>Not specified</span>
+                {% endif %}
+            </div>
+            
+            {% if grape.year_of_crossing %}
+            <div class="info-row">
+                <span class="info-label">Year of Crossing:</span>
+                <span>{{ grape.year_of_crossing }}</span>
+            </div>
+            {% endif %}
+            
+            {% if grape.breeder %}
+            <div class="info-row">
+                <span class="info-label">Breeder:</span>
+                <span>{{ grape.breeder }}</span>
+            </div>
+            {% endif %}
+            
+            <div class="info-row">
+                <span class="info-label">VIVC Page:</span>
+                <a href="{{ grape.vivc_url }}" target="_blank">Click here</a>
+            </div>
+            
+            {% if first_photo %}
+            <div class="info-row">
+                <span class="info-label">Photo credit:</span>
+                <span style="font-size: 0.9em; color: #666;">VIVC</span>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if parents %}
+<h2>Parents</h2>
+<ul>
+    {% for parent in parents %}
+    <li>
+        <a href="{% if parent.url %}{{ parent.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=parent.vivc_id %}{% endif %}">{{ parent.name }}</a>
+        {% if parent.country_of_origin %}
+            {% if not grape.country_of_origin or parent.country_of_origin.iso_code != grape.country_of_origin.iso_code %}
+                <span style="color: #666; font-size: 0.9em;"> (<a href="{% if parent.country_of_origin.url %}{{ parent.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=parent.country_of_origin.iso_code %}{% endif %}" style="color: #666;">{{ parent.country_of_origin.name|title_country }}</a>)</span>
+            {% endif %}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<h2>Parents</h2>
+<p>No parents found.</p>
+{% endif %}
+    </div>
+
+    <div class="grape-photo-section">
+        <div class="grape-photo-container">
+            {% if first_photo %}
+                <img src="{{ first_photo.url }}" alt="Photo of {{ grape.name }}" class="grape-photo">
+            {% else %}
+                <div class="grape-photo-placeholder">
+                    <span>No Photo Found</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if children_data %}
+<h2>Children</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Child</th>
+            <th>Other Parent</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in children_data %}
+        <tr>
+            <td>
+                <a href="{% if item.child.url %}{{ item.child.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=item.child.vivc_id %}{% endif %}">{{ item.child.name }}</a>
+                {% if item.child.country_of_origin %}
+                    {% if not grape.country_of_origin or item.child.country_of_origin.iso_code != grape.country_of_origin.iso_code %}
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="{% if item.child.country_of_origin.url %}{{ item.child.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=item.child.country_of_origin.iso_code %}{% endif %}" style="color: #666;">{{ item.child.country_of_origin.name|title_country }}</a>)</span>
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if item.other_parent %}
+                    <a href="{% if item.other_parent.url %}{{ item.other_parent.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=item.other_parent.vivc_id %}{% endif %}">{{ item.other_parent.name }}</a>
+                    {% if item.other_parent.country_of_origin %}
+                        {% if not grape.country_of_origin or item.other_parent.country_of_origin.iso_code != grape.country_of_origin.iso_code %}
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="{% if item.other_parent.country_of_origin.url %}{{ item.other_parent.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=item.other_parent.country_of_origin.iso_code %}{% endif %}" style="color: #666;">{{ item.other_parent.country_of_origin.name|title_country }}</a>)</span>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <span>Unknown</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h2>Children</h2>
+<p>No children found.</p>
+{% endif %}
+{% endblock %}
+
+<script>
+  function positionGrapePhoto() {
+    const photoSection = document.querySelector('.grape-photo-section');
+    if (!photoSection) return;
+    
+    // Find the "Children" heading (the h2 that contains "Children" text)
+    const allHeadings = document.querySelectorAll('h2');
+    let childrenHeading = null;
+    
+    for (let heading of allHeadings) {
+      if (heading.textContent.trim().toLowerCase().includes('children')) {
+        childrenHeading = heading;
+        break;
+      }
+    }
+    
+    if (childrenHeading) {
+      const pageTop = 0;
+      const childrenRect = childrenHeading.getBoundingClientRect();
+      const childrenTop = childrenRect.top;
+      
+      // Calculate midpoint between top of page and top of Children section
+      const midpoint = (pageTop + childrenTop) / 2;
+      
+      // Get the wrapper's position to calculate relative positioning
+      const wrapper = document.querySelector('.grape-page-wrapper');
+      if (wrapper) {
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const relativeTop = midpoint - wrapperRect.top;
+        
+        // Position the photo at the midpoint, accounting for its own height
+        photoSection.style.top = (relativeTop - photoSection.offsetHeight / 2) + 'px';
+      }
+    }
+  }
+  
+  // Position on page load
+  document.addEventListener('DOMContentLoaded', positionGrapePhoto);
+  
+  // Reposition on window resize
+  let resizeTimeout;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(positionGrapePhoto, 100);
+  });
+  
+  // Also position after a short delay to ensure all content is loaded
+  setTimeout(positionGrapePhoto, 200);
+</script>
+
