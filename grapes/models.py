@@ -74,7 +74,7 @@ class GrapePhoto(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
 
   class Meta:
-    ordering = ['-photo_type', 'created_at']  # Prefer laboratory over field
+    ordering = ['photo_type', 'created_at']  # Prefer field over laboratory (field < laboratory alphabetically)
     db_table = 'grape_photo'
     # Prevent duplicate photos: same grape + same URL should be unique
     unique_together = [['grape', 'url']]

@@ -7,4 +7,6 @@ urlpatterns = [
   path('', views.index, name='index'),
   path('grape/<str:vivc_id>/', views.grape_detail, name='grape_detail'),
   path('country/<str:iso_code>/', views.country_detail, name='country_detail'),
+  path('search/', views.search_results, name='search_results'),
+  path('api/search-autocomplete/', views.search_autocomplete, name='search_autocomplete'),
 ]

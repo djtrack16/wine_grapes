@@ -1,7 +1,7 @@
 """
 Management command to import grape photos from VIVC.
 Scrapes both "cluster in the field" and "cluster in the laboratory" pages.
-Prefers laboratory photos over field photos.
+Field photos are preferred for display, but both types are imported.
 """
 import sys
 import os
@@ -59,7 +59,7 @@ class Command(BaseCommand):
     photos_skipped = 0
     errors = 0
     
-    # Process laboratory photos first (higher priority)
+    # Process laboratory photos
     if photo_type in ['laboratory', 'both']:
       self.stdout.write('\n=== Processing Laboratory Photos ===')
       lab_count, lab_skipped, lab_errors = self._process_photo_type('laboratory', 'Cluster+in+the+laboratory', limit)
@@ -67,7 +67,7 @@ class Command(BaseCommand):
       photos_skipped += lab_skipped
       errors += lab_errors
     
-    # Process field photos (only if not already have laboratory photo)
+    # Process field photos (both field and laboratory photos can coexist)
     if photo_type in ['field', 'both']:
       self.stdout.write('\n=== Processing Field Photos ===')
       field_count, field_skipped, field_errors = self._process_photo_type('field', 'Cluster+in+the+field', limit)
@@ -157,99 +157,140 @@ class Command(BaseCommand):
                 self.stdout.write(f'      Row {row_idx}: Grape with VIVC ID {vivc_id} not in database')
               continue
             
-            # Check if we already have a laboratory photo (skip field if we do)
-            if photo_type == 'field':
-              if GrapePhoto.objects.filter(grape=grape, photo_type='laboratory').exists():
-                continue
+            # Note: We now allow both field and laboratory photos to coexist
+            # Field photos are preferred for display, but we import both types
             
-            # Extract photo URL, source, and popup URL from row (including onclick handler)
+            # Extract photo URL from row (source extraction commented out for later)
             photo_url, source, popup_url = self._extract_photo_and_source_from_row(row, vivc_id)
+            # TODO: Revisit source extraction from popup later
+            source = None  # Always set to None for now
+            popup_url = None  # Always set to None for now
             
             if self.verbose or row_idx <= 3:
-              self.stdout.write(f'      Row {row_idx}: photo_url={photo_url[:80] if photo_url else None}, source={source[:50] if source else None}, popup_url={popup_url[:80] if popup_url else None}')
+              self.stdout.write(f'      Row {row_idx}: photo_url={photo_url[:80] if photo_url else None}')
             
             if not photo_url:
               if self.verbose or row_idx <= 3:  # Debug first few rows or if verbose
                 self.stdout.write(f'      Row {row_idx}: Could not extract photo URL for {grape.name} (VIVC ID: {vivc_id})')
               continue
             
-            # Try to get source from popup page (source only exists in popup)
-            # Only try if we found a valid popup URL from onclick/data attributes
-            if photo_url and not source:
-              if popup_url:
-                if self.verbose or row_idx <= 3:
-                  self.stdout.write(f'      Row {row_idx}: Fetching source from popup URL: {popup_url}')
-                _, source = self._get_photo_details(popup_url)
-                if self.verbose or row_idx <= 3:
-                  if source:
-                    self.stdout.write(f'      Row {row_idx}: ✓ Found source from popup: {source[:100]}...')
-                  else:
-                    self.stdout.write(f'      Row {row_idx}: ✗ No source found in popup')
-              else:
-                if self.verbose or row_idx <= 3:
-                  self.stdout.write(f'      Row {row_idx}: No popup URL found in onclick/data attributes, cannot fetch source')
+            # TODO: Revisit source extraction from popup later
+            # # Try to get source from popup page (source only exists in popup)
+            # # Only try if we found a valid popup URL from onclick/data attributes
+            # if photo_url and not source:
+            #   if popup_url:
+            #     if self.verbose or row_idx <= 3:
+            #       self.stdout.write(f'      Row {row_idx}: Fetching source from popup URL: {popup_url}')
+            #     _, source = self._get_photo_details(popup_url)
+            #     if self.verbose or row_idx <= 3:
+            #       if source:
+            #         self.stdout.write(f'      Row {row_idx}: ✓ Found source from popup: {source[:100]}...')
+            #       else:
+            #         self.stdout.write(f'      Row {row_idx}: ✗ No source found in popup')
+            #   else:
+            #     if self.verbose or row_idx <= 3:
+            #       self.stdout.write(f'      Row {row_idx}: No popup URL found in onclick/data attributes, cannot fetch source')
             
-            # Check if photo already exists
-            existing_photo = GrapePhoto.objects.filter(grape=grape, url=photo_url).first()
+            # Check what photos this grape already has
+            existing_photos = GrapePhoto.objects.filter(grape=grape)
+            has_lab_photos = existing_photos.filter(photo_type='laboratory').exists()
+            has_field_photos = existing_photos.filter(photo_type='field').exists()
+            
+            # Check if this specific photo URL already exists
+            existing_photo = existing_photos.filter(url=photo_url).first()
             
             # Also check normalized URLs to catch variations
             normalized_url = self._normalize_url(photo_url)
             if not existing_photo:
-              existing_photos = GrapePhoto.objects.filter(grape=grape)
               for existing in existing_photos:
                 existing_normalized = self._normalize_url(existing.url)
                 if normalized_url == existing_normalized:
                   existing_photo = existing
                   break
             
-            # If photo exists but has no source, update it with source
+            # If photo already exists, skip it
             if existing_photo:
-              if existing_photo.source and existing_photo.source.strip():
-                # Photo exists with source, skip
-                photos_skipped += 1
-                self.stdout.write(f'      Skipped {grape.name} (VIVC ID: {vivc_id}) - photo already exists')
-                continue
-              else:
-                # Photo exists but no source - fetch and update
-                if not source:
-                  # Try to get source from popup (only if we found popup URL)
-                  if popup_url:
-                    if self.verbose or row_idx <= 3:
-                      self.stdout.write(f'      Row {row_idx}: Updating existing photo with source from popup: {popup_url}')
-                    _, source = self._get_photo_details(popup_url)
-                    if self.verbose or row_idx <= 3:
-                      if source:
-                        self.stdout.write(f'      Row {row_idx}: ✓ Found source for update: {source[:100]}...')
-                      else:
-                        self.stdout.write(f'      Row {row_idx}: ✗ No source found for update')
-                  else:
-                    if self.verbose or row_idx <= 3:
-                      self.stdout.write(f'      Row {row_idx}: No popup URL found, cannot update source')
-                
-                if source:
-                  existing_photo.source = source
-                  existing_photo.save()
-                  photos_imported += 1
-                  self.stdout.write(f'      ✓ Updated source for existing photo: {grape.name} (VIVC ID: {vivc_id})')
-                else:
-                  if self.verbose or row_idx <= 3:
-                    self.stdout.write(f'      Row {row_idx}: Could not find source for existing photo: {grape.name}')
-                continue
+              photos_skipped += 1
+              photo_types = []
+              if has_lab_photos:
+                photo_types.append('laboratory')
+              if has_field_photos:
+                photo_types.append('field')
+              types_str = ' and '.join(photo_types) if photo_types else 'photos'
+              self.stdout.write(f'      Skipped {grape.name} (VIVC ID: {vivc_id}) - duplicate photo URL already exists (grape already has {types_str} photos)')
+              continue
+            
+            # TODO: Revisit source extraction from popup later
+            # # If photo exists but has no source, update it with source
+            # if existing_photo:
+            #   if existing_photo.source and existing_photo.source.strip():
+            #     # Photo exists with source, skip
+            #     photos_skipped += 1
+            #     photo_types = []
+            #     if has_lab_photos:
+            #       photo_types.append('laboratory')
+            #     if has_field_photos:
+            #       photo_types.append('field')
+            #     types_str = ' and '.join(photo_types) if photo_types else 'photos'
+            #     self.stdout.write(f'      Skipped {grape.name} (VIVC ID: {vivc_id}) - duplicate photo URL already exists (grape already has {types_str} photos)')
+            #     continue
+            #   else:
+            #     # Photo exists but no source - fetch and update
+            #     if not source:
+            #       # Try to get source from popup (only if we found popup URL)
+            #       if popup_url:
+            #         if self.verbose or row_idx <= 3:
+            #           self.stdout.write(f'      Row {row_idx}: Updating existing photo with source from popup: {popup_url}')
+            #         _, source = self._get_photo_details(popup_url)
+            #         if self.verbose or row_idx <= 3:
+            #           if source:
+            #             self.stdout.write(f'      Row {row_idx}: ✓ Found source for update: {source[:100]}...')
+            #           else:
+            #             self.stdout.write(f'      Row {row_idx}: ✗ No source found for update')
+            #       else:
+            #         if self.verbose or row_idx <= 3:
+            #           self.stdout.write(f'      Row {row_idx}: No popup URL found, cannot update source')
+            #     
+            #     if source:
+            #       existing_photo.source = source
+            #       existing_photo.save()
+            #       photos_imported += 1
+            #       self.stdout.write(f'      ✓ Updated source for existing photo: {grape.name} (VIVC ID: {vivc_id})')
+            #     else:
+            #       if self.verbose or row_idx <= 3:
+            #         self.stdout.write(f'      Row {row_idx}: Could not find source for existing photo: {grape.name}')
+            #     continue
             
             # Create photo record (database constraint will prevent duplicates if check fails)
             try:
               GrapePhoto.objects.create(
                 grape=grape,
                 url=photo_url,
-                source=source or '',
+                source='',  # TODO: Revisit source extraction from popup later
                 photo_type=photo_type
               )
               photos_imported += 1
-              self.stdout.write(f'      ✓ Imported photo for {grape.name} (VIVC ID: {vivc_id})')
-            except IntegrityError:
+              # Show what photo types the grape now has
+              updated_photos = GrapePhoto.objects.filter(grape=grape)
+              has_lab = updated_photos.filter(photo_type='laboratory').exists()
+              has_field = updated_photos.filter(photo_type='field').exists()
+              photo_info = []
+              if has_lab:
+                photo_info.append('laboratory')
+              if has_field:
+                photo_info.append('field')
+              types_info = f" (now has: {', '.join(photo_info)} photos)" if photo_info else ""
+              self.stdout.write(f'      ✓ Imported {photo_type} photo for {grape.name} (VIVC ID: {vivc_id}){types_info}')
+            except IntegrityError:  # type: ignore
               # Duplicate caught by database constraint, skip
               photos_skipped += 1
-              self.stdout.write(f'      Skipped {grape.name} (VIVC ID: {vivc_id}) - duplicate photo (database constraint)')
+              photo_types = []
+              if has_lab_photos:
+                photo_types.append('laboratory')
+              if has_field_photos:
+                photo_types.append('field')
+              types_str = ' and '.join(photo_types) if photo_types else 'photos'
+              self.stdout.write(f'      Skipped {grape.name} (VIVC ID: {vivc_id}) - duplicate photo URL prevented by database constraint (grape already has {types_str} photos)')
               continue
             
             # Small delay to be respectful
@@ -329,7 +370,7 @@ class Command(BaseCommand):
     return None
 
   def _extract_photo_and_source_from_row(self, row, vivc_id=None):
-    """Extract photo URL, source text, and popup URL directly from the row (including onclick handler)."""
+    """Extract photo URL from the row. Source extraction commented out for later."""
     # Store row_idx for debugging (will be set by caller if needed)
     self._current_row_idx = getattr(self, '_current_row_idx', None)
     row_idx = self._current_row_idx if hasattr(self, '_current_row_idx') else 0
@@ -340,6 +381,7 @@ class Command(BaseCommand):
     
     photo_cell = cells[6] if len(cells) > 6 else cells[-2]
     photo_url = None
+    # TODO: Revisit source extraction from popup later
     source_text = None
     popup_url = None
     
@@ -355,91 +397,93 @@ class Command(BaseCommand):
         else:
           photo_url = f"{VIVC_BASE_URL}/{img_src}"
       
-      # Find parent link to check onclick
+      # Find parent link to check href (onclick extraction commented out)
       link = img.find_parent('a')
       if link:
-        # Check onclick handler for source text
-        onclick = link.get('onclick', '')
-        if onclick:
-          # Extract source text from onclick - look for text after "Please note" or "quote the source"
-          import re
-          
-          # Pattern: Look for text after "quote the source" or "source as indicated below"
-          # The source text format: "Please note: This photo can be reproduced. Please quote the source as indicated below: [SOURCE TEXT]"
-          source_patterns = [
-            # Pattern 1: Text after "source as indicated below:" or "quote the source"
-            r'(?:source as indicated below|quote the source)[:\s]*["\']([^"\']+)["\']',
-            # Pattern 2: Text after "Please note" that contains source info
-            r'Please note[^"\']*["\']([^"\']*(?:Institut|Institute|Research|Centre|Center|Breeding|Schneider|Kühn|JKI|Geilweilerhof)[^"\']*)["\']',
-            # Pattern 3: Long quoted strings that look like source (contains keywords)
-            r'["\']([^"\']{50,}(?:Institut|Institute|Research|Centre|Center|Breeding|Schneider|Kühn|JKI|Geilweilerhof)[^"\']*)["\']',
-            # Pattern 4: Any long quoted string (fallback)
-            r'["\']([^"\']{80,})["\']',
-          ]
-          
-          for pattern in source_patterns:
-            match = re.search(pattern, onclick, re.IGNORECASE | re.DOTALL)
-            if match:
-              source_text = match.group(1).strip()
-              # Clean up the source text - handle escaped characters
-              source_text = source_text.replace('\\n', ' ').replace('\\r', ' ').replace('\\t', ' ')
-              source_text = source_text.replace('\\"', '"').replace("\\'", "'")
-              # Remove HTML entities if any
-              source_text = source_text.replace('&nbsp;', ' ').replace('&amp;', '&')
-              # Normalize whitespace
-              source_text = ' '.join(source_text.split())
-              # Only use if it looks like a real source (has reasonable length and keywords)
-              if len(source_text) > 20:
-                break
-          
-          # If still no source, try extracting all quoted strings and pick the longest one that looks like source
-          if not source_text or len(source_text) < 20:
-            quote_matches = re.findall(r'["\']([^"\']+)["\']', onclick)
-            for quote_text in sorted(quote_matches, key=len, reverse=True):
-              cleaned = quote_text.replace('\\n', ' ').replace('\\r', ' ').strip()
-              cleaned = ' '.join(cleaned.split())
-              # Check if it looks like a source (has keywords or is reasonably long)
-              if len(cleaned) > 30 and any(keyword in cleaned for keyword in ['Institut', 'Institute', 'Research', 'Centre', 'Center', 'Breeding', 'Schneider', 'Kühn', 'JKI', 'Geilweilerhof', 'GERMANY', 'Germany']):
-                source_text = cleaned
-                break
+        # TODO: Revisit source extraction from popup later
+        # # Check onclick handler for source text
+        # onclick = link.get('onclick', '')
+        # if onclick:
+        #   # Extract source text from onclick - look for text after "Please note" or "quote the source"
+        #   import re
+        #   
+        #   # Pattern: Look for text after "quote the source" or "source as indicated below"
+        #   # The source text format: "Please note: This photo can be reproduced. Please quote the source as indicated below: [SOURCE TEXT]"
+        #   source_patterns = [
+        #     # Pattern 1: Text after "source as indicated below:" or "quote the source"
+        #     r'(?:source as indicated below|quote the source)[:\s]*["\']([^"\']+)["\']',
+        #     # Pattern 2: Text after "Please note" that contains source info
+        #     r'Please note[^"\']*["\']([^"\']*(?:Institut|Institute|Research|Centre|Center|Breeding|Schneider|Kühn|JKI|Geilweilerhof)[^"\']*)["\']',
+        #     # Pattern 3: Long quoted strings that look like source (contains keywords)
+        #     r'["\']([^"\']{50,}(?:Institut|Institute|Research|Centre|Center|Breeding|Schneider|Kühn|JKI|Geilweilerhof)[^"\']*)["\']',
+        #     # Pattern 4: Any long quoted string (fallback)
+        #     r'["\']([^"\']{80,})["\']',
+        #   ]
+        #   
+        #   for pattern in source_patterns:
+        #     match = re.search(pattern, onclick, re.IGNORECASE | re.DOTALL)
+        #     if match:
+        #       source_text = match.group(1).strip()
+        #       # Clean up the source text - handle escaped characters
+        #       source_text = source_text.replace('\\n', ' ').replace('\\r', ' ').replace('\\t', ' ')
+        #       source_text = source_text.replace('\\"', '"').replace("\\'", "'")
+        #       # Remove HTML entities if any
+        #       source_text = source_text.replace('&nbsp;', ' ').replace('&amp;', '&')
+        #       # Normalize whitespace
+        #       source_text = ' '.join(source_text.split())
+        #       # Only use if it looks like a real source (has reasonable length and keywords)
+        #       if len(source_text) > 20:
+        #         break
+        #   
+        #   # If still no source, try extracting all quoted strings and pick the longest one that looks like source
+        #   if not source_text or len(source_text) < 20:
+        #     quote_matches = re.findall(r'["\']([^"\']+)["\']', onclick)
+        #     for quote_text in sorted(quote_matches, key=len, reverse=True):
+        #       cleaned = quote_text.replace('\\n', ' ').replace('\\r', ' ').strip()
+        #       cleaned = ' '.join(cleaned.split())
+        #       # Check if it looks like a source (has keywords or is reasonably long)
+        #       if len(cleaned) > 30 and any(keyword in cleaned for keyword in ['Institut', 'Institute', 'Research', 'Centre', 'Center', 'Breeding', 'Schneider', 'Kühn', 'JKI', 'Geilweilerhof', 'GERMANY', 'Germany']):
+        #         source_text = cleaned
+        #         break
         
-        # Extract popup URL from data attributes first (modern JavaScript)
-        popup_url = link.get('data-url') or link.get('data-href') or link.get('data-popup') or link.get('data-modal')
-        
-        # Extract popup URL from onclick handler if available
-        if not popup_url and onclick:
-          import re
-          
-          # Debug: log onclick content if verbose
-          if hasattr(self, 'verbose') and self.verbose and row_idx <= 3:
-            self.stdout.write(f'        DEBUG onclick (first 300 chars): {onclick[:300]}...')
-          
-          # Look for URLs in onclick that might be popup URLs
-          popup_patterns = [
-            r'window\.open\(["\']([^"\']+)["\']',
-            r'href\s*=\s*["\']([^"\']+)["\']',
-            r'url["\']?\s*[:=]\s*["\']([^"\']+)["\']',
-            r'["\']([^"\']*foto[^"\']*view[^"\']*)["\']',
-            r'["\']([^"\']*index\.php[^"\']*foto[^"\']*)["\']',
-            r'["\']([^"\']*fotoverweise[^"\']*)["\']',
-            # Look for full URLs in onclick
-            r'(https?://[^"\'\s\)]+foto[^"\'\s\)]*)',
-            r'(https?://[^"\'\s\)]+fotoverweise[^"\'\s\)]*)',
-          ]
-          for pattern in popup_patterns:
-            match = re.search(pattern, onclick, re.IGNORECASE)
-            if match:
-              url = match.group(1)
-              if url.startswith('http'):
-                popup_url = url
-              elif not url.startswith('http'):
-                if url.startswith('/'):
-                  popup_url = f"{VIVC_BASE_URL}{url}"
-                else:
-                  popup_url = f"{VIVC_BASE_URL}/{url}"
-              if hasattr(self, 'verbose') and self.verbose and row_idx <= 3:
-                self.stdout.write(f'        DEBUG: Found popup URL from onclick: {popup_url}')
-              break
+        # TODO: Revisit popup URL extraction later
+        # # Extract popup URL from data attributes first (modern JavaScript)
+        # popup_url = link.get('data-url') or link.get('data-href') or link.get('data-popup') or link.get('data-modal')
+        # 
+        # # Extract popup URL from onclick handler if available
+        # if not popup_url and onclick:
+        #   import re
+        #   
+        #   # Debug: log onclick content if verbose
+        #   if hasattr(self, 'verbose') and self.verbose and row_idx <= 3:
+        #     self.stdout.write(f'        DEBUG onclick (first 300 chars): {onclick[:300]}...')
+        #   
+        #   # Look for URLs in onclick that might be popup URLs
+        #   popup_patterns = [
+        #     r'window\.open\(["\']([^"\']+)["\']',
+        #     r'href\s*=\s*["\']([^"\']+)["\']',
+        #     r'url["\']?\s*[:=]\s*["\']([^"\']+)["\']',
+        #     r'["\']([^"\']*foto[^"\']*view[^"\']*)["\']',
+        #     r'["\']([^"\']*index\.php[^"\']*foto[^"\']*)["\']',
+        #     r'["\']([^"\']*fotoverweise[^"\']*)["\']',
+        #     # Look for full URLs in onclick
+        #     r'(https?://[^"\'\s\)]+foto[^"\'\s\)]*)',
+        #     r'(https?://[^"\'\s\)]+fotoverweise[^"\'\s\)]*)',
+        #   ]
+        #   for pattern in popup_patterns:
+        #     match = re.search(pattern, onclick, re.IGNORECASE)
+        #     if match:
+        #       url = match.group(1)
+        #       if url.startswith('http'):
+        #         popup_url = url
+        #       elif not url.startswith('http'):
+        #         if url.startswith('/'):
+        #           popup_url = f"{VIVC_BASE_URL}{url}"
+        #         else:
+        #           popup_url = f"{VIVC_BASE_URL}/{url}"
+        #       if hasattr(self, 'verbose') and self.verbose and row_idx <= 3:
+        #         self.stdout.write(f'        DEBUG: Found popup URL from onclick: {popup_url}')
+        #       break
         
         # If we don't have photo_url yet, check href
         if not photo_url:
@@ -451,10 +495,11 @@ class Command(BaseCommand):
               photo_url = f"{VIVC_BASE_URL}{href}"
             else:
               photo_url = f"{VIVC_BASE_URL}/{href}"
-          # If href is #, the popup_url from onclick might be what we need
-          elif href == '#' and popup_url:
-            # Don't set photo_url to popup_url, but we'll use popup_url to get source
-            pass
+          # TODO: Revisit popup URL usage later
+          # # If href is #, the popup_url from onclick might be what we need
+          # elif href == '#' and popup_url:
+          #   # Don't set photo_url to popup_url, but we'll use popup_url to get source
+          #   pass
     
     # Also check for any link in photo cell
     if not photo_url:
@@ -552,145 +597,146 @@ class Command(BaseCommand):
     
     return None
 
-  def _get_photo_details(self, photo_link):
-    """Get source text from the photo popup page."""
-    try:
-      response = requests.get(photo_link, timeout=30)
-      response.raise_for_status()
-      page = BeautifulSoup(response.text, 'html.parser')
-      
-      # Extract source text from popup page
-      source_text = ''
-      keywords = ['Institut', 'Institute', 'Research', 'Centre', 'Center', 'Breeding', 'Schneider', 'Kühn', 'JKI', 'Geilweilerhof', 'Siebeldingen', 'GERMANY', 'Germany']
-      
-      # Method 1: Look for panel structure (most common)
-      # The source is typically in a <p> with class "panel-title" inside a div with class "panel-heading"
-      # Look for any panel structure, not just "panel-danger"
-      panel_headings = page.find_all('div', class_='panel-heading')
-      for panel_heading in panel_headings:
-        # Check if this panel contains "Please note"
-        heading_text = panel_heading.get_text()
-        if 'Please note' in heading_text and 'quote the source' in heading_text.lower():
-          # Find all <p> elements with class "panel-title" in this heading
-          panel_titles = panel_heading.find_all('p', class_='panel-title')
-          # The source text is typically in the second <p> (after "Please note" paragraph)
-          # But could be in any <p> that contains source keywords
-          for p_elem in panel_titles:
-            p_text = p_elem.get_text().strip()
-            # Skip the "Please note" paragraph itself
-            if 'Please note' in p_text and 'quote the source' in p_text.lower():
-              continue
-            # Check if this paragraph looks like a source
-            if any(keyword in p_text for keyword in keywords) and len(p_text) > 30:
-              source_text = p_text
-              source_text = ' '.join(source_text.split())
-              break
-          if source_text:
-            break
-      
-      # Method 2: Look for <p> elements that come after "Please note" text (anywhere in page)
-      if not source_text:
-        please_note_paras = page.find_all('p', string=lambda text: text and 'Please note' in str(text))
-        for para in please_note_paras:
-          # Find next sibling <p> that contains source keywords
-          next_p = para.find_next_sibling('p')
-          if next_p:
-            next_text = next_p.get_text().strip()
-            # Check if it looks like a source (has keywords and reasonable length)
-            if any(keyword in next_text for keyword in keywords) and len(next_text) > 30:
-              source_text = next_text
-              source_text = ' '.join(source_text.split())
-              break
-          
-          # Also check parent's next sibling
-          if not source_text:
-            parent = para.find_parent(['div', 'td', 'tr'])
-            if parent:
-              next_sibling = parent.find_next_sibling(['div', 'p', 'td'])
-              if next_sibling:
-                next_text = next_sibling.get_text().strip()
-                if any(keyword in next_text for keyword in keywords) and len(next_text) > 30:
-                  source_text = next_text
-                  source_text = ' '.join(source_text.split())
-                  break
-      
-      # Method 3: Extract from panel-heading text using regex
-      if not source_text:
-        panel_headings = page.find_all('div', class_='panel-heading')
-        for heading in panel_headings:
-          heading_text = heading.get_text()
-          if 'Please note' in heading_text and 'quote the source' in heading_text.lower():
-            # Extract text after "quote the source as indicated below:"
-            import re
-            # Pattern: text after "quote the source as indicated below:" up to "Download" or end
-            source_match = re.search(r'quote the source as indicated below[:\s]+(.+?)(?:\n\s*Download|$)', heading_text, re.IGNORECASE | re.DOTALL)
-            if source_match:
-              source_text = source_match.group(1).strip()
-              source_text = ' '.join(source_text.split())
-              # Verify it looks like a source
-              if len(source_text) > 20 and any(keyword in source_text for keyword in keywords):
-                break
-      
-      # Method 4: Look for any element containing source keywords that's near "Please note"
-      if not source_text:
-        please_note_elements = page.find_all(string=lambda text: text and 'Please note' in str(text))
-        for elem in please_note_elements:
-          # Look in nearby elements
-          parent = elem.find_parent(['div', 'p', 'td', 'tr'])
-          if parent:
-            # Check all text nodes in parent and siblings
-            all_text = parent.get_text()
-            # Extract text after "quote the source"
-            import re
-            source_match = re.search(r'quote the source[^:]*:[:\s]+(.+?)(?:\n\s*Download|$)', all_text, re.IGNORECASE | re.DOTALL)
-            if source_match:
-              potential_source = source_match.group(1).strip()
-              potential_source = ' '.join(potential_source.split())
-              if len(potential_source) > 20 and any(keyword in potential_source for keyword in keywords):
-                source_text = potential_source
-                break
-      
-      # Method 5: Fallback - look for text blocks with source keywords in full page text
-      if not source_text or len(source_text) < 20:
-        page_text = page.get_text()
-        # Find text blocks that contain source-related keywords
-        lines = page_text.split('\n')
-        for i, line in enumerate(lines):
-          if any(keyword in line for keyword in keywords) and len(line.strip()) > 30:
-            # Take this line and next few lines (but stop before "Download")
-            source_lines = []
-            for j in range(i, min(i+5, len(lines))):
-              line_text = lines[j].strip()
-              if 'Download' in line_text.lower():
-                break
-              if line_text:
-                source_lines.append(line_text)
-            if source_lines:
-              source_text = ' '.join(source_lines).strip()
-              if len(source_text) > 30:
-                break
-      
-      # Debug output if verbose
-      if hasattr(self, 'verbose') and self.verbose and not source_text:
-        # Log a snippet of the page to help debug
-        page_text_full = page.get_text()
-        page_snippet = page_text_full[:1000]
-        if 'Please note' in page_text_full:
-          self.stdout.write(f'        DEBUG: Found "Please note" in page but couldn\'t extract source.')
-          self.stdout.write(f'        DEBUG: Page text snippet (first 500 chars): {page_text_full[:500]}...')
-          # Also check HTML structure
-          please_note_elements = page.find_all(string=lambda text: text and 'Please note' in str(text))
-          if please_note_elements:
-            self.stdout.write(f'        DEBUG: Found {len(please_note_elements)} elements containing "Please note"')
-            for i, elem in enumerate(please_note_elements[:2]):
-              parent = elem.find_parent()
-              if parent:
-                self.stdout.write(f'        DEBUG: Element {i} parent tag: {parent.name}, text: {parent.get_text()[:200]}...')
-      
-      return None, source_text  # Return None for photo URL since we already have it
-      
-    except Exception as e:
-      return None, None
+  # TODO: Revisit source extraction from popup later
+  # def _get_photo_details(self, photo_link):
+  #   """Get source text from the photo popup page."""
+  #   try:
+  #     response = requests.get(photo_link, timeout=30)
+  #     response.raise_for_status()
+  #     page = BeautifulSoup(response.text, 'html.parser')
+  #     
+  #     # Extract source text from popup page
+  #     source_text = ''
+  #     keywords = ['Institut', 'Institute', 'Research', 'Centre', 'Center', 'Breeding', 'Schneider', 'Kühn', 'JKI', 'Geilweilerhof', 'Siebeldingen', 'GERMANY', 'Germany']
+  #     
+  #     # Method 1: Look for panel structure (most common)
+  #     # The source is typically in a <p> with class "panel-title" inside a div with class "panel-heading"
+  #     # Look for any panel structure, not just "panel-danger"
+  #     panel_headings = page.find_all('div', class_='panel-heading')
+  #     for panel_heading in panel_headings:
+  #       # Check if this panel contains "Please note"
+  #       heading_text = panel_heading.get_text()
+  #       if 'Please note' in heading_text and 'quote the source' in heading_text.lower():
+  #         # Find all <p> elements with class "panel-title" in this heading
+  #         panel_titles = panel_heading.find_all('p', class_='panel-title')
+  #         # The source text is typically in the second <p> (after "Please note" paragraph)
+  #         # But could be in any <p> that contains source keywords
+  #         for p_elem in panel_titles:
+  #           p_text = p_elem.get_text().strip()
+  #           # Skip the "Please note" paragraph itself
+  #           if 'Please note' in p_text and 'quote the source' in p_text.lower():
+  #             continue
+  #           # Check if this paragraph looks like a source
+  #           if any(keyword in p_text for keyword in keywords) and len(p_text) > 30:
+  #             source_text = p_text
+  #             source_text = ' '.join(source_text.split())
+  #             break
+  #         if source_text:
+  #           break
+  #     
+  #     # Method 2: Look for <p> elements that come after "Please note" text (anywhere in page)
+  #     if not source_text:
+  #       please_note_paras = page.find_all('p', string=lambda text: text and 'Please note' in str(text))
+  #       for para in please_note_paras:
+  #         # Find next sibling <p> that contains source keywords
+  #         next_p = para.find_next_sibling('p')
+  #         if next_p:
+  #           next_text = next_p.get_text().strip()
+  #           # Check if it looks like a source (has keywords and reasonable length)
+  #           if any(keyword in next_text for keyword in keywords) and len(next_text) > 30:
+  #             source_text = next_text
+  #             source_text = ' '.join(source_text.split())
+  #             break
+  #         
+  #         # Also check parent's next sibling
+  #         if not source_text:
+  #           parent = para.find_parent(['div', 'td', 'tr'])
+  #           if parent:
+  #             next_sibling = parent.find_next_sibling(['div', 'p', 'td'])
+  #             if next_sibling:
+  #               next_text = next_sibling.get_text().strip()
+  #               if any(keyword in next_text for keyword in keywords) and len(next_text) > 30:
+  #                 source_text = next_text
+  #                 source_text = ' '.join(source_text.split())
+  #                 break
+  #     
+  #     # Method 3: Extract from panel-heading text using regex
+  #     if not source_text:
+  #       panel_headings = page.find_all('div', class_='panel-heading')
+  #       for heading in panel_headings:
+  #         heading_text = heading.get_text()
+  #         if 'Please note' in heading_text and 'quote the source' in heading_text.lower():
+  #           # Extract text after "quote the source as indicated below:"
+  #           import re
+  #           # Pattern: text after "quote the source as indicated below:" up to "Download" or end
+  #           source_match = re.search(r'quote the source as indicated below[:\s]+(.+?)(?:\n\s*Download|$)', heading_text, re.IGNORECASE | re.DOTALL)
+  #           if source_match:
+  #             source_text = source_match.group(1).strip()
+  #             source_text = ' '.join(source_text.split())
+  #             # Verify it looks like a source
+  #             if len(source_text) > 20 and any(keyword in source_text for keyword in keywords):
+  #               break
+  #     
+  #     # Method 4: Look for any element containing source keywords that's near "Please note"
+  #     if not source_text:
+  #       please_note_elements = page.find_all(string=lambda text: text and 'Please note' in str(text))
+  #       for elem in please_note_elements:
+  #         # Look in nearby elements
+  #         parent = elem.find_parent(['div', 'p', 'td', 'tr'])
+  #         if parent:
+  #           # Check all text nodes in parent and siblings
+  #           all_text = parent.get_text()
+  #           # Extract text after "quote the source"
+  #           import re
+  #           source_match = re.search(r'quote the source[^:]*:[:\s]+(.+?)(?:\n\s*Download|$)', all_text, re.IGNORECASE | re.DOTALL)
+  #           if source_match:
+  #             potential_source = source_match.group(1).strip()
+  #             potential_source = ' '.join(potential_source.split())
+  #             if len(potential_source) > 20 and any(keyword in potential_source for keyword in keywords):
+  #               source_text = potential_source
+  #               break
+  #     
+  #     # Method 5: Fallback - look for text blocks with source keywords in full page text
+  #     if not source_text or len(source_text) < 20:
+  #       page_text = page.get_text()
+  #       # Find text blocks that contain source-related keywords
+  #       lines = page_text.split('\n')
+  #       for i, line in enumerate(lines):
+  #         if any(keyword in line for keyword in keywords) and len(line.strip()) > 30:
+  #           # Take this line and next few lines (but stop before "Download")
+  #           source_lines = []
+  #           for j in range(i, min(i+5, len(lines))):
+  #             line_text = lines[j].strip()
+  #             if 'Download' in line_text.lower():
+  #               break
+  #             if line_text:
+  #               source_lines.append(line_text)
+  #           if source_lines:
+  #             source_text = ' '.join(source_lines).strip()
+  #             if len(source_text) > 30:
+  #               break
+  #     
+  #     # Debug output if verbose
+  #     if hasattr(self, 'verbose') and self.verbose and not source_text:
+  #       # Log a snippet of the page to help debug
+  #       page_text_full = page.get_text()
+  #       page_snippet = page_text_full[:1000]
+  #       if 'Please note' in page_text_full:
+  #         self.stdout.write(f'        DEBUG: Found "Please note" in page but couldn\'t extract source.')
+  #         self.stdout.write(f'        DEBUG: Page text snippet (first 500 chars): {page_text_full[:500]}...')
+  #         # Also check HTML structure
+  #         please_note_elements = page.find_all(string=lambda text: text and 'Please note' in str(text))
+  #         if please_note_elements:
+  #           self.stdout.write(f'        DEBUG: Found {len(please_note_elements)} elements containing "Please note"')
+  #           for i, elem in enumerate(please_note_elements[:2]):
+  #             parent = elem.find_parent()
+  #             if parent:
+  #               self.stdout.write(f'        DEBUG: Element {i} parent tag: {parent.name}, text: {parent.get_text()[:200]}...')
+  #     
+  #     return None, source_text  # Return None for photo URL since we already have it
+  #     
+  #   except Exception as e:
+  #     return None, None
 
   def _normalize_url(self, url):
     """Normalize URL for duplicate checking."""

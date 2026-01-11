@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Count
+from django.db.models import Count, Q
+from django.http import JsonResponse
 from .models import Grape, Country
 
 
@@ -34,11 +35,11 @@ def grape_detail(request, vivc_id):
     })
   
   # Get first photo for this grape (if available)
-  # Prioritize laboratory photos over field photos
+  # Prioritize field photos over laboratory photos
   # The model's Meta ordering already handles this, but we'll be explicit
-  first_photo = grape.photos.filter(photo_type='laboratory').first()
+  first_photo = grape.photos.filter(photo_type='field').first()
   if not first_photo:
-    first_photo = grape.photos.filter(photo_type='field').first()
+    first_photo = grape.photos.filter(photo_type='laboratory').first()
   if not first_photo:
     # Fallback to any photo if types don't match expected values
     first_photo = grape.photos.first()
@@ -72,3 +73,55 @@ def country_detail(request, iso_code):
     'color_counts': color_counts,
   }
   return render(request, 'grapes/country_detail.html', context)
+
+
+def search_autocomplete(request):
+  """API endpoint for search autocomplete. Returns JSON list of matching grapes."""
+  query = request.GET.get('q', '').strip()
+  
+  if len(query) < 1:
+    return JsonResponse({'results': []})
+  
+  # Search for grapes that start with the query (case-insensitive)
+  grapes = Grape.objects.filter(
+    name__istartswith=query
+  ).order_by('name')[:20]  # Limit to 20 results
+  
+  results = [
+    {
+      'name': grape.name,
+      'vivc_id': grape.vivc_id,
+    }
+    for grape in grapes
+  ]
+  
+  return JsonResponse({'results': results})
+
+
+def search_results(request):
+  """Display search results page."""
+  query = request.GET.get('q', '').strip()
+  vivc_id = request.GET.get('vivc_id', '').strip()
+  
+  # If vivc_id is provided, redirect directly to that grape
+  if vivc_id:
+    try:
+      grape = Grape.objects.get(vivc_id=vivc_id)
+      from django.shortcuts import redirect
+      return redirect('grapes:grape_detail', vivc_id=vivc_id)
+    except Grape.DoesNotExist:  # type: ignore
+      pass
+  
+  # Otherwise, show search results
+  grapes = []
+  if query:
+    grapes = Grape.objects.filter(
+      name__icontains=query
+    ).order_by('name')[:50]  # Limit to 50 results
+  
+  context = {
+    'query': query,
+    'grapes': grapes,
+    'results_count': len(grapes),
+  }
+  return render(request, 'grapes/search_results.html', context)

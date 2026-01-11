@@ -43,6 +43,14 @@ class Command(BaseCommand):
     self.stdout.write('Building grape pages...')
     self._build_grape_pages(output_dir)
     
+    # Build search results page
+    self.stdout.write('Building search results page...')
+    self._build_search_results(output_dir)
+    
+    # Generate grapes JSON file for autocomplete
+    self.stdout.write('Generating grapes JSON file...')
+    self._generate_grapes_json(output_dir)
+    
     self.stdout.write(self.style.SUCCESS(f'\nStatic site built successfully to {output_dir}/'))
     self.stdout.write(f'Total pages: {self._count_pages(output_dir)}')
 
@@ -58,11 +66,11 @@ class Command(BaseCommand):
     # Sort by grape count descending
     countries_list = sorted(countries, key=lambda c: c.grape_count, reverse=True)
     
-    # Render template with index_url for base template
+    # Render template with index_url for base template (root level)
     html = render_to_string('grapes/index.html', {
       'countries': countries_list,
       'index_url': 'index.html',
-    })
+    }, request=None)
     
     # Write to index.html
     (output_dir / 'index.html').write_text(html, encoding='utf-8')
@@ -88,14 +96,14 @@ class Command(BaseCommand):
       # Add static URL to country object  
       country.url = '../index.html'
       
-      # Render template
+      # Render template (country pages are 2 levels deep: country/{iso_code}/)
       html = render_to_string('grapes/country_detail.html', {
         'country': country,
         'grapes': grapes,
         'total_grapes': grapes.count(),
         'color_counts': color_counts,
         'index_url': '../../index.html',
-      })
+      }, request=None)
       
       # Create country directory and write index.html
       country_dir = countries_dir / country.iso_code.lower()
@@ -153,21 +161,21 @@ class Command(BaseCommand):
           'other_parent': other_parent,
         })
       
-      # Get first photo
-      first_photo = grape.photos.filter(photo_type='laboratory').first()
+      # Get first photo (prioritize field photos over laboratory photos)
+      first_photo = grape.photos.filter(photo_type='field').first()
       if not first_photo:
-        first_photo = grape.photos.filter(photo_type='field').first()
+        first_photo = grape.photos.filter(photo_type='laboratory').first()
       if not first_photo:
         first_photo = grape.photos.first()
       
-      # Render template
+      # Render template (grape pages are 2 levels deep: grape/{vivc_id}/)
       html = render_to_string('grapes/grape_detail.html', {
         'grape': grape,
         'parents': parents,
         'children_data': children_data,
         'first_photo': first_photo,
         'index_url': '../../index.html',
-      })
+      }, request=None)
       
       # Create grape directory and write index.html
       grape_page_dir = grape_dir / grape.vivc_id
@@ -176,6 +184,39 @@ class Command(BaseCommand):
     
     self.stdout.write(f'  Built {total} grape pages')
 
+
+  def _build_search_results(self, output_dir):
+    """Build the search results page."""
+    search_dir = output_dir / 'search'
+    search_dir.mkdir(exist_ok=True)
+    
+    # Render search results template (search pages are 1 level deep: search/)
+    html = render_to_string('grapes/search_results.html', {
+      'query': '',
+      'grapes': [],
+      'results_count': 0,
+      'index_url': '../index.html',
+    }, request=None)
+    
+    (search_dir / 'index.html').write_text(html, encoding='utf-8')
+    self.stdout.write('  Built search results page')
+
+  def _generate_grapes_json(self, output_dir):
+    """Generate JSON file with all grape names and VIVC IDs for autocomplete."""
+    grapes = Grape.objects.all().order_by('name').values('name', 'vivc_id')
+    
+    grapes_list = [
+      {
+        'name': grape['name'],
+        'vivc_id': grape['vivc_id'],
+      }
+      for grape in grapes
+    ]
+    
+    json_path = output_dir / 'grapes.json'
+    json_path.write_text(json.dumps(grapes_list, indent=2), encoding='utf-8')
+    
+    self.stdout.write(f'  Generated grapes.json with {len(grapes_list)} grapes')
 
   def _count_pages(self, output_dir):
     """Count total HTML pages built."""
