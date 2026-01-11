@@ -58,6 +58,20 @@
             </div>
             {% endif %}
         </div>
+    </div>
+
+    <div class="grape-photo-section">
+        <div class="grape-photo-container">
+            {% if first_photo %}
+                <img src="{{ first_photo.url }}" alt="Photo of {{ grape.name }}" class="grape-photo">
+            {% else %}
+                <div class="grape-photo-placeholder">
+                    <span>No Photo Found</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 <div style="margin-top: 30px;">
     {% if parents or children_data %}
@@ -84,7 +98,6 @@
     <h2>Parents</h2>
     <p>No parents found.</p>
     {% endif %}
-
 </div>
 
 {% if children_data %}
@@ -127,19 +140,6 @@
 <h2>Children</h2>
 <p>No children found.</p>
 {% endif %}
-
-    <div class="grape-photo-section">
-        <div class="grape-photo-container">
-            {% if first_photo %}
-                <img src="{{ first_photo.url }}" alt="Photo of {{ grape.name }}" class="grape-photo">
-            {% else %}
-                <div class="grape-photo-placeholder">
-                    <span>No Photo Found</span>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 <script>
