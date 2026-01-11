@@ -160,15 +160,17 @@
         }
         .info-row {
             margin: 10px 0;
+            display: flex;
+            align-items: flex-start;
         }
         .info-label {
             font-weight: bold;
-            display: inline-block;
             width: 150px;
-            vertical-align: top;
+            flex-shrink: 0;
         }
-        .info-row {
-            margin: 10px 0;
+        .info-row > span:not(.info-label) {
+            flex: 1;
+            word-wrap: break-word;
         }
         .info-row.color-row {
             display: flex;
@@ -268,12 +270,12 @@
             }
         }
         
-        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Horizontal: positioned further to the right, leaving space for text */
         /* Vertical: will be set dynamically via JavaScript */
         @media (min-width: 768px) {
             .grape-photo-section {
-                /* Horizontal: start at 150px (berry color), then add half of remaining space */
-                left: calc(150px + (100% - 150px) / 2);
+                /* Move photo further right: start at 70% of the page width */
+                left: 70%;
                 /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
                 top: 0;
                 transform: translateX(-50%);
