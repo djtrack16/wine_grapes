@@ -256,6 +256,11 @@
                 height: 375px;
                 max-height: 70vh;
             }
+            /* Adjust padding for larger photos (500px = 250px half-width) */
+            .grape-content-section {
+                padding-right: calc(70% - 250px);
+                max-width: calc(70% - 250px);
+            }
         }
         
         @media (min-width: 768px) and (max-width: 1199px) {
@@ -268,6 +273,11 @@
                 height: 300px;
                 max-height: 60vh;
             }
+            /* Adjust padding for medium photos (400px = 200px half-width) */
+            .grape-content-section {
+                padding-right: calc(70% - 200px);
+                max-width: calc(70% - 200px);
+            }
         }
         
         /* Horizontal: positioned further to the right, leaving space for text */
@@ -279,6 +289,13 @@
                 /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
                 top: 0;
                 transform: translateX(-50%);
+            }
+            /* Add padding to content to prevent overlap with photo */
+            /* Photo is at 70%, centered, so left edge is at 70% - (photo_width/2) */
+            /* We need to ensure content doesn't extend past this point */
+            .grape-content-section {
+                padding-right: calc(70% - 250px);
+                max-width: calc(70% - 250px);
             }
         }
         
