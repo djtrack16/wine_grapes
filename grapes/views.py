@@ -63,14 +63,26 @@ def country_detail(request, iso_code):
   # Count grapes by berry color
   color_counts = {}
   for grape in grapes:
-    color = grape.berry_color or 'NOT SPECIFIED'
+    color = grape.berry_color or 'Unknown'
     color_counts[color] = color_counts.get(color, 0) + 1
+  
+  # Sort colors by count (descending), but always put "Unknown" at the bottom
+  sorted_colors = []
+  unknown_count = color_counts.pop('Unknown', 0)
+  
+  # Sort remaining colors by count (descending)
+  sorted_colors = sorted(color_counts.items(), key=lambda x: x[1], reverse=True)
+  
+  # Add "Unknown" at the bottom if it exists
+  if unknown_count > 0:
+    sorted_colors.append(('Unknown', unknown_count))
   
   context = {
     'country': country,
     'grapes': grapes,
     'total_grapes': grapes.count(),
-    'color_counts': color_counts,
+    'color_counts': dict(color_counts),  # Keep original for backwards compatibility if needed
+    'sorted_color_counts': sorted_colors,  # New sorted list
   }
   return render(request, 'grapes/country_detail.html', context)
 

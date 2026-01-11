@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for color, count in color_counts.items %}
+                {% for color, count in sorted_color_counts %}
                 <tr>
                     <td>{{ color }}</td>
                     <td>{{ count }}</td>
