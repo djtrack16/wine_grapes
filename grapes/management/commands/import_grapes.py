@@ -1,6 +1,7 @@
 import sys
 import os
 import time
+import re
 from pathlib import Path
 from django.core.management.base import BaseCommand
 from django.db import transaction, connection
@@ -442,16 +443,37 @@ class Command(BaseCommand):
         if len(cells) >= 2:
           key = cells[0].get_text().strip().lower()
           value_cell = cells[1]
-          value = value_cell.get_text().strip()
           
           # Look for year of crossing
           if 'year of crossing' in key or 'crossing year' in key or 'year crossed' in key:
+            value = value_cell.get_text().strip()
             fields['year_of_crossing'] = value
-          # Look for breeder
-          elif 'breeder' in key and 'parent' not in key:
+          # Look for breeder - be specific to avoid matching "breeder contact address" or "breeder institute code"
+          elif key == 'breeder' or key == 'breeder name' or key == 'breeder(s)':
+            # For breeder, we want the actual breeder name (not contact address)
+            # The breeder field is usually a link, so get the text from the link
+            link = value_cell.find('a')
+            if link:
+              value = link.get_text().strip()
+            else:
+              value = value_cell.get_text().strip()
             fields['breeder'] = value
-          elif 'breeder name' in key or 'breeder(s)' in key:
-            fields['breeder'] = value
+          # Also check for "breeder contact address" - this might have multiple lines separated by <br/>
+          elif 'breeder contact address' in key:
+            # Replace <br/> and <br> tags with newlines before extracting text
+            for br in value_cell.find_all(['br', 'BR']):
+              br.replace_with('\n')
+            # Get text and preserve newlines
+            value = value_cell.get_text(separator='\n')
+            # Replace multiple consecutive newlines/whitespace with a single space
+            value = re.sub(r'\n\s*\n+', ' ', value)
+            # Replace remaining single newlines with space
+            value = value.replace('\n', ' ').strip()
+            # Clean up multiple spaces
+            value = re.sub(r'\s+', ' ', value)
+            # Only use breeder contact address if breeder field wasn't already found
+            if 'breeder' not in fields:
+              fields['breeder'] = value
       
     except Exception as e:
       # Silently fail if detail page can't be accessed
