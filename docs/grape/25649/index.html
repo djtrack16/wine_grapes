@@ -35,14 +35,92 @@
         nav {
             background-color: #34495e;
             padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         nav a {
             color: white;
             text-decoration: none;
-            margin-right: 20px;
         }
         nav a:hover {
             text-decoration: underline;
+        }
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+            margin-left: auto;
+        }
+        .search-form {
+            display: flex;
+            gap: 5px;
+        }
+        .search-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+        .search-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .autocomplete-dropdown.show {
+            display: block;
+        }
+        .autocomplete-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            background-color: white;
+        }
+        .autocomplete-item:hover,
+        .autocomplete-item.selected {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+        .search-button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-button:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+        .search-button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
         .content {
             background-color: white;
@@ -82,15 +160,17 @@
         }
         .info-row {
             margin: 10px 0;
+            display: flex;
+            align-items: flex-start;
         }
         .info-label {
             font-weight: bold;
-            display: inline-block;
             width: 150px;
-            vertical-align: top;
+            flex-shrink: 0;
         }
-        .info-row {
-            margin: 10px 0;
+        .info-row > span:not(.info-label) {
+            flex: 1;
+            word-wrap: break-word;
         }
         .info-row.color-row {
             display: flex;
@@ -102,6 +182,10 @@
             border-collapse: collapse;
             margin: 20px 0;
             table-layout: auto;
+        }
+        /* Children table should extend to full width, ignoring content section constraints */
+        .grape-page-wrapper table {
+            max-width: 100%;
         }
         .color-table {
             width: auto;
@@ -190,15 +274,25 @@
             }
         }
         
-        /* Horizontal: halfway between berry color column (150px) and right edge */
+        /* Horizontal: positioned further to the right, leaving space for text */
         /* Vertical: will be set dynamically via JavaScript */
         @media (min-width: 768px) {
             .grape-photo-section {
-                /* Horizontal: start at 150px (berry color), then add half of remaining space */
-                left: calc(150px + (100% - 150px) / 2);
+                /* Move photo further right: start at 70% of the page width */
+                left: 70%;
                 /* Vertical: set by JavaScript to be exactly halfway between top and parents section */
                 top: 0;
                 transform: translateX(-50%);
+            }
+            /* Add padding to content to prevent overlap with photo */
+            /* Photo center is at 70%, photo can be up to 500px wide (250px on each side) */
+            /* We need padding to ensure text doesn't overlap with photo's left edge */
+            /* Photo left edge = 70% - (photo_width/2) */
+            /* For largest photo (500px): left edge = 70% - 250px */
+            /* Use calc to account for photo width, with 20px buffer */
+            .grape-content-section {
+                padding-right: calc(70% - 250px + 20px);
+                max-width: calc(70% - 250px + 20px);
             }
         }
         
@@ -219,8 +313,26 @@
             <h1><a href="../../index.html">Native Wine Grapes</a></h1>
         </div>
         <nav>
-            <div class="container">
+            <div class="container" style="display: flex; align-items: center; gap: 20px; width: 100%;">
                 <a href="../../index.html">Home</a>
+                <div class="search-container">
+                    <form class="search-form" id="searchForm" action="../search/index.html" method="get">
+                        <div class="search-input-wrapper">
+                            <input 
+                                type="text" 
+                                name="q" 
+                                id="searchInput" 
+                                class="search-input" 
+                                placeholder="Search grapes..." 
+                                autocomplete="off"
+                                value=""
+                            >
+                            <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
+                        </div>
+                        <input type="hidden" name="vivc_id" id="selectedVivcId" value="">
+                        <button type="submit" class="search-button" id="searchButton" disabled>Search</button>
+                    </form>
+                </div>
             </div>
         </nav>
     </header>
@@ -255,6 +367,11 @@
             
             
             
+            <div class="info-row">
+                <span class="info-label">Breeder:</span>
+                <span>University of California DavisDepartment of Enology and<br>Viticulture</span>
+            </div>
+            
             
             <div class="info-row">
                 <span class="info-label">VIVC Page:</span>
@@ -264,27 +381,40 @@
             
         </div>
 
-        
-<h2>Parents</h2>
-<ul>
+<div style="margin-top: 30px;">
     
-    <li>
-        <a href="../../grape/25637/index.html">Champinii C 9038</a>
+    <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">
+        <span>*</span> Below listed countries are only shown, if different from current grape's country of origin
+    </p>
+    
+    
+    
+    <h2>Parents</h2>
+    <ul>
         
+        <li>
+            <a href="../../grape/25637/index.html">Champinii C 9038</a>
             
-        
-    </li>
-    
-    <li>
-        <a href="../../grape/25634/index.html">Davis L 514-10</a>
-        
+                
             
+        </li>
         
-    </li>
+        <li>
+            <a href="../../grape/25634/index.html">Davis L 514-10</a>
+            
+                
+            
+        </li>
+        
+    </ul>
     
-</ul>
 
-    </div>
+</div>
+
+
+<h2>Children</h2>
+<p>No children found.</p>
+
 
     <div class="grape-photo-section">
         <div class="grape-photo-container">
@@ -297,13 +427,247 @@
     </div>
 </div>
 
-
-<h2>Children</h2>
-<p>No children found.</p>
-
-
         </div>
     </div>
+    
+    <script>
+        (function() {
+            // Determine if we're on a static site
+            // Check if we have index_url in the template (static sites set this)
+            const isStaticSite = true;
+            const autocompleteUrl = isStaticSite ? null : '/api/search-autocomplete/';
+            // Calculate relative path to grapes.json based on current page depth
+            let grapesDataUrl = null;
+            if (isStaticSite) {
+                const pathParts = window.location.pathname.split('/').filter(p => p && p !== 'index.html');
+                const depth = pathParts.length;
+                grapesDataUrl = '../'.repeat(depth) + 'grapes.json';
+            }
+            
+            const searchInput = document.getElementById('searchInput');
+            const autocompleteDropdown = document.getElementById('autocompleteDropdown');
+            const selectedVivcIdInput = document.getElementById('selectedVivcId');
+            const searchForm = document.getElementById('searchForm');
+            const searchButton = document.getElementById('searchButton');
+            let selectedIndex = -1;
+            let currentResults = [];
+            let grapesData = null;
+            let selectedGrapeVivcId = null;
+            
+            // Load grapes data for static sites
+            if (isStaticSite && grapesDataUrl) {
+                fetch(grapesDataUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        grapesData = data;
+                    })
+                    .catch(err => console.error('Error loading grapes data:', err));
+            }
+            
+            // Filter grapes for static sites
+            function filterGrapesStatic(query) {
+                if (!grapesData || !query) return [];
+                const lowerQuery = query.toLowerCase();
+                return grapesData
+                    .filter(grape => grape.name.toLowerCase().startsWith(lowerQuery))
+                    .slice(0, 20);
+            }
+            
+            // Fetch autocomplete results (for Django sites)
+            function fetchAutocomplete(query) {
+                if (!query || query.length < 1) {
+                    autocompleteDropdown.classList.remove('show');
+                    return;
+                }
+                
+                if (isStaticSite) {
+                    // Use static data
+                    const results = filterGrapesStatic(query);
+                    displayResults(results);
+                } else {
+                    // Fetch from API
+                    fetch(autocompleteUrl + '?q=' + encodeURIComponent(query))
+                        .then(response => response.json())
+                        .then(data => {
+                            displayResults(data.results);
+                        })
+                        .catch(err => console.error('Error fetching autocomplete:', err));
+                }
+            }
+            
+            // Update search button state
+            function updateSearchButton() {
+                if (selectedGrapeVivcId) {
+                    searchButton.disabled = false;
+                } else {
+                    searchButton.disabled = true;
+                }
+            }
+            
+            // Display autocomplete results
+            function displayResults(results) {
+                currentResults = results;
+                selectedIndex = -1;
+                selectedGrapeVivcId = null;
+                updateSearchButton();
+                
+                if (results.length === 0) {
+                    autocompleteDropdown.classList.remove('show');
+                    return;
+                }
+                
+                autocompleteDropdown.innerHTML = results.map((result, index) => 
+                    `<div class="autocomplete-item" data-vivc-id="${result.vivc_id}" data-index="${index}">${result.name}</div>`
+                ).join('');
+                
+                autocompleteDropdown.classList.add('show');
+                
+                // Add click handlers
+                autocompleteDropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const vivcId = this.getAttribute('data-vivc-id');
+                        if (vivcId) {
+                            selectedGrapeVivcId = vivcId;
+                            selectedVivcIdInput.value = vivcId;
+                            updateSearchButton();
+                            // Redirect directly to grape page
+                            if (isStaticSite) {
+                                const pathParts = window.location.pathname.split('/').filter(p => p && p !== 'index.html');
+                                const depth = pathParts.length;
+                                const grapeUrl = '../'.repeat(depth) + 'grape/' + vivcId + '/index.html';
+                                window.location.href = grapeUrl;
+                            } else {
+                                window.location.href = '/grape/' + vivcId + '/';
+                            }
+                        } else {
+                            selectedGrapeVivcId = null;
+                            selectedVivcIdInput.value = '';
+                            updateSearchButton();
+                            searchForm.submit();
+                        }
+                    });
+                });
+            }
+            
+            // Handle input
+            let debounceTimer;
+            searchInput.addEventListener('input', function(e) {
+                clearTimeout(debounceTimer);
+                const query = e.target.value.trim();
+                selectedVivcIdInput.value = '';
+                selectedGrapeVivcId = null;
+                updateSearchButton();
+                
+                debounceTimer = setTimeout(() => {
+                    fetchAutocomplete(query);
+                }, 150);
+            });
+            
+            // Handle keyboard navigation
+            searchInput.addEventListener('keydown', function(e) {
+                if (!autocompleteDropdown.classList.contains('show') || currentResults.length === 0) {
+                    if (e.key === 'Enter') {
+                        // Prevent form submission if no grape is selected
+                        e.preventDefault();
+                        return;
+                    }
+                }
+                
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
+                    updateSelection();
+                    // Update selected grape when navigating
+                    if (selectedIndex >= 0 && currentResults[selectedIndex]) {
+                        selectedGrapeVivcId = currentResults[selectedIndex].vivc_id;
+                        selectedVivcIdInput.value = selectedGrapeVivcId;
+                        updateSearchButton();
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    selectedIndex = Math.max(selectedIndex - 1, -1);
+                    updateSelection();
+                    // Update selected grape when navigating
+                    if (selectedIndex >= 0 && currentResults[selectedIndex]) {
+                        selectedGrapeVivcId = currentResults[selectedIndex].vivc_id;
+                        selectedVivcIdInput.value = selectedGrapeVivcId;
+                        updateSearchButton();
+                    } else {
+                        selectedGrapeVivcId = null;
+                        selectedVivcIdInput.value = '';
+                        updateSearchButton();
+                    }
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (selectedIndex >= 0 && currentResults[selectedIndex]) {
+                        const vivcId = currentResults[selectedIndex].vivc_id;
+                        selectedGrapeVivcId = vivcId;
+                        selectedVivcIdInput.value = vivcId;
+                        // Redirect directly to grape page
+                        if (isStaticSite) {
+                            const pathParts = window.location.pathname.split('/').filter(p => p && p !== 'index.html');
+                            const depth = pathParts.length;
+                            const grapeUrl = '../'.repeat(depth) + 'grape/' + vivcId + '/index.html';
+                            window.location.href = grapeUrl;
+                        } else {
+                            window.location.href = '/grape/' + vivcId + '/';
+                        }
+                    } else if (selectedGrapeVivcId) {
+                        // If a grape was previously selected, go to it
+                        if (isStaticSite) {
+                            const pathParts = window.location.pathname.split('/').filter(p => p && p !== 'index.html');
+                            const depth = pathParts.length;
+                            const grapeUrl = '../'.repeat(depth) + 'grape/' + selectedGrapeVivcId + '/index.html';
+                            window.location.href = grapeUrl;
+                        } else {
+                            window.location.href = '/grape/' + selectedGrapeVivcId + '/';
+                        }
+                    }
+                    // Otherwise, button is disabled, so nothing happens
+                } else if (e.key === 'Escape') {
+                    autocompleteDropdown.classList.remove('show');
+                    selectedIndex = -1;
+                    selectedGrapeVivcId = null;
+                    selectedVivcIdInput.value = '';
+                    updateSearchButton();
+                }
+            });
+            
+            function updateSelection() {
+                const items = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+                items.forEach((item, index) => {
+                    if (index === selectedIndex) {
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
+                    }
+                });
+            }
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !autocompleteDropdown.contains(e.target)) {
+                    autocompleteDropdown.classList.remove('show');
+                    // If no grape was selected, clear selection
+                    if (!selectedGrapeVivcId) {
+                        selectedVivcIdInput.value = '';
+                        updateSearchButton();
+                    }
+                }
+            });
+            
+            // Prevent form submission if button is disabled
+            searchForm.addEventListener('submit', function(e) {
+                if (searchButton.disabled) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Initialize button state
+            updateSearchButton();
+        })();
+    </script>
 </body>
 </html>
 
