@@ -85,47 +85,48 @@
     <p>No parents found.</p>
     {% endif %}
 
-    {% if children_data %}
-    <h2>Children</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Child</th>
-                <th>Other Parent</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in children_data %}
-            <tr>
-                <td>
-                    <a href="{% if item.child.url %}{{ item.child.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=item.child.vivc_id %}{% endif %}">{{ item.child.name }}</a>
-                    {% if item.child.country_of_origin %}
-                        {% if not grape.country_of_origin or item.child.country_of_origin.iso_code != grape.country_of_origin.iso_code %}
-                            <span style="color: #666; font-size: 0.9em;"> (<a href="{% if item.child.country_of_origin.url %}{{ item.child.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=item.child.country_of_origin.iso_code %}{% endif %}" style="color: #666;">{{ item.child.country_of_origin.name|title_country }}</a>)</span>
-                        {% endif %}
-                    {% endif %}
-                </td>
-                <td>
-                    {% if item.other_parent %}
-                        <a href="{% if item.other_parent.url %}{{ item.other_parent.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=item.other_parent.vivc_id %}{% endif %}">{{ item.other_parent.name }}</a>
-                        {% if item.other_parent.country_of_origin %}
-                            {% if not grape.country_of_origin or item.other_parent.country_of_origin.iso_code != grape.country_of_origin.iso_code %}
-                                <span style="color: #666; font-size: 0.9em;"> (<a href="{% if item.other_parent.country_of_origin.url %}{{ item.other_parent.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=item.other_parent.country_of_origin.iso_code %}{% endif %}" style="color: #666;">{{ item.other_parent.country_of_origin.name|title_country }}</a>)</span>
-                            {% endif %}
-                        {% endif %}
-                    {% else %}
-                        <span>Unknown</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <h2>Children</h2>
-    <p>No children found.</p>
-    {% endif %}
 </div>
+
+{% if children_data %}
+<h2>Children</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Child</th>
+            <th>Other Parent</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in children_data %}
+        <tr>
+            <td>
+                <a href="{% if item.child.url %}{{ item.child.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=item.child.vivc_id %}{% endif %}">{{ item.child.name }}</a>
+                {% if item.child.country_of_origin %}
+                    {% if not grape.country_of_origin or item.child.country_of_origin.iso_code != grape.country_of_origin.iso_code %}
+                        <span style="color: #666; font-size: 0.9em;"> (<a href="{% if item.child.country_of_origin.url %}{{ item.child.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=item.child.country_of_origin.iso_code %}{% endif %}" style="color: #666;">{{ item.child.country_of_origin.name|title_country }}</a>)</span>
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if item.other_parent %}
+                    <a href="{% if item.other_parent.url %}{{ item.other_parent.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=item.other_parent.vivc_id %}{% endif %}">{{ item.other_parent.name }}</a>
+                    {% if item.other_parent.country_of_origin %}
+                        {% if not grape.country_of_origin or item.other_parent.country_of_origin.iso_code != grape.country_of_origin.iso_code %}
+                            <span style="color: #666; font-size: 0.9em;"> (<a href="{% if item.other_parent.country_of_origin.url %}{{ item.other_parent.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=item.other_parent.country_of_origin.iso_code %}{% endif %}" style="color: #666;">{{ item.other_parent.country_of_origin.name|title_country }}</a>)</span>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <span>Unknown</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h2>Children</h2>
+<p>No children found.</p>
+{% endif %}
 
     <div class="grape-photo-section">
         <div class="grape-photo-container">

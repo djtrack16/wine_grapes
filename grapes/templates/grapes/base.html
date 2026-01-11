@@ -183,6 +183,10 @@
             margin: 20px 0;
             table-layout: auto;
         }
+        /* Children table should extend to full width, ignoring content section constraints */
+        .grape-page-wrapper table {
+            max-width: 100%;
+        }
         .color-table {
             width: auto;
             margin: 0;
@@ -256,11 +260,6 @@
                 height: 375px;
                 max-height: 70vh;
             }
-            /* Adjust padding for larger photos (500px = 250px half-width) */
-            .grape-content-section {
-                padding-right: calc(70% - 250px);
-                max-width: calc(70% - 250px);
-            }
         }
         
         @media (min-width: 768px) and (max-width: 1199px) {
@@ -272,11 +271,6 @@
                 width: 400px;
                 height: 300px;
                 max-height: 60vh;
-            }
-            /* Adjust padding for medium photos (400px = 200px half-width) */
-            .grape-content-section {
-                padding-right: calc(70% - 200px);
-                max-width: calc(70% - 200px);
             }
         }
         
@@ -291,11 +285,14 @@
                 transform: translateX(-50%);
             }
             /* Add padding to content to prevent overlap with photo */
-            /* Photo is at 70%, centered, so left edge is at 70% - (photo_width/2) */
-            /* We need to ensure content doesn't extend past this point */
+            /* Photo center is at 70%, photo can be up to 500px wide (250px on each side) */
+            /* We need padding to ensure text doesn't overlap with photo's left edge */
+            /* Photo left edge = 70% - (photo_width/2) */
+            /* For largest photo (500px): left edge = 70% - 250px */
+            /* Use calc to account for photo width, with 20px buffer */
             .grape-content-section {
-                padding-right: calc(70% - 250px);
-                max-width: calc(70% - 250px);
+                padding-right: calc(70% - 250px + 20px);
+                max-width: calc(70% - 250px + 20px);
             }
         }
         
