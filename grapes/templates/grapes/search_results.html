@@ -1,0 +1,48 @@
+{% extends 'grapes/base.html' %}
+
+{% block title %}Search Results - Native Wine Grapes{% endblock %}
+
+{% block content %}
+  <h1>Search Results</h1>
+  
+  {% if query %}
+    <p>Search results for "<strong>{{ query }}</strong>" ({{ results_count }} result{{ results_count|pluralize }})</p>
+  {% else %}
+    <p>Please enter a search query.</p>
+  {% endif %}
+  
+  {% if grapes %}
+    <table>
+      <thead>
+        <tr>
+          <th>Grape Name</th>
+          <th>Berry Color</th>
+          <th>Country of Origin</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for grape in grapes %}
+        <tr>
+          <td>
+            <a href="{% if grape.url %}{{ grape.url }}{% else %}{% url 'grapes:grape_detail' vivc_id=grape.vivc_id %}{% endif %}">
+              {{ grape.name }}
+            </a>
+          </td>
+          <td>{{ grape.berry_color }}</td>
+          <td>
+            {% if grape.country_of_origin %}
+              <a href="{% if grape.country_of_origin.url %}{{ grape.country_of_origin.url }}{% else %}{% url 'grapes:country_detail' iso_code=grape.country_of_origin.iso_code %}{% endif %}">
+                {{ grape.country_of_origin.name|title_country }}
+              </a>
+            {% else %}
+              Unknown
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% elif query %}
+    <p>No grapes found matching your search.</p>
+  {% endif %}
+{% endblock %}
