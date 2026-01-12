@@ -24,9 +24,10 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-# Static site build output (if you want to keep it separate)
+# Static site build output
+# _site/ is ignored (default output directory)
+# docs/ is tracked for GitHub Pages deployment
 _site/
-docs/
 
 # IDE
 .vscode/
