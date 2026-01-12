@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from .models import Grape, Country
+from .utils import check_wikipedia_page_exists, get_wikipedia_image
 
 
 def index(request):
@@ -44,11 +45,25 @@ def grape_detail(request, vivc_id):
     # Fallback to any photo if types don't match expected values
     first_photo = grape.photos.first()
 
+  # If no VIVC photo exists, use Wikipedia image from database (if available)
+  # No live API call - much faster page loads!
+  wikipedia_image = None
+  if not first_photo and grape.wikipedia_image_url:
+    wikipedia_image = {
+      'url': grape.wikipedia_image_url,
+      'source': 'wikipedia'
+    }
+
+  # Check if Wikipedia page exists for this grape
+  wikipedia_url = check_wikipedia_page_exists(grape.name)
+
   context = {
     'grape': grape,
     'parents': parents,
     'children_data': children_data,
     'first_photo': first_photo,
+    'wikipedia_image': wikipedia_image,  # Only set if no VIVC photo exists
+    'wikipedia_url': wikipedia_url,
   }
   return render(request, 'grapes/grape_detail.html', context)
 

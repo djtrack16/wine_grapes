@@ -9,6 +9,7 @@ from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
 from django.urls import reverse
 from grapes.models import Grape, Country
+from grapes.utils import check_wikipedia_page_exists, get_wikipedia_image
 
 
 class Command(BaseCommand):
@@ -179,12 +180,26 @@ class Command(BaseCommand):
       if not first_photo:
         first_photo = grape.photos.first()
       
+      # If no VIVC photo exists, use Wikipedia image from database (if available)
+      # No live API call - much faster static site builds!
+      wikipedia_image = None
+      if not first_photo and grape.wikipedia_image_url:
+        wikipedia_image = {
+          'url': grape.wikipedia_image_url,
+          'source': 'wikipedia'
+        }
+      
+      # Check if Wikipedia page exists for this grape
+      wikipedia_url = check_wikipedia_page_exists(grape.name)
+      
       # Render template (grape pages are 2 levels deep: grape/{vivc_id}/)
       html = render_to_string('grapes/grape_detail.html', {
         'grape': grape,
         'parents': parents,
         'children_data': children_data,
         'first_photo': first_photo,
+        'wikipedia_image': wikipedia_image,  # Only set if no VIVC photo exists
+        'wikipedia_url': wikipedia_url,
         'index_url': '../../index.html',
       }, request=None)
       

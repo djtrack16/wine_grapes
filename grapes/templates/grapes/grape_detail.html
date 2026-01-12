@@ -51,10 +51,22 @@
                 <a href="{{ grape.vivc_url }}" target="_blank">Click here</a>
             </div>
             
+            {% if wikipedia_url %}
+            <div class="info-row">
+                <span class="info-label">Wikipedia:</span>
+                <a href="{{ wikipedia_url }}" target="_blank">Click here</a>
+            </div>
+            {% endif %}
+            
             {% if first_photo %}
             <div class="info-row">
                 <span class="info-label">Photo credit:</span>
                 <span style="font-size: 0.9em; color: #666;">VIVC</span>
+            </div>
+            {% elif wikipedia_image %}
+            <div class="info-row">
+                <span class="info-label">Photo credit:</span>
+                <span style="font-size: 0.9em; color: #666;">Wikipedia</span>
             </div>
             {% endif %}
         </div>
@@ -63,7 +75,11 @@
     <div class="grape-photo-section">
         <div class="grape-photo-container">
             {% if first_photo %}
+                {# Prefer VIVC photos #}
                 <img src="{{ first_photo.url }}" alt="Photo of {{ grape.name }}" class="grape-photo">
+            {% elif wikipedia_image %}
+                {# Fallback to Wikipedia image if no VIVC photo #}
+                <img src="{{ wikipedia_image.url }}" alt="Photo of {{ grape.name }}" class="grape-photo">
             {% else %}
                 <div class="grape-photo-placeholder">
                     <span>No Photo Found</span>

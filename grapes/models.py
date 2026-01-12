@@ -31,6 +31,7 @@ class Grape(models.Model):
   species = models.CharField(max_length=100, blank=True, help_text='Grape species (e.g., Vitis Vinifera)')
   year_of_crossing = models.CharField(max_length=50, blank=True, help_text='Year when the grape was crossed/bred')
   breeder = models.CharField(max_length=200, blank=True, help_text='Name of the breeder who created the grape')
+  wikipedia_image_url = models.URLField(blank=True, help_text='URL to Wikipedia image (used as fallback when no VIVC photos exist)')
   country_of_origin = models.ForeignKey(
     Country,
     on_delete=models.SET_NULL,
